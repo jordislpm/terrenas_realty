@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    /* Projects */
+    "incremental": true,                              /* Habilita la compilación incremental para mejorar la velocidad de compilación en proyectos grandes. */
+
+    /* Language and Environment */
+    "target": "es2019",                               /* Usar ES2019 para mejorar la compatibilidad y las características del lenguaje. */
+    "lib": ["dom", "es2019"],                         /* Incluir las bibliotecas para trabajar con ES2019 y el DOM. */
+    "jsx": "react-jsx",                               /* Usar la sintaxis JSX moderna de React (si estás usando React 17+). */
+    "strict": true,                                   /* Habilitar todas las comprobaciones estrictas de TypeScript. */
+    "esModuleInterop": true,                          /* Mejorar la interoperabilidad con módulos CommonJS. */
+    "forceConsistentCasingInFileNames": true,         /* Asegura el uso correcto de mayúsculas y minúsculas en los nombres de los archivos. */
+    "skipLibCheck": true,                             /* Omitir la comprobación de tipos en archivos de declaración (.d.ts). */
+
+    /* Modules */
+    "module": "commonjs",                             /* Generar código de módulo CommonJS, útil si tu entorno usa Node.js. */
+    "moduleResolution": "node",                       /* Usar la resolución de módulos basada en Node.js. */
+    "resolveJsonModule": true,                        /* Permite importar archivos JSON. */
+    "baseUrl": "./",                                  /* Establece la base para la resolución de módulos no relativos. */
+    "paths": {                                        /* Configuración de alias para importar módulos. */
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"]
+    },
+
+    /* JavaScript Support */
+    "allowJs": true,                                  /* Permitir la inclusión de archivos JavaScript en el proyecto. */
+
+    /* Emit */
+    "sourceMap": true,                                /* Generar archivos de mapa de origen (.map) para facilitar la depuración. */
+    "declaration": true,                              /* Generar archivos de declaración (.d.ts) para tus módulos. */
+    "declarationMap": true,                           /* Crear mapas de origen para los archivos .d.ts. */
+    "emitDeclarationOnly": false,                     /* No emitir solo archivos de declaración. */
+    "outDir": "./dist",                               /* Carpeta de salida para los archivos emitidos. */
+    "removeComments": true,                           /* Eliminar comentarios del código generado. */
+
+    /* Type Checking */
+    "strictNullChecks": true,                         /* Considerar null y undefined al hacer comprobaciones de tipo. */
+    "noImplicitReturns": true,                        /* Emitir un error cuando una función no tiene un return explícito. */
+    "noFallthroughCasesInSwitch": true,               /* Generar un error cuando un case en un switch no tenga un break. */
+    "noUncheckedIndexedAccess": true,                 /* Añadir undefined a las propiedades de tipo de índice no verificadas. */
+
+    /* Interop Constraints */
+    "isolatedModules": true,                          /* Garantizar que cada archivo pueda ser transpilado por separado. */
+    "allowSyntheticDefaultImports": true              /* Permitir importar módulos sin exportaciones por defecto. */
+  },
+  "include": ["src/**/*"],                            /* Incluir todos los archivos en la carpeta src. */
+  "exclude": ["node_modules", "dist"]                 /* Excluir node_modules y dist del proceso de compilación. */
+}
