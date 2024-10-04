@@ -5,7 +5,7 @@ import authRoutes from "./auth";
 
 const apiRoutes= (router:Router)=>{
     console.log("si entro")
-    router.use("api/v1", authRoutes);
+    router.use(authRoutes);
 }
 
 export default apiRoutes;

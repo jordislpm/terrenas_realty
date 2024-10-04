@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createUserRoute } from "./create";
+import routes from "./create";
 
 const authRoutes: Router = Router();
-authRoutes.use(createUserRoute);
+authRoutes.use(routes);
 
 export default authRoutes;
