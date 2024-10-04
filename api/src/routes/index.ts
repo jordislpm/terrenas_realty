@@ -1,7 +1,11 @@
 import { Router } from "express";
-import userRoutes from "./user";
+import authRoutes from "./auth";
+
 
 
 const apiRoutes= (router:Router)=>{
-    router.use("api/v1", userRoutes);
+    console.log("si entro")
+    router.use("api/v1", authRoutes);
 }
+
+export default apiRoutes;

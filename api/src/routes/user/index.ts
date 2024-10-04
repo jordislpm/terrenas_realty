@@ -1,11 +1,9 @@
 import { Router } from "express";
-import { createUserRoute } from "./create";
+//import { createUserRoute } from "./create";
 
 const userRoutes: Router = Router();
 
-
-
-userRoutes.use(createUserRoute);
+//userRoutes.use(createUserRoute);
 
 
 export default userRoutes;
