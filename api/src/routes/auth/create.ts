@@ -9,7 +9,7 @@ router.post("/auth/register", async (req: Request, res: Response) => {
   const user = body as createUserDTO;
   try {
     const newUser = await registerNewUser(user);
-    res.status(200).json({ message: "user Created", data: newUser });
+    res.status(201).json({ message: "user Created sucessfuly", data: newUser });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: "Error in server, created user failed" });
