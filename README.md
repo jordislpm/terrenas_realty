@@ -1,0 +1,1 @@
+For all details about the proyect
