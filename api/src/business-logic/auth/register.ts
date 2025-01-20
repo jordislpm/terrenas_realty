@@ -19,18 +19,17 @@ export const registerNewUser = async (data: createUserDTO): Promise<User> => {
             },
         });
 
-        console.log('New user created:', newUser);
+       
 
-        // Formatting the response
         const userResponse: User = {
             id: newUser.id,
             username: newUser.username,
             email: newUser.email,
             avatar: newUser.avatar,
             password: newUser.password,
-            createdAt: newUser.createdAr, // Corregido 'createdAr' a 'createdAt'
+            createdAt: newUser.createdAt, 
         };
-
+        console.log('New user created:', userResponse);
         return userResponse;
     } catch (error) {
         console.error("Error creating user for debugging:", error); // Log del error específico

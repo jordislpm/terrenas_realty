@@ -1,7 +1,9 @@
 import { Router } from "express";
-import routes from "./create";
+import routerCreate from "./create";
+import routeLogin from "./login";
+
 
 const authRoutes: Router = Router();
-authRoutes.use(routes);
+authRoutes.use(routerCreate, routeLogin);
 
 export default authRoutes;

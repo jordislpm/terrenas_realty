@@ -1,5 +1,6 @@
 // server.ts
 import express, { Request, Response, NextFunction } from "express";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import apiRoutes from "../routes";
 // importa otras dependencias según sea necesario
@@ -20,6 +21,7 @@ const corsOptions = {
 
 server.use(cors(corsOptions));
 server.use(express.json());
+server.use(cookieParser())
 
 apiRoutes(server);
 
