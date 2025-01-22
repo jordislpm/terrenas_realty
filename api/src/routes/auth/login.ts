@@ -11,6 +11,7 @@ routerLogin.post("/auth/login", async (req: Request, res: Response) => {
   try {
     const userValidated = await loginUser(user);
     const {token, age} = userValidated
+
     res
     .cookie("token", token,{
         httpOnly:true,
