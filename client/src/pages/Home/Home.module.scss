@@ -1,5 +1,25 @@
-.content{
-    height: calc(100vh - 100px);
-    background-color: red;
-    flex: 1;
+.home_page{
+    display: flex;
+    height: 100%;
+
+
+.text_container{
+    flex:3
+}
+
+.img_container{
+    flex:2;
+    background-color: var(--background-color-secundary);
+    position: relative;
+    display: flex;
+    align-items: center;
+
+
+    img{
+        width: 115%;
+        position: absolute;
+        right: 0;
+    }
+}
+
 }
