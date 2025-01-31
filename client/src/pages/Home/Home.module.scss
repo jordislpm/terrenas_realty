@@ -4,7 +4,11 @@
 
 
 .text_container{
-    flex:3
+    flex:3;
+
+    .wrapper{
+padding-right: 5rem;
+    }
 }
 
 .img_container{
