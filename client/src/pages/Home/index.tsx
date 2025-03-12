@@ -15,9 +15,9 @@ function Home() {
                         {homeDescriptionData}
                     </p>
                     <SearchBar />
-                    <div className={styles.hero_details}>
+                    <div className={styles.boxes}>
                         {homeDetailsData.map((detail, index) => (
-                            <div key={`${detail.title}:${index}`}>
+                            <div key={`${detail.title}:${index}`} className={styles.box}>
                                 <h1>{detail.title}</h1>
                                 <h2>{detail.description}</h2>
                             </div>
