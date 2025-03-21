@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from "./Home.module.scss"
-import background_image from "../../assets/images/bg.png"
+import background_image from "../../assets/images/bg-lt.png"
 import SearchBar from '../../components/share/SearchBar'
 import { homeDescriptionData, homeDetailsData } from '../../constants/home'
 
