@@ -1,19 +1,20 @@
-import React, { ReactNode }  from 'react'
+import React, { ReactNode } from 'react'
 import styles from './layout.module.scss';
 import Header from './Header';
 import Footer from './Footer';
- 
+import { Outlet } from 'react-router-dom';
+
 
 interface LayoutProps {
-    children: ReactNode;
-  }
+  children: ReactNode;
+}
 
-function Layout({ children }:LayoutProps) {
+function Layout() {
   return (
     <div className={styles.layout}>
-        <Header/>
-      {children}
-        <Footer/>
+      <Header />
+        <Outlet />
+      <Footer />
     </div>
   )
 }
