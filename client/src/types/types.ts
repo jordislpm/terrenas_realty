@@ -1,11 +1,11 @@
 
-export type User = {
+export type UserType = {
     id: number;
     name: string;
     img: string;
   };
 
-export type Property = {
+  export type PropertyType = {
     id: number;
     title: string;
     img: string;
