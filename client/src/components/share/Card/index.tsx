@@ -53,7 +53,10 @@ function Card(property: PropertyType) {
                     </div>
                     <div className={styles.icons}>
                         <div className={styles.icon}>
-                            <img />
+                            <img src={save}/>
+                        </div>
+                        <div className={styles.icon}>
+                            <img src={chat}/>
                         </div>
                     </div>
                 </div>
