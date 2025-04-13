@@ -3,6 +3,7 @@ import styles from "./listPage.module.scss"
 import { listData } from '../../lib/dummyData'
 import Filter from '../../components/share/Filter'
 import Card from '../../components/share/Card'
+import Map from 'components/share/Map'
 
 function ListPage() {
 
@@ -17,7 +18,9 @@ function ListPage() {
                     ))}
                 </div>
             </div>
-            <div className={styles.map_container}></div>
+            <div className={styles.map_container}>
+                <Map/>
+            </div>
         </div>
     )
 }

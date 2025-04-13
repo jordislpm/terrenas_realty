@@ -1,9 +1,12 @@
 import React from 'react';
-// import './styles/App.scss';
+import './styles/App.scss';
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom"
+
+// import './lib/fixLeafletIcons'; 
+
 
 //components
 import Layout from './components/layout';
@@ -12,7 +15,6 @@ import ListPage from './pages/listPage';
 import SinglePage from './pages/SinglePage';
 
 const App = () => {
-
   const router = createBrowserRouter([
     {
       path: "/",
