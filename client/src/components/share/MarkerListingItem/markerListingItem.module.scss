@@ -1,0 +1,38 @@
+.item {
+    display: flex;
+    gap: 20px;
+    background-color: white;
+   min-width: max-content;
+   min-height: max-content;
+   padding: 10px;
+   border-radius: 10px;
+
+    img {
+        width: 64px;
+        height: 48px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .textContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        h2 {
+            font-size: 10px;
+            color:var(--primary-color)
+
+        }
+
+        span {
+            font-size: 10px;
+        }
+
+        b {
+            font-size: 10px;
+        }
+    }
+
+
+}
