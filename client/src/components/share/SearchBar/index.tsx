@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styles from "./SearchBar.module.scss"
 import searchLogo from "../../../assets/icons/search.png"
-import { QueryStateType } from '../../../types';
+import { QueryStateType } from 'types/types';
+
 
 function SearchBar() {
 

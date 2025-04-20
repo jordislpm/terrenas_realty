@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "./markerListingItem.module.scss";
 import { PropertyType } from 'types/types';
 import { Link } from 'react-router-dom';
+import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
 
 
 interface MarkerListingItemProps {
@@ -11,6 +12,7 @@ interface MarkerListingItemProps {
 function MarkerListingItem({ item }: MarkerListingItemProps) {
 
     const { img, id, title, bedroom, price } = item;
+    const {isMarkerListingOpen, toggleIsMarkerListingOpen}= useMapGlobalState();
 
     return (
         <div className={styles.item}>
@@ -21,6 +23,10 @@ function MarkerListingItem({ item }: MarkerListingItemProps) {
                 </h2>
                 <span>{bedroom} bedroom</span>
                 <b>$ {price}</b>
+            </div>
+            <div className={styles.close}
+            onClick={()=> toggleIsMarkerListingOpen()}>
+                X
             </div>
         </div>
     )

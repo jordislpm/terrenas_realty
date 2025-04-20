@@ -4,6 +4,7 @@ import { GoogleMap, useJsApiLoader, Marker, MarkerF, OverlayView } from '@react-
 import { PropertyType } from 'types/types';
 import pin from "../../../assets/icons/pin.png"
 import MarkerListingItem from '../MarkerListingItem';
+import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
 
 interface MapMarkerProps {
     property: PropertyType
@@ -13,39 +14,61 @@ interface MapMarkerProps {
 function MapMarker({ property }: MapMarkerProps) {
 
 
-    const [selectedListing, setSelectedListing] = useState<PropertyType>();
+    const {
+        isMarkerListingOpen,
+         toggleIsMarkerListingOpen, 
+         selectedMarketListing, 
+         setSelectedMarketListing
+        }= useMapGlobalState();
 
-    const { latitude, longitude } = property;
+
+
+
+
+    const clickOnMarker = ()=>{
+
+        if (isMarkerListingOpen){
+            setSelectedMarketListing(property)
+            toggleIsMarkerListingOpen()
+            toggleIsMarkerListingOpen()
+        } else {
+            setSelectedMarketListing(property)
+            toggleIsMarkerListingOpen()
+        }
+     
+
+       console.log("click on marker")
+       
+    }
 
 
 
     const position =
     {
-        lat: latitude,
-        lng: longitude,
+        lat: property.latitude,
+        lng: property.longitude,
     }
     return (
         <div className={styles.body}>
             <MarkerF
                 position={position}
-                onClick={() => setSelectedListing(property)}
+                onClick={clickOnMarker}
                 icon={{
                     url: pin,
                     scaledSize: {
-                        width: 40,
-                        height: 40
+                        width: 30,
+                        height: 30
                     } as google.maps.Size
                 }}>
-                {selectedListing &&
+                {isMarkerListingOpen &&
                     <OverlayView
                         position={{
-                            lat: selectedListing.latitude,
-                            lng: selectedListing.longitude,
+                            lat: selectedMarketListing.latitude,
+                            lng: selectedMarketListing.longitude,
                         }}
                         mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}>
-                            <MarkerListingItem item={selectedListing} />
+                            <MarkerListingItem item={selectedMarketListing} />
                     </OverlayView>}
-
             </MarkerF>
         </div>
     )
