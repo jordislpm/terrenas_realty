@@ -34,11 +34,7 @@ function MapMarker({ property }: MapMarkerProps) {
         } else {
             setSelectedMarketListing(property)
             toggleIsMarkerListingOpen()
-        }
-     
-
-       console.log("click on marker")
-       
+        }       
     }
 
 

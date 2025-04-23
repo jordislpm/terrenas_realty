@@ -1,8 +1,10 @@
 :root {
     --background-color-secundary: #fcf5f3;
     --yellow-primary: #fece51;
+    --yellow-primary-rgb: 254, 205, 81;
     --black-primary: #000000;
     --white-primary: #FFFFFF;
     --primary-color: #3498db;
     --gray-primary: #999;
+    --gray-secundary:#555;
   }
