@@ -17,7 +17,7 @@ function SinglePage() {
     <div className={styles.singlePage}>
       <div className={styles.details}>
         <div className={styles.wrapper}>
-          <Slider images={images}/>
+          <Slider images={images} />
           <div className={styles.info}>
             <div className={styles.top}>
               <div className={styles.post}>
@@ -36,14 +36,19 @@ function SinglePage() {
 
             </div>
             <div className={styles.bottom}>
-{description}
+              {description}
             </div>
           </div>
         </div>
       </div>
       <div className={styles.features}>
         <div className={styles.wrapper}>
-
+          <p className={styles.title}>General</p>
+          <div className={styles.listVertical}></div>
+          <p className={styles.title}>Sizes</p>
+          <p className={styles.title}>Nearby Places</p>
+          <div className={styles.listHorizontal}></div>
+          <p className={styles.title}>Location</p>
         </div>
       </div>
     </div>

@@ -3,13 +3,24 @@ import styles from "./Nav.module.scss"
 import logo from "../../../../assets/icons/logo.png";
 import menu from "../../../../assets/icons/menu.png";
 import { Link } from 'react-router-dom';
+import OverlayComponent from 'components/share/OverlayComponent';
 
 function Nav() {
 
 
   const [open, setOpen] = useState<boolean>(false);
+
+
+  const toggleModal = () => {
+    setOpen(!open);
+};
+
+
   return (
+    <>
+    <OverlayComponent isOpen={open} onClickOverlay={toggleModal}/>
     <nav className={styles.nav}>
+      
       <div className={styles.left}>
         <Link to='/' className={styles.logo}>
           <img src={logo} alt="Logo" />
@@ -28,7 +39,7 @@ function Nav() {
           <img 
           src={menu} 
           alt='menu' 
-          onClick={() => setOpen((prev)=> !prev)} />
+          onClick={toggleModal} />
         </div>
         <div className={`${styles.menu} ${open ? styles.active : ""}`}>
           <a href='/'>Home</a>
@@ -40,6 +51,7 @@ function Nav() {
         </div>
       </div>
     </nav>
+    </>
   )
 }
 

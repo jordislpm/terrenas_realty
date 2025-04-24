@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./slider.module.scss"
 import arrow from "./../../../assets/icons/arrow.png"
 
@@ -9,6 +9,19 @@ interface SliderProps {
 function Slider({ images }: SliderProps) {
 
     const [imageIndex, setImageIndex] = useState<null | number>(null);
+
+    useEffect(() => {
+        if (imageIndex !== null) {
+          const scrollY = window.scrollY;
+          document.body.style.top = `-${scrollY}px`;
+          document.body.classList.add("modal-open");
+        } else {
+          const scrollY = document.body.style.top;
+          document.body.classList.remove("modal-open");
+          window.scrollTo(0, parseInt(scrollY || "0") * -1);
+          document.body.style.top = "";
+        }
+      }, [imageIndex]);
 
     const changeSlide = (direction: "right" | "left") => {
 

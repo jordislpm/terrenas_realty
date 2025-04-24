@@ -7,8 +7,8 @@ import { homeDescriptionData, homeDetailsData } from '../../constants/home'
 
 function Home() {
     return (
-        <div className={styles.home_page}>
-            <div className={styles.text_container}>
+        <div className={styles.homePage}>
+            <div className={styles.textContainer}>
                 <div className={styles.wrapper}>
                     <h1 className={styles.title}>Find Real Estate & Get Your Dream PlaceFind Real Estate & Get Your Dream Place</h1>
                     <p className={styles.description}>
@@ -27,7 +27,7 @@ function Home() {
                 </div>
 
             </div>
-            <div className={styles.img_container}>
+            <div className={styles.imgContainer}>
                 <img src={background_image} alt="background_image" />
             </div>
         </div>
