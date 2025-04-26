@@ -1,4 +1,4 @@
-import { PropertyType } from "types/types";
+import { PostDataType, PropertyType, UserDataType } from "types/types";
 
 export const listData: PropertyType[] = [
   {
@@ -91,7 +91,7 @@ export const listData: PropertyType[] = [
   },
 ];
   
-  export const singlePostData = {
+  export const singlePostData: PostDataType = {
     id: 1,
     title: "Beautiful Apartment",
     price: 1200,
@@ -115,7 +115,7 @@ export const listData: PropertyType[] = [
       "Future alike hill pull picture swim magic chain seed engineer nest outer raise bound easy poetry gain loud weigh me recognize farmer bare danger. actually put square leg vessels earth engine matter key cup indeed body film century shut place environment were stage vertical roof bottom lady function breeze darkness beside tin view local breathe carbon swam declared magnet escape has from pile apart route coffee storm someone hold space use ahead sheep jungle closely natural attached part top grain your grade trade corn salmon trouble new bend most teacher range anybody every seat fifteen eventually",
   };
   
-  export const userData = {
+  export const userData:UserDataType = {
     id: 1,
     name: "John Doe",
     img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",

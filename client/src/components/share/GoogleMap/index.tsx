@@ -1,63 +1,59 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from "./googleMapComponent.module.scss";
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
-import { PropertyType } from 'types/types';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { PostDataType, PropertyType } from 'types/types';
 import MapMarker from '../MapMarker';
+import chatIcon from "./../../../assets/icons/chat.png"
+import saveIcon from "./../../../assets/icons/save.png"
 
 const containerStyle = {
-    width: '100%',
-    height: '100%',
-    borderRadius: 10
+  width: '100%',
+  height: '100%',
+  borderRadius: 10,
 };
 
 interface MapProps {
-    mapaData: PropertyType[];
+  mapaData?: PropertyType[];
+  singleMapaData?: PostDataType;
 }
 
-function GoogleMapComponent({ mapaData }: MapProps) {
+function GoogleMapComponent({ mapaData, singleMapaData }: MapProps) {
+  const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "";
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey,
+  });
 
-    const { isLoaded } = useJsApiLoader({
-        id: 'google-map-script',
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "", // 🔒 Reemplaza esto por tu API Key
-    });
+  const [map, setMap] = useState<google.maps.Map | null>(null);
 
-    const [map, setMap] = useState<google.maps.Map | null>(null);
-    const [center, setCenter] = useState<google.maps.LatLngLiteral>({
-        lat: 19.312346,
-        lng: -69.542513,
-    });
+  const center = { lat: 19.312346, lng: -69.542513 };
 
-    const onLoad = useCallback(function callback(map: google.maps.Map) {
-        const bounds = new window.google.maps.LatLngBounds();
-        mapaData.forEach(marker => {
-            const position = new window.google.maps.LatLng(marker.latitude, marker.longitude);
-            bounds.extend(position); // Add the marker's position to the bounds
-        });
+  const onLoad = useCallback((map: google.maps.Map) => {
+    // const bounds = new window.google.maps.LatLngBounds(center);
+    // map.fitBounds(bounds);
+    setMap(map);
+  }, [center]);
 
-        map.fitBounds(bounds); // Adjust map to fit the bounds of all markers
-        setMap(map);
-    }, [mapaData]);
+  const onUnmount = useCallback(() => {
+    setMap(null);
+  }, []);
 
-    const onUnmount = useCallback(function callback(map: google.maps.Map) {
-        setMap(null);
-    }, []);
+  if (!isLoaded) return <div>Loading map...</div>;
 
-    return isLoaded ? (
-        <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={12}  // Set an appropriate zoom level
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-            options={{ mapTypeControl: false }}
-        >
-            {mapaData.map((marker) => (
-                <MapMarker key={`marker of property:${marker.id}`} property={marker} />
-            ))}
-        </GoogleMap>
-    ) : (
-        <div>Loading map...</div>
-    );
+  return (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={center}
+      zoom={14}
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+      options={{ mapTypeControl: false }}
+    >
+      {mapaData?.map((marker) => (
+        <MapMarker key={`marker-${marker.id}`} property={marker} />
+      ))}
+    </GoogleMap>
+  );
 }
 
 export default GoogleMapComponent;

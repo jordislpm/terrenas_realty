@@ -24,8 +24,6 @@ function Card(property: PropertyType) {
         bathroom
     } = property;
 
-    console.log(id)
-
     return (
         <div className={styles.card}>
             <Link to={`/${id}`} className={styles.imageContainer}>

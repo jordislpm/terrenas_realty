@@ -12,9 +12,11 @@ interface LayoutProps {
 function Layout() {
   return (
     <div className={styles.layout}>
-      <Header />
-        <Outlet />
-      <Footer />
+ <Header />
+
+  <Outlet />
+{/* 
+<Footer /> */}
     </div>
   )
 }

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styles from "./mapMarker.module.scss"
 import { GoogleMap, useJsApiLoader, Marker, MarkerF, OverlayView } from '@react-google-maps/api';
-import { PropertyType } from 'types/types';
+import { PostDataType, PropertyType } from 'types/types';
 import pin from "../../../assets/icons/pin.png"
 import MarkerListingItem from '../MarkerListingItem';
 import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
 
 interface MapMarkerProps {
-    property: PropertyType
+    property: PropertyType;
 }
 
 
@@ -34,7 +34,8 @@ function MapMarker({ property }: MapMarkerProps) {
         } else {
             setSelectedMarketListing(property)
             toggleIsMarkerListingOpen()
-        }       
+        }
+       
     }
 
 
