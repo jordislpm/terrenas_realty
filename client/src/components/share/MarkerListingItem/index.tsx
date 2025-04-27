@@ -1,31 +1,64 @@
 import React from 'react';
 import styles from "./markerListingItem.module.scss";
-import { PropertyType } from 'types/types';
+import { PostDataType, PropertyType } from 'types/types';
 import { Link } from 'react-router-dom';
 import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
 
 
 interface MarkerListingItemProps {
-    item: PropertyType
+    item?: PropertyType  ;
+    itemSingle?: PostDataType;
 }
 
-function MarkerListingItem({ item }: MarkerListingItemProps) {
+function MarkerListingItem({ item, itemSingle }: MarkerListingItemProps) {
 
-    const { img, id, title, bedroom, price } = item;
+    if (item){
+        const { img, id, title, bedroom, price } = item;
+    } else if(itemSingle){
+
+    }
+
+    
     const {isMarkerListingOpen, toggleIsMarkerListingOpen}= useMapGlobalState();
+
+    const closeMarkerListing = ()=>{
+
+        if(isMarkerListingOpen === true){
+            toggleIsMarkerListingOpen()
+
+            console.log("try to close")
+        } else{
+            toggleIsMarkerListingOpen()
+        }
+
+    }
 
     return (
         <div className={styles.item}>
-            <img src={img} alt='Property Image' />
+            
+       {  item &&   <>
+            <img src={item.img} alt='Property Image' />
             <div className={styles.textContainer}>
                 <h2 className={styles.title}>
-                    <Link to={`/${id}`}>{title}</Link>
+                    <Link to={`/${item.id}`}>{item.title}</Link>
                 </h2>
-                <span>{bedroom} bedroom</span>
-                <b>$ {price}</b>
+                <span>{item.bedroom} bedroom</span>
+                <b>$ {item.price}</b>
             </div>
+            </>}
+
+            {  itemSingle &&   <>
+            <img src={itemSingle.images[0]} alt='Property Image' />
+            <div className={styles.textContainer}>
+                <h2 className={styles.title}>
+                    <Link to={`/${itemSingle.id}`}>{itemSingle.title}</Link>
+                </h2>
+                <span>{itemSingle.bedRoom} bedroom</span>
+                <b>$ {itemSingle.price}</b>
+            </div>
+            </>}
             <div className={styles.close}
-            onClick={()=> toggleIsMarkerListingOpen()}>
+            onClick={closeMarkerListing}>
                 X
             </div>
         </div>

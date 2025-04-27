@@ -96,7 +96,7 @@ function SinglePage() {
             </div>
           </div>
           <p className={styles.title}>Nearby Places</p>
-          <div className={styles.listHorizontal}>
+          <div className={`${styles.listHorizontal} ${styles.nearbySm}`}>
           <div className={styles.feature}>
               <img src={school} alt="school" />
               <div className={styles.featureText}>

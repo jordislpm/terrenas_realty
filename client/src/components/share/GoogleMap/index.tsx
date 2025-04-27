@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, use, useEffect } from 'react';
 import styles from "./googleMapComponent.module.scss";
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { PostDataType, PropertyType } from 'types/types';
 import MapMarker from '../MapMarker';
-import chatIcon from "./../../../assets/icons/chat.png"
-import saveIcon from "./../../../assets/icons/save.png"
+import MapMarkerSingle from '../MapMarkerSingle';
+import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
+
 
 const containerStyle = {
   width: '100%',
@@ -24,9 +25,29 @@ function GoogleMapComponent({ mapaData, singleMapaData }: MapProps) {
     googleMapsApiKey,
   });
 
+
+  const {isMarkerListingOpen, toggleIsMarkerListingOpen}= useMapGlobalState();
+  const [center, setCenter ] = useState({ lat: 19.312346, lng: -69.542513 })
+
+useEffect(()=>{
+ if (singleMapaData){
+       setCenter({ lat: singleMapaData.latitude, lng: singleMapaData.longitude})
+     }
+
+
+     return () => {
+        if (isMarkerListingOpen === true){
+            toggleIsMarkerListingOpen();
+        }
+      };
+
+}, [])
+
+
+
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
-  const center = { lat: 19.312346, lng: -69.542513 };
+
 
   const onLoad = useCallback((map: google.maps.Map) => {
     // const bounds = new window.google.maps.LatLngBounds(center);
@@ -52,6 +73,11 @@ function GoogleMapComponent({ mapaData, singleMapaData }: MapProps) {
       {mapaData?.map((marker) => (
         <MapMarker key={`marker-${marker.id}`} property={marker} />
       ))}
+
+{singleMapaData && <MapMarkerSingle key={`marker-${singleMapaData.id}`} property={singleMapaData} />}
+
+
+
     </GoogleMap>
   );
 }

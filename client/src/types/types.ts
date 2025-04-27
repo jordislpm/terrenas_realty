@@ -31,7 +31,7 @@ export type UserType = {
     title: string;
     price: number;
     images: string[];
-    bedRooms: number;
+    bedRoom: number;
     bathroom: number;
     size: number;
     latitude: number;
@@ -58,6 +58,8 @@ export type UserType = {
     toggleIsMarkerListingOpen: () => void;
     selectedMarketListing: PropertyType;
     setSelectedMarketListing:  (property: PropertyType) => void;
+    singleMarketListing: PostDataType;
+    setSingleMarketListing:  (property: PostDataType) => void;
   }
 
 
