@@ -13,6 +13,7 @@ import Layout from './components/layout';
 import Home from './pages/Home';
 import ListPage from './pages/listPage';
 import SinglePage from './pages/SinglePage';
+import ProfilePage from 'pages/ProfilePage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -31,6 +32,10 @@ const App = () => {
         {
           path: "/:id",
           element: <SinglePage />
+        },
+        {
+          path: "/profile",
+          element: <ProfilePage />
         }
       ]
     }

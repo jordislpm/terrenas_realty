@@ -9,9 +9,6 @@
     overflow: scroll;
   }
 
-  .nearbySm{
-
-  }
 
   .details {
     flex: 3;
@@ -121,6 +118,22 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      container-type: inline-size;
+
+        @container (max-width: 300px) {
+
+          .nearbySm{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px 10px;
+            background-color: white;
+            border-radius: 10px;
+          }
+
+   
+        }
+      
 
       @include md {
         padding: 20px;
