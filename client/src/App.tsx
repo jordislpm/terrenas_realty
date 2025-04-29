@@ -14,32 +14,42 @@ import Home from './pages/Home';
 import ListPage from './pages/listPage';
 import SinglePage from './pages/SinglePage';
 import ProfilePage from 'pages/ProfilePage';
+import Login from 'pages/Login';
+import Register from 'pages/Register';
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
-      children: [
+      children:[
         {
-          path: "/",
-          element: <Home />
+          path:"/",
+          element:<Home/>
         },
         {
-          path: "/list",
-          element: <ListPage />
+          path:"/list",
+          element:<ListPage/>
         },
         {
-          path: "/:id",
-          element: <SinglePage />
+          path:"/:id",
+          element:<SinglePage/>
         },
         {
-          path: "/profile",
-          element: <ProfilePage />
+          path:"/profile",
+          element:<ProfilePage/>
+        },
+        {
+          path:"/login",
+          element:<Login/>
+        },
+        {
+          path:"/register",
+          element:<Register/>
         }
       ]
     }
-  ])
+  ]);
   return (
     <div>
       <RouterProvider router={router} />
