@@ -16,6 +16,7 @@ import SinglePage from './pages/SinglePage';
 import ProfilePage from 'pages/ProfilePage';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
+import HomeImageSection from 'components/share/HomeImageSection';
 
 const App = () => {
   const router = createBrowserRouter([

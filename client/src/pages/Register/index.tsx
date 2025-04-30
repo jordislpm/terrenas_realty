@@ -1,9 +1,11 @@
 import styles from "./Register.module.scss";
 import { Link } from "react-router-dom";
 import bg from "../../assets/images/bg-lt.png";
+import HomeImageSection from "components/share/HomeImageSection";
 
 function Register() {
   return (
+    <HomeImageSection>
     <div className={styles.register}>
       <div className={styles.formContainer}>
         <form>
@@ -17,10 +19,8 @@ function Register() {
           <Link to="/login">Do you have an account?</Link>
         </form>
       </div>
-      <div className={styles.imgContainer}>
-        <img src={bg} alt="Background" />
-      </div>
     </div>
+    </HomeImageSection>
   );
 }
 

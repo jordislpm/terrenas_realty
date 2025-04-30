@@ -12,7 +12,7 @@ function HomeImageSection({ children }: HomeImageSectionProps) {
         <section className={styles.section}>
             <div className={styles.contentContainer}>
                 <div className={styles.wrapper}>
-                    {children}
+                        {children}
                 </div>
             </div>
             <div className={styles.imgContainer}>
