@@ -1,11 +1,10 @@
 @import "../../layout/layoutResponsive.module.scss";
 
-.section {
+.homePage {
   display: flex;
   height: 100%;
 
-
-  .contentContainer {
+  .textContainer {
     flex: 3;
 
     .wrapper {
@@ -13,6 +12,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: 50px;
       height: 100%;
 
       @include lg {
@@ -56,13 +56,6 @@
           font-weight: 300;
         }
       }
-
-      .childWrapper {
-        contain: layout style;
-        display: block;
-        width: 100%;
-        isolation: isolate;
-      }
     }
   }
 
@@ -72,7 +65,6 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 100%;
 
     @include md {
       display: none;

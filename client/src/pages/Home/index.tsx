@@ -9,24 +9,31 @@ import HomeImageSection from 'components/share/HomeImageSection'
 function Home() {
     return (
         <HomeImageSection>
-            <div className={styles.homePage}>
-                <h1 className={styles.title}>Find Real Estate & Get Your Dream PlaceFind Real Estate & Get Your Dream Place</h1>
-                <p className={styles.description}>
-                    {homeDescriptionData}
-                </p>
-                <SearchBar />
-                <div className={styles.boxes}>
-                    {homeDetailsData.map((detail, index) => (
-                        <div key={`${detail.title}:${index}`} className={styles.box}>
-                            <h1>{detail.title}</h1>
-                            <h2>{detail.description}</h2>
-                        </div>
-                    ))}
 
-                </div>
-            </div>
+       
+<h1 className={styles.title}>Find Real Estate & Get Your Dream Place</h1>
+      <p className={styles.description}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos explicabo
+        suscipit cum eius, iure est nulla animi consequatur facilis id pariatur
+        fugit quos laudantium temporibus dolor ea repellat provident impedit!
+      </p>
+      <SearchBar />
+      <div className={styles.boxes}>
+        <div className={styles.box}>
+          <h1>16+</h1>
+          <h2>Years of Experience</h2>
+        </div>
+        <div className={styles.box}>
+          <h1>200</h1>
+          <h2>Award Gained</h2>
+        </div>
+        <div className={styles.box}>
+          <h1>2000+</h1>
+          <h2>Property Ready</h2>
+        </div>
+      </div>
         </HomeImageSection>
-    )
+      );
 }
 
 export default Home

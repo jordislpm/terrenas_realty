@@ -45,9 +45,11 @@ export type UserType = {
   };
   
   export type UserDataType = {
-    id: number;
-    name: string;
-    img: string;
+    id: string;            
+    name: string;       
+    email: string;
+    avatar?: string | null; 
+    img?: string;
   };
 
 
@@ -62,5 +64,12 @@ export type UserType = {
     setSingleMarketListing:  (property: PostDataType) => void;
   }
 
+  // types for connect with api
 
+  export type RegisterUserDTO = {
+    username: string;   
+    email: string;
+    password: string;   
+    avatar?: string | null;  
+  };
 

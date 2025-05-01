@@ -9,17 +9,17 @@ interface HomeImageSectionProps {
 
 function HomeImageSection({ children }: HomeImageSectionProps) {
     return (
-        <section className={styles.section}>
-            <div className={styles.contentContainer}>
-                <div className={styles.wrapper}>
-                        {children}
-                </div>
+        <div className={styles.homePage}>
+          <div className={styles.textContainer}>
+            <div className={styles.wrapper}>
+              {children}
             </div>
-            <div className={styles.imgContainer}>
-                <img src={bg} alt="Background" />
-            </div>
-        </section>
-    )
+          </div>
+          <div className={styles.imgContainer}>
+            <img src={bg} alt="Real estate background" />
+          </div>
+        </div>
+      );
 }
 
 export default HomeImageSection
