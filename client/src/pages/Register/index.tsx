@@ -1,23 +1,13 @@
 import styles from "./Register.module.scss";
-import { Link } from "react-router-dom";
-import bg from "../../assets/images/bg-lt.png";
+import { Link} from "react-router-dom";
 import HomeImageSection from "components/share/HomeImageSection";
-import { FormEvent, useActionState, useState } from "react";
-import { RegisterUserDTO, UserDataType } from "types/types";
-import { registerUser } from "services/auth/register";
+import { FormEvent} from "react";
+import { RegisterUserDTO } from "types/types";
 import { useRegisterUser } from "hooks/auth/useRegisterUser";
 
 function Register() {
 
     const { register, isLoading, error, success } = useRegisterUser();
-
-// const [message, formAction, isPending]=useActionState(registerUser, null);
-const [formData, setFormData] = useState<RegisterUserDTO>({
-    username: "",
-    email: "",
-    password: "",
-    avatar: "",
-  });
 
 
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -31,6 +21,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     const user: RegisterUserDTO = { username, email, password};
 
     await register(user)
+
+ 
 
   };
 
@@ -46,6 +38,8 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           <button type="submit" className={styles.registerButton}>
             Register
           </button>
+          {error && <span>{error}</span>}
+          {isLoading && <span className={styles.loading}>Creating a new user...</span>}
           <Link to="/login">Do you have an account?</Link>
         </form>
       </div>

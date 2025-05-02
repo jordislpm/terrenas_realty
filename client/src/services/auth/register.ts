@@ -13,7 +13,7 @@ export async function registerUser(user:RegisterUserDTO) {
 
     if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.message || "Login failed");
+        throw new Error(err.message || "Create user failed");
       }
     
       return res.json();

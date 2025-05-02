@@ -14,8 +14,11 @@ server.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
+const clientUrl = process.env.CLIENT_URL;
+
 const corsOptions = {
-  origin: "*",
+  origin: clientUrl,
+  credentials: true
   // origin: "http://localhost:5173/"
 };
 

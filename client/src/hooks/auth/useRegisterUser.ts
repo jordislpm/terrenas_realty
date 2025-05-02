@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { registerUser } from 'services/auth/register';
 import { RegisterUserDTO} from 'types/types';
 
@@ -14,6 +15,8 @@ export const useRegisterUser = (): UseRegisterUserResult => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+
+  const navigate =  useNavigate()
 
   const register = async (user: RegisterUserDTO) => {
     setIsLoading(true);
@@ -31,6 +34,10 @@ export const useRegisterUser = (): UseRegisterUserResult => {
       setIsLoading(false);
     }
   };
+
+  if (success){
+    navigate("/login")
+   }
 
   return { register, isLoading, error, success };
 };

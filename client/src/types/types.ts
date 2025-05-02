@@ -73,3 +73,8 @@ export type UserType = {
     avatar?: string | null;  
   };
 
+  export type LoginUserDTO = {
+    username: string;   
+    password: string; 
+  }
+
