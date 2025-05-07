@@ -1,4 +1,5 @@
 
+
 export type QueryStateType = {
   type: "buy" | "rent"; // Adjust based on possible values
   location: string | null;
@@ -64,6 +65,19 @@ export type UserType = {
     setSingleMarketListing:  (property: PostDataType) => void;
   }
 
+  export type UserStateProps = {
+    user: UserFromServerType | null,
+    setUser:  (property: UserFromServerType |null) => void;
+  }
+
+  export type UserFromServerType = {
+    id: string;
+    username:string;
+    email:string;
+    password?: string;
+    avatar:string | null;
+    createdAt: Date;
+  }
   // types for connect with api
 
   export type RegisterUserDTO = {

@@ -1,35 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./Nav.module.scss"
 import logo from "../../../../assets/icons/logo.png";
 import menu from "../../../../assets/icons/menu.png";
 import { Link } from 'react-router-dom';
 import OverlayComponent from 'components/share/OverlayComponent';
 import { userData } from 'lib/dummyData';
-
+import useUser from 'hooks/globalState/userLoggedState';
 
 function Nav() {
-
-
   const [open, setOpen] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  // false data for dev client
-
-  const user = true;
-  const {img, name}=userData
-
-    // false data for dev client end
-
+  const {user, setUser}=useUser();
+  const { img, name } = userData;
 
   const toggleModal = () => {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
 
   return (
     <>
-      <OverlayComponent isOpen={open} onClickOverlay={toggleModal} />
-      <nav className={styles.nav}>
+      {/* ✅ Solo mostrar el overlay si es móvil */}
+      {isMobile && <OverlayComponent isOpen={open} onClickOverlay={toggleModal} />}
 
+      <nav className={styles.nav}>
         <div className={styles.left}>
           <Link to='/' className={styles.logo}>
             <img src={logo} alt="Logo" />
@@ -39,38 +42,42 @@ function Nav() {
           <Link to='/'>About</Link>
           <Link to='/'>Contract</Link>
           <Link to='/'>Agents</Link>
-
         </div>
+
         <div className={styles.right}>
           {
-            user ? <>
+            user ? (
               <div className={styles.user}>
-                <img src={img} alt="user-photo"/>
+                <img src={img} alt="user-photo" />
                 <span>{name}</span>
                 <Link to="/profile" className={styles.profile}>
-                <div className={styles.notification}>3</div>
-                <span>Profile</span>
+                  <div className={styles.notification}>3</div>
+                  <span>Profile</span>
                 </Link>
               </div>
-            </> : <>
-            <a href='/'>Sing in</a>
-            <a href='/' className={styles.register}>Sing up</a>
-            </>
+            ) : (
+              <>
+                <a href='/login' className={styles.login}>Sign in</a>
+                <a href='/register' className={styles.register}>Sign up</a>
+              </>
+            )
           }
-         
+
           <div className={styles.menuIcon}>
             <img
               src={menu}
               alt='menu'
-              onClick={toggleModal} />
+              onClick={toggleModal}
+            />
           </div>
+
           <div className={`${styles.menu} ${open ? styles.active : ""}`}>
             <a href='/'>Home</a>
             <a href='/'>About</a>
             <a href='/'>Contract</a>
             <a href='/'>Agents</a>
-            <a href='/'>Sing in</a>
-            <a href='/'>Sing up</a>
+            <a href='/login'>Sign in</a>
+            <a href='/register'>Sign up</a>
           </div>
         </div>
       </nav>
@@ -78,4 +85,4 @@ function Nav() {
   )
 }
 
-export default Nav
+export default Nav;

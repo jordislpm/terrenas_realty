@@ -3,8 +3,16 @@ import styles from "./profilePage.module.scss"
 import { userData } from 'lib/dummyData';
 import List from 'components/share/List';
 import Chat from 'components/share/Chat';
+import { useLogoutUser } from 'hooks/auth/useLogoutUser';
+import { useNavigate } from 'react-router-dom';
 
 function ProfilePage() {
+
+ const {logout}= useLogoutUser()
+
+ const navigate =  useNavigate()
+
+
 
     return (
         
@@ -29,6 +37,7 @@ function ProfilePage() {
               <span>
                 E-mail: <b>john@gmail.com</b>
               </span>
+              <button onClick={()=>logout()}>Log out</button>
             </div>
             <div className={styles.title}>
               <h1>My List</h1>

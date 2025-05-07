@@ -4,13 +4,11 @@ import { LoginUserDTO} from "types/types";
 const API = process.env.REACT_APP_API_URL || "";
 
 
-export async function loginUser(user:LoginUserDTO) {
-    const res = await fetch(`${API}/auth/login`,{
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+export async function logoutUser() {
+    const res = await fetch(`${API}/auth/logout`, {
+        method: 'POST',
         credentials: 'include',
-        body: JSON.stringify(user) 
-    });
+      });
 
     if (!res.ok) {
         const err = await res.json();

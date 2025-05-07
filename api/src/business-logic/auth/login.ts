@@ -1,10 +1,10 @@
 import argon2 from "argon2";
-import { loginUserDTO } from "src/entities";
+import { loginUserDTO, User } from "src/entities";
 import jwt from "jsonwebtoken";
 import prisma from "src/lib/prisma";
 import dotenv from 'dotenv';
 
-export const loginUser = async (data: loginUserDTO): Promise<{token: string, age: number}> => {
+export const loginUser = async (data: loginUserDTO): Promise<{token: string, age: number, user:User}> => {
   const { username, password } = data;
   dotenv.config();
   const jwtSecret = process.env.JWT_SECRET_KEY;
@@ -41,7 +41,7 @@ export const loginUser = async (data: loginUserDTO): Promise<{token: string, age
       {expiresIn: age}// JWT_SECRET is now guaranteed to be a string
     );
 
-    return {token, age};
+    return {token, age, user};
   } catch (error) {
     console.error(
       "Error logging user:",

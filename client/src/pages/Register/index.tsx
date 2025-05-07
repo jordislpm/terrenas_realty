@@ -35,7 +35,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           <input name="username" type="text" placeholder="Username" />
           <input name="email" type="text" placeholder="Email" />
           <input name="password" type="password" placeholder="Password" />
-          <button type="submit" className={styles.registerButton}>
+          <button type="submit" className={styles.registerButton} disabled={isLoading}>
             Register
           </button>
           {error && <span>{error}</span>}
