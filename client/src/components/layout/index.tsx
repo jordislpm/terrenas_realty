@@ -11,13 +11,22 @@ interface LayoutProps {
 
 function Layout() {
   return (
-    <div className={styles.layout}>
- <Header />
+    //     <div className={styles.layout}>
+    //  <Header />
 
-  <Outlet />
-{/* 
-<Footer /> */}
+    //   <Outlet />
+    // {/* 
+    // <Footer /> */}
+    //     </div>
+    <div className={styles.layout}>
+      <div className={styles.navbar}>
+        <Header />
+      </div>
+      <div className={styles.content}>
+        <Outlet />
+      </div>
     </div>
+
   )
 }
 

@@ -1,37 +1,68 @@
-.list_page {
-    display: flex;
-    max-height: 100%;
+@import "../../components/layout/layoutResponsive.module.scss";
 
-    .list_container{
-        flex: 3;
+// .list_page {
+//     display: flex;
+//     max-height: 100%;
 
-        .wrapper{
-            height: 100%;
-            padding-right: 50px;
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-            overflow-y: scroll;
-            padding-bottom: 20px;
+//     .list_container{
+//         flex: 3;
 
-            &::-webkit-scrollbar {
-                width: 8px; /* Make it very thin */
-              }
+//         .wrapper{
+//             height: 100%;
+//             padding-right: 50px;
+//             display: flex;
+//             flex-direction: column;
+//             gap: 50px;
+//             overflow-y: scroll;
+//             padding-bottom: 20px;
+
+//             &::-webkit-scrollbar {
+//                 width: 8px; /* Make it very thin */
+//               }
             
-              &::-webkit-scrollbar-thumb {
-                background-color: rgba(0, 0, 0, 0.2); /* Very light visibility */
-                border-radius: 10px; /* Rounded edges */
-              }
+//               &::-webkit-scrollbar-thumb {
+//                 background-color: rgba(0, 0, 0, 0.2); /* Very light visibility */
+//                 border-radius: 10px; /* Rounded edges */
+//               }
             
-              &::-webkit-scrollbar-track {
-                background: transparent; /* No background */
-              }
-        }
-    }
+//               &::-webkit-scrollbar-track {
+//                 background: transparent; /* No background */
+//               }
+//         }
+//     }
 
-    .map_container {
-        flex: 2;
-        background-color: var(--background-color-secundary);
-        height: 100%;
+//     .map_container {
+//         flex: 2;
+//         background-color: var(--background-color-secundary);
+//         height: 100%;
+//     }
+// }
+
+.listPage {
+  display: flex;
+  height: 100%;
+
+  .listContainer {
+    flex: 3;
+    height: 100%;
+
+    .wrapper{
+      height: 100%;
+      padding-right: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      overflow-y: scroll;
+      padding-bottom: 50px;
     }
+  }
+  .mapContainer {
+    flex: 2;
+    height: 100%;
+    background-color: var(--background-color-secundary);
+
+    @include md{
+      display: none;
+    }
+  }
 }

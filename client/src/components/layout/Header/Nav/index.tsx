@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom';
 import OverlayComponent from 'components/share/OverlayComponent';
 import { userData } from 'lib/dummyData';
 import useUser from 'hooks/globalState/userLoggedState';
+import noAvatar from "../../../../assets/icons/noAvatar.png"
 
 function Nav() {
   const [open, setOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const {user, setUser}=useUser();
-  const { img, name } = userData;
 
   const toggleModal = () => {
     setOpen(!open);
@@ -26,6 +26,8 @@ function Nav() {
     window.addEventListener('resize', checkIsMobile);
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
+
+  const avatarImg = user?.avatar !== null ? user?.avatar : noAvatar;
 
   return (
     <>
@@ -48,8 +50,8 @@ function Nav() {
           {
             user ? (
               <div className={styles.user}>
-                <img src={img} alt="user-photo" />
-                <span>{name}</span>
+                <img src={avatarImg} alt="user-photo" />
+                <span>{user.username}</span>
                 <Link to="/profile" className={styles.profile}>
                   <div className={styles.notification}>3</div>
                   <span>Profile</span>

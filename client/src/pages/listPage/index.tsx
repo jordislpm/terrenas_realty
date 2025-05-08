@@ -9,8 +9,8 @@ function ListPage() {
 
     const data = listData
     return (
-        <div className={styles.list_page}>
-            <div className={styles.list_container}>
+        <div className={styles.listPage}>
+            <div className={styles.listContainer}>
                 <div className={styles.wrapper}>
                     <Filter />
                     {listData.map((data)=>(
@@ -18,7 +18,7 @@ function ListPage() {
                     ))}
                 </div>
             </div>
-            <div className={styles.map_container}>
+            <div className={styles.mapContainer}>
                 {/* <Map mapaData={data}/> */}
                 <GoogleMapComponent mapaData={data}/>
             </div>

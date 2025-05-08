@@ -5,14 +5,18 @@ import List from 'components/share/List';
 import Chat from 'components/share/Chat';
 import { useLogoutUser } from 'hooks/auth/useLogoutUser';
 import { useNavigate } from 'react-router-dom';
+import useUser from 'hooks/globalState/userLoggedState';
+import noAvatar from "../../assets/icons/noAvatar.png"
 
 function ProfilePage() {
+
+  const {user, setUser}=useUser();
 
  const {logout}= useLogoutUser()
 
  const navigate =  useNavigate()
 
-
+ const avatarImg = user?.avatar !== null ? user?.avatar : noAvatar;
 
     return (
         
@@ -27,15 +31,15 @@ function ProfilePage() {
               <span>
                 Avatar:
                 <img
-                  src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt=""
+                  src={avatarImg}
+                  alt="user-avatar"
                 />
               </span>
               <span>
-                Username: <b>John Doe</b>
+                Username: <b>{user?.username}</b>
               </span>
               <span>
-                E-mail: <b>john@gmail.com</b>
+                E-mail: <b>{user?.email}</b>
               </span>
               <button onClick={()=>logout()}>Log out</button>
             </div>
