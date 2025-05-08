@@ -1,23 +1,17 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, use, useEffect } from 'react'
 import styles from './layout.module.scss';
 import Header from './Header';
 import Footer from './Footer';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import useUser from 'hooks/globalState/userLoggedState';
 
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-function Layout() {
+export function Layout() {
   return (
-    //     <div className={styles.layout}>
-    //  <Header />
-
-    //   <Outlet />
-    // {/* 
-    // <Footer /> */}
-    //     </div>
     <div className={styles.layout}>
       <div className={styles.navbar}>
         <Header />
@@ -30,4 +24,19 @@ function Layout() {
   )
 }
 
-export default Layout
+export function RequireAuth() {
+
+  const { user, setUser } = useUser();
+
+  return !user ? (<Navigate to="/login" />
+  ) : (
+    user && (<div className={styles.layout}>
+      <div className={styles.navbar}>
+        <Header />
+      </div>
+      <div className={styles.content}>
+        <Outlet />
+      </div>
+    </div>)
+  )
+}

@@ -25,7 +25,7 @@ function ProfilePage() {
           <div className={styles.wrapper}>
             <div className={styles.title}>
               <h1>User Information</h1>
-              <button>Update Profile</button>
+              <button onClick={()=>navigate("/profile/update")}>Update Profile</button>
             </div>
             <div className={styles.info}>
               <span>

@@ -9,7 +9,7 @@ import {
 
 
 //components
-import Layout from './components/layout';
+
 import Home from './pages/Home';
 import ListPage from './pages/listPage';
 import SinglePage from './pages/SinglePage';
@@ -17,6 +17,8 @@ import ProfilePage from 'pages/ProfilePage';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import HomeImageSection from 'components/share/HomeImageSection';
+import { Layout, RequireAuth  } from 'components/layout';
+import ProfileUpdatePage from 'pages/ProfileUpdatePage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -37,10 +39,6 @@ const App = () => {
           element:<SinglePage/>
         },
         {
-          path:"/profile",
-          element:<ProfilePage/>
-        },
-        {
           path:"/login",
           element:<Login/>
         },
@@ -48,6 +46,20 @@ const App = () => {
           path:"/register",
           element:<Register/>
         }
+      ]
+    },
+    {
+      path: "/",
+      element: <RequireAuth />,
+      children:[
+        {
+          path:"/profile",
+          element:<ProfilePage/>
+        },
+        {
+          path:"/profile/update",
+          element:<ProfileUpdatePage/>
+        },
       ]
     }
   ]);
