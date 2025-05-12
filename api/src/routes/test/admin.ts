@@ -3,19 +3,22 @@ import { shouldBeAdmin } from "src/business-logic/test/admin";
 
 const routerAdmin: Router = Router();
 
-routerAdmin.get("/should-be-admin", async (req: Request, res: Response) => {
+routerAdmin.get("/should-be-admin", async (req: Request, res: Response): Promise<void> => {
   const token = req.cookies.token;
 
-  if (!token) return res.status(401).json({ message: "Not Authenticated!" });
+  if (!token) {
+    res.status(401).json({ message: "Not Authenticated!" });
+    return; // Muy importante: salir si no hay token
+  }
 
   try {
     const userValidated = await shouldBeAdmin(token);
-    return res.status(200).json(userValidated);
+    res.status(200).json(userValidated);
   } catch (error) {
     console.error("Error:", error);
-    return res
-      .status(403)
-      .json({ error: `Error in server, admin not validated: ${error}` });
+    res.status(403).json({
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 });
 

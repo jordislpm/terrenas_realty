@@ -1,68 +1,36 @@
-import argon2 from "argon2";
-import { loginUserDTO, User } from "src/entities";
+import { JwtPayload } from "jsonwebtoken";
 import jwt from "jsonwebtoken";
-import prisma from "src/lib/prisma";
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import { ShouldBeAdmin } from "src/entities";
 
-export const shouldBeAdmin = async (token: string): Promise<{token: string, age: number, user:User}> => {
-  dotenv.config();
-  const jwtSecret = process.env.JWT_SECRET_KEY;
+dotenv.config();
 
+interface CustomJwtPayload extends JwtPayload {
+  isAdmin: boolean;
+}
+
+export const shouldBeAdmin = async (token: string): Promise<ShouldBeAdmin> => {
   if (!token) {
     throw new Error("Not Authenticated!");
   }
 
-
-
-
-  const { username, password } = data;
-
-  const age = 1000 * 60 * 60 * 24 * 7;
-
-  jwt.verify(token, jwtSecret, async (err, payload) => {
-    if (err) return res.status(403).json({ message: "Token is not Valid!" });
-    if (!payload.isAdmin) {
-      return res.status(403).json({ message: "Not authorized!" });
-    }
-  });
-
-  // Check if the JWT_SECRET is defined
+  const jwtSecret = process.env.JWT_SECRET_KEY;
   if (!jwtSecret) {
-   
+    throw new Error("JWT secret not configured!");
   }
-
   try {
-    // Verificar si el usuario existe
-    const user = await prisma.user.findUnique({
-      where: { username },
-    });
+    const decoded = jwt.verify(token, jwtSecret) as CustomJwtPayload;
 
-    if (!user) {
-      throw new Error("User does not exist");
+    if (!decoded.isAdmin) {
+      throw new Error("Not authorized!");
     }
 
-    // Verificar si la contraseña es correcta
-    const isPasswordValid = await argon2.verify(user.password, password);
+    return {
+      validated: true,
+      message: "You are Authenticated as Admin"
+    };
 
-    if (!isPasswordValid) {
-      throw new Error("Password is incorrect");
-    }
-
-    // Generar el token
-    const token = jwt.sign(
-      {
-        id: user.id,
-      },
-      jwtSecret,
-      {expiresIn: age}// JWT_SECRET is now guaranteed to be a string
-    );
-
-    return {token, age, user};
   } catch (error) {
-    console.error(
-      "Error logging user:",
-      error instanceof Error ? error.message : "Unknown error"
-    );
-    throw new Error(error instanceof Error ? error.message : "Unknown error");
+    throw new Error("Token is invalid or unauthorized");
   }
 };

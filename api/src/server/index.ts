@@ -26,7 +26,9 @@ server.use(cors(corsOptions));
 server.use(express.json());
 server.use(cookieParser())
 
-apiRoutes(server);
+server.use("/api", apiRoutes)
+
+// apiRoutes(server);
 
 // Middleware para manejar errores
 server.use((err: any, req: Request, res: Response, next: NextFunction) => {

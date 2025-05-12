@@ -4,7 +4,7 @@ import routerLoggedIn from "./logged";
 
 
 const testRoutes: Router = Router();
-testRoutes.use("/admin", routerAdmin);
-testRoutes.use("/logged", routerLoggedIn);
+testRoutes.use(routerAdmin);
+testRoutes.use(routerLoggedIn);
 
 export default testRoutes;
