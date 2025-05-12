@@ -4,7 +4,7 @@ import { registerNewUser } from '../../business-logic/auth/register';
 
 const routerCreate: Router = Router();
 
-routerCreate.post("/auth/register", async (req: Request, res: Response) => {
+routerCreate.post("/register", async (req: Request, res: Response) => {
   const { body } = req;
   const user = body as createUserDTO;
   try {

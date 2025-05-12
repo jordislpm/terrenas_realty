@@ -21,7 +21,7 @@ export const useLoginUser = (): UseLoginUserResult => {
     id: "",
     username: "",
     email: "",
-    avatar: null,
+    avatar: "",
     createdAt: new Date(),
   });
 

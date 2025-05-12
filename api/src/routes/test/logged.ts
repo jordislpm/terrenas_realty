@@ -1,12 +1,12 @@
-import { createUserDTO, updateUserDTO, loginUserDTO } from "./../../entities/user/user.dto";
+import { createUserDTO, updateUserDTO, loginUserDTO } from "../../entities/user/user.dto";
 
 import { Request, Response, Router } from "express";
 import { userInfo } from "os";
 import { loginUser } from "src/business-logic/auth/login";
 
-const routerLogin: Router = Router();
+const routerLoggedIn: Router = Router();
 
-routerLogin.post("/login", async (req: Request, res: Response) => {
+routerLoggedIn.get("/should-be-logged-in", async (req: Request, res: Response) => {
   const { body } = req;
   const userToLogin = body as loginUserDTO;
   try {
@@ -31,4 +31,4 @@ routerLogin.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-export default routerLogin;
+export default routerLoggedIn;

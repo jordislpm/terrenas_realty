@@ -75,7 +75,7 @@ export type UserType = {
     username:string;
     email:string;
     password?: string;
-    avatar:string | null;
+    avatar:string ;
     createdAt: Date;
   }
   // types for connect with api

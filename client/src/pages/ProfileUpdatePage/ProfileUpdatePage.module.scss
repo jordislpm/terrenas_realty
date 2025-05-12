@@ -1,6 +1,13 @@
+@import "../../components/layout/layoutResponsive.module.scss";
+
+
 .profileUpdatePage {
     height: 100%;
     display: flex;
+
+    @include md{
+     flex-direction: column-reverse;
+    }
   
     .formContainer {
       flex:3;
@@ -46,10 +53,18 @@
       gap: 20px;
       align-items: center;
       justify-content: center;
+
+      @include md{
+        background-color: white;
+       }
   
       .avatar{
         width: 50%;
         object-fit: cover;
+
+        @include md{
+          width: 40%;
+         }
       }
     }
   }
