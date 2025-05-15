@@ -1,14 +1,16 @@
 import styles from "./Register.module.scss";
-import { Link} from "react-router-dom";
+import { Link, Navigate} from "react-router-dom";
 import HomeImageSection from "components/share/HomeImageSection";
 import { FormEvent} from "react";
 import { RegisterUserDTO } from "types/types";
 import { useRegisterUser } from "hooks/auth/useRegisterUser";
+import useUser from "hooks/globalState/userLoggedState";
 
 function Register() {
 
     const { register, isLoading, error, success } = useRegisterUser();
 
+    const {user, setUser}=useUser(); 
 
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,7 +28,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 
   };
 
-  return (
+  return user ? (<Navigate to="/" />) :  (
     <HomeImageSection>
     <div className={styles.register}>
       <div className={styles.formContainer}>

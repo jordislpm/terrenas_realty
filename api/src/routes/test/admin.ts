@@ -1,10 +1,14 @@
+
 import { Request, Response, Router } from "express";
 import { shouldBeAdmin } from "src/business-logic/test/admin";
 
 const routerAdmin: Router = Router();
 
 routerAdmin.get("/should-be-admin", async (req: Request, res: Response): Promise<void> => {
-  const token = req.cookies.token;
+const token = req.cookies.token;
+const userId = req.userId;
+
+console.log(userId)
 
   if (!token) {
     res.status(401).json({ message: "Not Authenticated!" });

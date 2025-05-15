@@ -36,6 +36,8 @@ export const loginUser = async (data: loginUserDTO): Promise<{token: string, age
     const token = jwt.sign(
       {
         id: user.id,
+        isAdmin: user.isAdmin
+  
       },
       jwtSecret,
       {expiresIn: age}// JWT_SECRET is now guaranteed to be a string

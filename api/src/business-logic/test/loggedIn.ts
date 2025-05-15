@@ -1,52 +1,30 @@
-import argon2 from "argon2";
-import { loginUserDTO, User } from "src/entities";
-import jwt from "jsonwebtoken";
-import prisma from "src/lib/prisma";
-import dotenv from 'dotenv';
 
-export const shouldBeLoggedIn = async (data: loginUserDTO): Promise<{token: string, age: number, user:User}> => {
-  const { username, password } = data;
-  dotenv.config();
-  const jwtSecret = process.env.JWT_SECRET_KEY;
-  const age = 1000 * 60 * 60 * 24 * 7;
+import jwt, { JwtPayload, VerifyErrors } from "jsonwebtoken";
+import dotenv from "dotenv";
+import { ShouldBeAdmin } from "src/entities";
 
-  // Check if the JWT_SECRET is defined
-  if (!jwtSecret) {
-    throw new Error("JWT_SECRET is not defined in the environment variables");
-  }
+dotenv.config();
+
+interface CustomJwtPayload extends JwtPayload {
+  isAdmin: boolean;
+}
+
+export const shouldBeLoggedIn = async (token: string): Promise<ShouldBeAdmin> => {
+ const jwtSecret = process.env.JWT_SECRET_KEY || "";
 
   try {
-    // Verificar si el usuario existe
-    const user = await prisma.user.findUnique({
-      where: { username },
-    });
+    const payload = jwt.verify(token, jwtSecret) as CustomJwtPayload;
+    console.log("Token payload:", payload);
+    // if (!payload.isAdmin) {
+    //   throw new Error("Not authorized!");
+    // }
 
-    if (!user) {
-      throw new Error("User does not exist");
-    }
-
-    // Verificar si la contraseña es correcta
-    const isPasswordValid = await argon2.verify(user.password, password);
-
-    if (!isPasswordValid) {
-      throw new Error("Password is incorrect");
-    }
-
-    // Generar el token
-    const token = jwt.sign(
-      {
-        id: user.id,
-      },
-      jwtSecret,
-      {expiresIn: age}// JWT_SECRET is now guaranteed to be a string
-    );
-
-    return {token, age, user};
+    return {
+      message: "You are Authenticated",
+      validated: true,
+    };
   } catch (error) {
-    console.error(
-      "Error logging user:",
-      error instanceof Error ? error.message : "Unknown error"
-    );
-    throw new Error(error instanceof Error ? error.message : "Unknown error");
+    console.error("JWT Verification Error:", error);
+    throw new Error("Token is not Valid or not authorized!");
   }
 };

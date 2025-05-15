@@ -1,9 +1,8 @@
 import styles from "./Login.module.scss";
-import { Link } from "react-router-dom";
-import bg from "../../assets/images/bg-lt.png";
+import { Link, Navigate } from "react-router-dom";
 import HomeImageSection from "components/share/HomeImageSection";
 import { useLoginUser } from "hooks/auth/useLoginUser";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import { LoginUserDTO } from "types/types";
 
 import useUser from "hooks/globalState/userLoggedState";
@@ -17,7 +16,6 @@ function Login() {
      const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
          e.preventDefault();
          const formData = new FormData(e.currentTarget);
-       
          const username = formData.get("username") as string;
          const password = formData.get("password") as string;
      
@@ -30,7 +28,7 @@ function Login() {
          }
        };
 
-  return (
+  return  user ? (<Navigate to="/" />) : (
     <HomeImageSection>
     <div className={styles.login}>
       <div className={styles.formContainer}>

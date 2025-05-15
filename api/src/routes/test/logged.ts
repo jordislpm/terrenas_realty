@@ -1,34 +1,29 @@
-import { createUserDTO, updateUserDTO, loginUserDTO } from "../../entities/user/user.dto";
-
 import { Request, Response, Router } from "express";
-import { userInfo } from "os";
-import { loginUser } from "src/business-logic/auth/login";
+import { shouldBeAdmin } from "src/business-logic/test/admin";
+import { shouldBeLoggedIn } from "src/business-logic/test/loggedIn";
 
-const routerLoggedIn: Router = Router();
+const routerLogged: Router = Router();
 
-routerLoggedIn.get("/should-be-logged-in", async (req: Request, res: Response) => {
-  const { body } = req;
-  const userToLogin = body as loginUserDTO;
+routerLogged.get("/should-be-logged-in", async (req: Request, res: Response): Promise<void> => {
+  const token = req.cookies.token;
+  const userId = req.userId;
+
+  console.log(userId)
+
+  if (!token) {
+    res.status(401).json({ message: "Not Authenticated!" });
+    return; // Muy importante: salir si no hay token
+  }
+
   try {
-    const userValidated = await loginUser(userToLogin);
-    const {token, age, user} = userValidated
-
-  const {password,...userInfo}= user;
-
-
-    res
-    .cookie("token", token,{
-        httpOnly:true,
-        //secure:true  this line is mandatory in production
-        maxAge: age
-    })
-    .status(200)
-    .json(userInfo)
+    const userValidated = await shouldBeLoggedIn(token);
+    res.status(200).json(userValidated);
   } catch (error) {
-
     console.error("Error:", error);
-    res.status(500).json({ error: `Error in server, user not validated: ${error}` });
+    res.status(403).json({
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 });
 
-export default routerLoggedIn;
+export default routerLogged;

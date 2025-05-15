@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from 'services/auth/logout';
-import { userStore } from 'global/user/user';
+import { userStore } from 'global/auth/user';
 
 
 type UseLogoutUserResult = {

@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server/index.ts",
-    "start": "pnpm add prisma @prisma/client && npx prisma generate && pnpm run dev"
+    "prepare": "pnpm add prisma @prisma/client && npx prisma generate",
+    "start": "pnpm run prepare && pnpm run dev"
   },
   "keywords": [],
   "author": "",

@@ -1,4 +1,4 @@
-import { RegisterUserDTO, UserDataType } from "types/types";
+import { RegisterUserDTO} from "types/types";
 
 
 const API = process.env.REACT_APP_API_URL || "";
@@ -13,7 +13,8 @@ export async function registerUser(user:RegisterUserDTO) {
 
     if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.message || "Create user failed");
+        console.log(err)
+        throw new Error(err instanceof Error ? err.message : "Unexpected error");
       }
     
       return res.json();

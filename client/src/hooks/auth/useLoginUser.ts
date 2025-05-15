@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from 'services/auth/login';
-import { userStore } from 'global/user/user';
+import { userStore } from 'global/auth/user';
 
 import { LoginUserDTO, UserFromServerType } from 'types/types';
 

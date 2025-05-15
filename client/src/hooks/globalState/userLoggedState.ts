@@ -1,5 +1,5 @@
 
-import { userStore } from "global/user/user";
+import { userStore } from "global/auth/user";
 
 const useUser = ()=>{
 const user = userStore((state)=> state.user)
