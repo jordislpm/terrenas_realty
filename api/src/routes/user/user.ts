@@ -2,16 +2,19 @@ import { createUserDTO, updateUserDTO, loginUserDTO } from "../../entities/user/
 
 import { Request, Response, Router } from "express";
 import { userInfo } from "os";
+import { getOneUser } from "src/business-logic";
 import { loginUser } from "src/business-logic/auth/login";
 import { verifyToken } from "src/middleware/verifyToken";
 
 const getUser: Router = Router();
 
 getUser.get("/:id",verifyToken,  async (req: Request, res: Response) => {
-   try {
-   
-  } catch (error) {
 
+  const id=req.params.id
+  try {
+    const user = await getOneUser(id)
+    res.status(200).json(user);
+  } catch (error) {
     console.error("Error:", error);
     res.status(500).json({ error: `Failed to get Users: ${error}` });
   }
