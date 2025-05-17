@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import styles from "./Nav.module.scss"
 import logo from "../../../../assets/icons/logo.png";
 import menu from "../../../../assets/icons/menu.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import OverlayComponent from 'components/share/OverlayComponent';
-import { userData } from 'lib/dummyData';
 import useUser from 'hooks/globalState/userLoggedState';
-import noAvatar from "../../../../assets/icons/noAvatar.png"
 
 function Nav() {
   const [open, setOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  const {user, setUser}=useUser();
+  const { user, setUser } = useUser();
+
+  const navigate =  useNavigate()
 
   const toggleModal = () => {
     setOpen(!open);
@@ -27,7 +27,6 @@ function Nav() {
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 
-  const avatarImg = user?.avatar !== null ? user?.avatar : noAvatar;
 
   return (
     <>
@@ -50,7 +49,7 @@ function Nav() {
           {
             user ? (
               <div className={styles.user}>
-                <img src={avatarImg} alt="user-photo" />
+                  <img onClick={()=>navigate("/profile")} src={user.avatar} alt="user-photo" />
                 <span>{user.username}</span>
                 <Link to="/profile" className={styles.profile}>
                   <div className={styles.notification}>3</div>

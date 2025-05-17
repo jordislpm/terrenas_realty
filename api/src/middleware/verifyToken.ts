@@ -1,24 +1,28 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+// Agrega el tipo de función: (req, res, next) => void
+export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
   const token = req.cookies.token;
   const jwtSecret = process.env.JWT_SECRET_KEY || "";
 
   if (!token) {
-    return res.status(401).json({ message: "Not Authenticated!" });
+    res.status(401).json({ message: "Not Authenticated!" });
+    return; // importante: salir explícitamente
   }
 
-  jwt.verify(
-    token,
-    jwtSecret,
-    (err: Error | null, payload: string | JwtPayload | undefined) => {
-      if (err || !payload || typeof payload === "string") {
-        return res.status(403).json({ message: "Token is not Valid!" });
-      }
+  try {
+    const payload = jwt.verify(token, jwtSecret);
 
-      req.userId = (payload as JwtPayload).id;
-      return next();
+    if (!payload || typeof payload === "string") {
+      res.status(403).json({ message: "Token is not valid!" });
+      return;
     }
-  );
+
+    req.userId = (payload as JwtPayload).id;
+    next(); // Solo aquí se pasa al siguiente middleware
+  } catch (err) {
+    res.status(403).json({ message: "Token is not valid!" });
+    return;
+  }
 };
