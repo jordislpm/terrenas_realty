@@ -36,7 +36,6 @@ export const loginUser = async (data: loginUserDTO): Promise<{token: string, age
     const token = jwt.sign(
       {
         id: user.id,
-        isAdmin: user.isAdmin
   
       },
       jwtSecret,

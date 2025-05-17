@@ -31,7 +31,6 @@ function MapMarkerSingle({ property }: MapMarkerProps) {
             if (isMarkerListingOpen){
                 setSingleMarketListing(property)
                 toggleIsMarkerListingOpen()
-                toggleIsMarkerListingOpen()
             } else {
                 setSingleMarketListing(property)
                 toggleIsMarkerListingOpen()

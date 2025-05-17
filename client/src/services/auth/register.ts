@@ -14,7 +14,7 @@ export async function registerUser(user:RegisterUserDTO) {
     if (!res.ok) {
         const err = await res.json();
         console.log(err)
-        throw new Error(err instanceof Error ? err.message : "Unexpected error");
+        throw new Error(err.message || "Create user failed");
       }
     
       return res.json();
