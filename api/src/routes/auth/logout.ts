@@ -7,6 +7,6 @@ routerLogout.post("/logout", async (req: Request, res: Response) => {
     res
     .clearCookie("token")
     .status(200)
-    .json({message: "Logout Successful"})
+    .json({message: "Logout Successfully"})
 });
 export default routerLogout;

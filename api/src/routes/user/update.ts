@@ -15,6 +15,8 @@ updateUser.put("/:id",verifyToken,  async (req: Request, res: Response) => {
   const tokenUserId = req.userId;
   const body = req.body;
 
+  console.log(id, tokenUserId)
+
   if (id !== tokenUserId){
    res.status(403).json({Message: "Not Authorized"});
   }
@@ -25,7 +27,9 @@ updateUser.put("/:id",verifyToken,  async (req: Request, res: Response) => {
        res.status(403).json({Message: "id is not valid!"});
     } else {
     const user = await updateOneUser(id, body)
-    res.status(200).json(user);    }
+
+     const {password,...userInfo}= user;
+    res.status(200).json(userInfo);    }
 
   } catch (error) {
     console.error("Error:", error);

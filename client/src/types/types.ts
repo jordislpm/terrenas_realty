@@ -87,6 +87,15 @@ export type UserType = {
     avatar?: string | null;  
   };
 
+  export type UpdateUserDTO = {
+    username?: string;   
+    email?: string;
+    password?: string;   
+    avatar?: string | null;  
+  };
+
+
+
   export type LoginUserDTO = {
     username: string;   
     password: string; 
