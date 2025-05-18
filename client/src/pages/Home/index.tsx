@@ -13,9 +13,9 @@ function Home() {
        
 <h1 className={styles.title}>Find Real Estate & Get Your Dream Place</h1>
       <p className={styles.description}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos explicabo
-        suscipit cum eius, iure est nulla animi consequatur facilis id pariatur
-        fugit quos laudantium temporibus dolor ea repellat provident impedit!
+       Whether you're looking for a peaceful retirement spot, a remote work paradise, 
+       a smart investment, or a family getaway—Las Terrenas has something for everyone. 
+       Let us help you find a place that truly feels like home.
       </p>
       <SearchBar />
       <div className={styles.boxes}>
