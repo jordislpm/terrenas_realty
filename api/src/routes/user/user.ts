@@ -16,7 +16,7 @@ getUser.get("/:id",verifyToken,  async (req: Request, res: Response) => {
     res.status(200).json(user);
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).json({ error: `Failed to get Users: ${error}` });
+    res.status(500).json({ error: `Failed to get a user: ${error}` });
   }
 });
 

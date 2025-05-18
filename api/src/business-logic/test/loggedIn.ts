@@ -12,5 +12,8 @@ interface CustomJwtPayload extends JwtPayload {
 
 export const shouldBeLoggedIn = (req: Request, res: Response): void => {
   // Optionally check req.userId
-  res.status(200).json({ message: "You are authenticated as admin" });
+  if (!req.userId){
+     res.status(401).json({ message: "Not user id!" });
+  }
+  res.status(200).json({ message: "You are authenticated as logged" });
 };
