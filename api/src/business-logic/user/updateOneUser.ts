@@ -1,33 +1,27 @@
-import argon2 from "argon2";
 import prisma from "src/lib/prisma";
-import {updateUserDTO, User } from "src/entities";
+import argon2 from "argon2";
 
-
+import { updateUserDTO, User } from "src/entities";
 
 export const updateOneUser = async (id: string, user: updateUserDTO): Promise<User> => {
+  const { password, avatar, username, email } = user;
 
-const {password, avatar, ...inputs}=user;
-
-let updatedPassword =  null
-
+  let updatedPassword: string | null = null;
 
   try {
-
-    if (password){
-        updatedPassword = await argon2.hash(password);
+    if (password) {
+      updatedPassword = await argon2.hash(password);
     }
-       const updatedUser = await prisma.user.update({
+
+    const updatedUser = await prisma.user.update({
       where: { id },
       data: {
-        ...inputs,
-        ...(updatedPassword && {password: updatedPassword}),
-        ...(avatar && {avatar})
-      }
+        ...(username && { username }),
+        ...(email && { email }),
+        ...(updatedPassword && { password: updatedPassword }),
+        ...(avatar && { avatar }),
+      },
     });
-
-    if (!user) {
-      throw new Error("User not found");
-    }
 
     return updatedUser;
   } catch (error) {

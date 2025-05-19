@@ -1,16 +1,21 @@
+import { User } from "src/entities/user";
+
 export interface Post {
-id: string;
-userId: string;
-title: string;
-price: number;
-images: string[];
-address: string;
-city: string;
-bedroom: string;
-bathroom: string;
-latitude: string;
-longitud: string;
-type: string;
-property: string;
-createdAt: Date;
+  id: string;
+  title: string;
+  price: number;
+  images: string[];
+  address: string;
+  city: string;
+  bedroom: number;
+  bathroom: number;
+  latitude: string;
+  longitude: string;
+  type: 'buy' | 'rent'; // match your enum
+  property: 'apartment' | 'house' | 'condo' | 'land'; // match your enum
+  createdAt: Date;
+  userId: string;
+  user?: User;
+  postDetail?: PostDetail | null;
+  savedPosts?: SavedPost[];
 }

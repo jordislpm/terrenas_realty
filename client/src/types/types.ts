@@ -1,103 +1,103 @@
-
-
+// Query params for filtering properties
 export type QueryStateType = {
-  type: "buy" | "rent"; // Adjust based on possible values
+  type: "buy" | "rent";
   location: string | null;
   minPrice: number;
   maxPrice: number;
 };
 
-
+// Basic user info (e.g., for UI display)
 export type UserType = {
-    id: number;
-    name: string;
-    img: string;
-  };
+  id: string;
+  username: string;
+  avatar?: string | null;
+};
 
-  export type PropertyType = {
-    id: number;
-    title: string;
-    img: string;
-    bedroom: number;
-    bathroom: number;
-    price: number;
-    address: string;
-    latitude: number;
-    longitude: number;
-  };
+// Simplified property info (e.g., for marker listing)
+export type PropertyType = {
+  id: string;
+  title: string;
+  img: string;
+  bedroom: number;
+  bathroom: number;
+  price: number;
+  address: string;
+  latitude: number;
+  longitude: number;
+};
 
+// Full post details
+export type PostDataType = {
+  id: string;
+  title: string;
+  price: number;
+  images: string[];
+  bedroom: number;
+  bathroom: number;
+  size?: number;
+  latitude: number;
+  longitude: number;
+  city: string;
+  address: string;
+  school?: number | null;
+  bus?: number | null;
+  restaurant?: number | null;
+  description: string;
+  type: "buy" | "rent";
+  property: "apartment" | "house" | "condo" | "land";
+  createdAt: Date;
+};
 
-  export type PostDataType = {
-    id: number;
-    title: string;
-    price: number;
-    images: string[];
-    bedRoom: number;
-    bathroom: number;
-    size: number;
-    latitude: number;
-    longitude: number;
-    city: string;
-    address: string;
-    school: string;
-    bus: string;
-    restaurant: string;
-    description: string;
-  };
-  
-  export type UserDataType = {
-    id: string;            
-    name: string;       
-    email: string;
-    avatar?: string | null; 
-    img?: string;
-  };
+// Full user data for profile views or display
+export type UserDataType = {
+  id: string;
+  username: string;
+  email: string;
+  avatar?: string | null;
+};
 
+// Global context for map state
+export type MapStateProps = {
+  isMarkerListingOpen: boolean;
+  toggleIsMarkerListingOpen: () => void;
+  selectedMarketListing: PropertyType;
+  setSelectedMarketListing: (property: PropertyType) => void;
+  singleMarketListing: PostDataType;
+  setSingleMarketListing: (property: PostDataType) => void;
+};
 
-  // types for global Context
+// Global context for user auth state
+export type UserStateProps = {
+  user: UserFromServerType | null;
+  setUser: (user: UserFromServerType | null) => void;
+};
 
-  export type MapStateProps = {
-    isMarkerListingOpen: boolean,
-    toggleIsMarkerListingOpen: () => void;
-    selectedMarketListing: PropertyType;
-    setSelectedMarketListing:  (property: PropertyType) => void;
-    singleMarketListing: PostDataType;
-    setSingleMarketListing:  (property: PostDataType) => void;
-  }
+// Raw user from backend (used internally, not in UI)
+export type UserFromServerType = {
+  id: string;
+  username: string;
+  email: string;
+  avatar: string;
+  createdAt: Date;
+  password?: string;
+};
 
-  export type UserStateProps = {
-    user: UserFromServerType | null,
-    setUser:  (property: UserFromServerType |null) => void;
-  }
+// DTOs for API interaction
+export type RegisterUserDTO = {
+  username: string;
+  email: string;
+  password: string;
+  avatar?: string | null;
+};
 
-  export type UserFromServerType = {
-    id: string;
-    username:string;
-    email:string;
-    password?: string;
-    avatar:string ;
-    createdAt: Date;
-  }
-  // types for connect with api
+export type UpdateUserDTO = {
+  username?: string;
+  email?: string;
+  password?: string;
+  avatar?: string | null;
+};
 
-  export type RegisterUserDTO = {
-    username: string;   
-    email: string;
-    password: string;   
-    avatar?: string | null;  
-  };
-
-  export type UpdateUserDTO = {
-    username?: string;   
-    email?: string;
-    password?: string;   
-    avatar?: string | null;  
-  };
-
-
-
-  export type LoginUserDTO = {
-    username: string;   
-    password: string; 
-  }
-
+export type LoginUserDTO = {
+  username: string;
+  password: string;
+};

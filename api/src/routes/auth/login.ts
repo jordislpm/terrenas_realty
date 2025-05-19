@@ -15,7 +15,7 @@ routerLogin.post("/login", async (req: Request, res: Response) => {
 
   const {password,...userInfo}= user;
 
-
+    console.log(userInfo)
     res
     .cookie("token", token,{
         httpOnly:true,

@@ -17,6 +17,7 @@ import bath from "./../../assets/icons/bath.png"
 import school from "./../../assets/icons/school.png"
 import bus from "./../../assets/icons/bus.png"
 import restaurant from "./../../assets/icons/restaurant.png"
+import useUser from 'hooks/globalState/userLoggedState'
 //images end
 
 
@@ -26,7 +27,7 @@ import restaurant from "./../../assets/icons/restaurant.png"
 function SinglePage() {
 
   const { title, address, price, description, images } = singlePostData;
-  const { name, img } = userData;
+    const { user, setUser } = useUser();
 
   return (
     <div className={styles.singlePage}>
@@ -44,8 +45,8 @@ function SinglePage() {
                 <div className={styles.price}>$ {price}</div>
               </div>
               <div className={styles.user}>
-                <img src={img} alt="avatar"/>
-                <span>{name}</span>
+                <img src={user?.avatar} alt="avatar"/>
+                <span>{user?.username}</span>
               </div>
             </div>
             <div className={styles.bottom}>

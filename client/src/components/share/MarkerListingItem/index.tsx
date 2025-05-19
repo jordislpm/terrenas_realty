@@ -53,7 +53,7 @@ function MarkerListingItem({ item, itemSingle }: MarkerListingItemProps) {
                 <h2 className={styles.title}>
                     <Link to={`/${itemSingle.id}`}>{itemSingle.title}</Link>
                 </h2>
-                <span>{itemSingle.bedRoom} bedroom</span>
+                <span>{itemSingle.bedroom} bedroom</span>
                 <b>$ {itemSingle.price}</b>
             </div>
             </>}

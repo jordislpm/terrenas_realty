@@ -13,7 +13,7 @@ export const MapStore = create<MapStateProps>()(
         })),
 
       selectedMarketListing: {
-        id: 0,
+        id: "0",
         title: '',
         img: '',
         bedroom: 0,
@@ -30,26 +30,29 @@ export const MapStore = create<MapStateProps>()(
         })),
 
       singleMarketListing: {
-        id: 0,
+        id: "0",
         title: '',
         price: 0,
         images: [],
-        bedRoom: 0,
+        bedroom: 0,
         bathroom: 0,
         size: 0,
         latitude: 0,
         longitude: 0,
         city: '',
         address: '',
-        school: '',
-        bus: '',
-        restaurant: '',
+        school: 0,
+        bus: 0,
+        restaurant: 0,
         description: '',
+        type: "rent",
+        property: "apartment",
+        createdAt:  new Date()
       } as PostDataType,
 
       setSingleMarketListing: (property: PostDataType) =>
         set(() => ({
-            singleMarketListing: { ...property },
+          singleMarketListing: { ...property },
         })),
     }),
     {

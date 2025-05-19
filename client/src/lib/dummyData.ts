@@ -2,7 +2,7 @@ import { PostDataType, PropertyType, UserDataType } from "types/types";
 
 export const listData: PropertyType[] = [
   {
-    id: 1,
+    id: "1",
     title: "A Great Apartment Next to the Beach!",
     img: "https://images.pexels.com/photos/1918291/pexels-photo-1918291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     bedroom: 2,
@@ -13,7 +13,7 @@ export const listData: PropertyType[] = [
     longitude: -69.537933,
   },
   {
-    id: 2,
+    id: "2",
     title: "An Awesome Apartment Near the Park! Almost too good to be true!",
     img: "https://images.pexels.com/photos/1428348/pexels-photo-1428348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     bedroom: 3,
@@ -24,7 +24,7 @@ export const listData: PropertyType[] = [
     longitude: -69.536339,
   },
   {
-    id: 3,
+    id: "3",
     title: "A New Apartment in the City!",
     img: "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     bedroom: 1,
@@ -35,7 +35,7 @@ export const listData: PropertyType[] = [
     longitude: -69.548668,
   },
   {
-    id: 4,
+    id: "4",
     title: "Great Location! Great Price! Great Apartment!",
     img: "https://images.pexels.com/photos/2467285/pexels-photo-2467285.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     bedroom: 2,
@@ -46,7 +46,7 @@ export const listData: PropertyType[] = [
     longitude: -69.541002,
   },
   {
-    id: 5,
+    id: "5",
     title: "Apartment 5",
     img: "https://images.pexels.com/photos/276625/pexels-photo-276625.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     bedroom: 3,
@@ -57,7 +57,7 @@ export const listData: PropertyType[] = [
     longitude: -69.543368,
   },
   {
-    id: 6,
+    id: "6",
     title: "Apartment 6",
     img: "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     bedroom: 1,
@@ -68,7 +68,7 @@ export const listData: PropertyType[] = [
     longitude: -69.536623,
   },
   {
-    id: 7,
+    id: "7",
     title: "Apartment 7",
     img: "https://images.pexels.com/photos/2029667/pexels-photo-2029667.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     bedroom: 2,
@@ -79,7 +79,7 @@ export const listData: PropertyType[] = [
     longitude: -69.547453,
   },
   {
-    id: 8,
+    id: "8",
     title: "Apartment 8",
     img: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     bedroom: 3,
@@ -92,7 +92,7 @@ export const listData: PropertyType[] = [
 ];
   
   export const singlePostData: PostDataType = {
-    id: 1,
+    id: "1",
     title: "Beautiful Apartment",
     price: 1200,
     images: [
@@ -101,23 +101,26 @@ export const listData: PropertyType[] = [
       "https://images.pexels.com/photos/2062426/pexels-photo-2062426.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
       "https://images.pexels.com/photos/2467285/pexels-photo-2467285.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     ],
-    bedRoom: 2,
+    bedroom: 2,
     bathroom: 1,
     size: 861,
     latitude: 19.310313,
     longitude: -69.537933,
     city: "London",
     address: "1234 Broadway St",
-    school: "250m away",
-    bus: "100m away",
-    restaurant: "50m away",
+    school: 250,
+    bus: 100,
+    restaurant: 50,
     description:
       "Future alike hill pull picture swim magic chain seed engineer nest outer raise bound easy poetry gain loud weigh me recognize farmer bare danger. actually put square leg vessels earth engine matter key cup indeed body film century shut place environment were stage vertical roof bottom lady function breeze darkness beside tin view local breathe carbon swam declared magnet escape has from pile apart route coffee storm someone hold space use ahead sheep jungle closely natural attached part top grain your grade trade corn salmon trouble new bend most teacher range anybody every seat fifteen eventually",
-  };
+    type: "buy" ,
+  property: "apartment" ,
+  createdAt: new Date()
+    };
   
   export const userData:UserDataType = {
     id: "1",
-    name: "John Doe",
-    img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    username: "John Doe",
+    avatar: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     email: "john_doe@gmail.com"
   };

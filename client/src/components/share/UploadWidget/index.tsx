@@ -13,7 +13,7 @@ interface UploadWidgetConfig {
 interface UploadWidgetProps {
   uwConfig: UploadWidgetConfig; // You can replace `object` with a stricter type if you want
   setPublicId?: (id: string) => void;
-  setAvatar: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setAvatar: React.Dispatch<React.SetStateAction<string>>;
 }
 
 declare global {

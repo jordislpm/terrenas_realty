@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/server/index.ts",
-    "prepare": "pnpm add prisma @prisma/client && npx prisma generate",
-    "start": "pnpm run prepare && pnpm run dev"
+    "dev": "tsx watch -r tsconfig-paths/register src/server/index.ts",
+    "start": "pnpm run prepare && pnpm run dev",
+    "prepare": "pnpm add prisma @prisma/client && npx prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +30,7 @@
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.7",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.1"
   }
 }

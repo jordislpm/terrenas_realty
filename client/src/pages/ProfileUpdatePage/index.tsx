@@ -18,7 +18,7 @@ function ProfileUpdatePage() {
   const navigate = useNavigate()
 
   // states 
-  const [avatar, setAvatar] = useState(user?.avatar);
+  const [avatar, setAvatar] = useState<string>(user?.avatar ? user.avatar : "");
    const [publicId, setPublicId] = useState('');
 
   // Configuration UploadWidget 

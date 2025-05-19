@@ -1,7 +1,10 @@
+import { Chat } from "../chat";
+
 export interface Message {
-    id: string;
-    userID: string;
-    chatID: string;
-    text: String;
-    createdAt: Date;
+  id: string;
+  text: string;
+  userId: string;
+  chatId: string;
+  createdAt: Date;
+  chat?: Chat;
 }
