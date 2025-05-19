@@ -1,40 +1,69 @@
 import styles from "./ProfileUpdatePage.module.scss"
-import noAvatar from "../../assets/icons/noAvatar.png"
 import useUser from "hooks/globalState/userLoggedState";
 import { useLogoutUser } from "hooks/auth/useLogoutUser";
 import { useNavigate } from "react-router-dom";
 import { useUpdateUser } from "hooks/user/useUpdateUser";
 import { UpdateUserDTO } from "types/types";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
+import UploadWidget from "components/share/UploadWidget";
+import { Cloudinary } from '@cloudinary/url-gen';
+import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
 
 function ProfileUpdatePage() {
 
-
+  // hooks
   const { user, setUser } = useUser();
+  const { update, error, isLoading } = useUpdateUser()
+  const { logout } = useLogoutUser()
+  const navigate = useNavigate()
 
+  // states 
+  const [avatar, setAvatar] = useState(user?.avatar);
+   const [publicId, setPublicId] = useState('');
+
+  // Configuration UploadWidget 
+  const cloudName = 'jordisdev';
+  const uploadPreset = 'Las Terrenas Realty';
+  // Cloudinary configuration
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName,
+    },
+  });
+
+  // Upload Widget Configuration
+  const uwConfig = {
+    cloudName,
+    uploadPreset,
+    // Uncomment and modify as needed:
+    // cropping: true,
+    // showAdvancedOptions: true,
+    // sources: ['local', 'url'],
+    // multiple: false,
+    // folder: 'user_images',
+    // tags: ['users', 'profile'],
+    // context: { alt: 'user_uploaded' },
+    // clientAllowedFormats: ['images'],
+    // maxImageFileSize: 2000000,
+    // maxImageWidth: 2000,
+    // theme: 'purple',
+  };
+
+
+  // consts and variables
   const userID = user ? user.id : ""
 
 
-  const { update, error, isLoading } = useUpdateUser()
 
-  const { logout } = useLogoutUser()
-
-  const navigate = useNavigate()
-
+// functions
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-
     const formData = new FormData(e.currentTarget);
     const rawData = Object.fromEntries(formData);
-
- const user: UpdateUserDTO = Object.fromEntries(
-    Object.entries(rawData).filter(([_, value]) => value !== "")
-  ) as UpdateUserDTO;
-
-  await update(user, userID);
- 
-
+    const user: UpdateUserDTO = Object.fromEntries(
+      Object.entries(rawData).filter(([_, value]) => value !== "")
+    ) as UpdateUserDTO;
+    await update({...user, avatar: avatar}, userID);
   };
 
   return (
@@ -61,9 +90,13 @@ function ProfileUpdatePage() {
       </div>
       <div className={styles.sideContainer}>
         <img
-          src={user?.avatar}
+          src={avatar}
           alt="User avatar"
           className={styles.avatar}
+        />
+        <UploadWidget
+          uwConfig={uwConfig} setPublicId={setPublicId}
+          setAvatar={setAvatar}
         />
       </div>
     </div>

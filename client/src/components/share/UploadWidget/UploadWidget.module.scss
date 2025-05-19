@@ -1,0 +1,14 @@
+/* UploadWidget.module.scss */
+.uploadButton {
+  background-color: #007aff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+
+  &:hover {
+    background-color: #005bb5;
+  }
+}

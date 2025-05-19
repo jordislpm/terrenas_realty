@@ -8,9 +8,9 @@ import useUser from "hooks/globalState/userLoggedState";
 
 function Register() {
 
-    const { register, isLoading, error, success } = useRegisterUser();
+    const { register, isLoading, error} = useRegisterUser();
 
-    const {user, setUser}=useUser(); 
+    const {user}=useUser(); 
 
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

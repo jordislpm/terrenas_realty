@@ -1,6 +1,3 @@
-import { LoginUserDTO} from "types/types";
-
-
 const API = process.env.REACT_APP_API_URL || "";
 
 

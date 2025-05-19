@@ -44,7 +44,7 @@ function SinglePage() {
                 <div className={styles.price}>$ {price}</div>
               </div>
               <div className={styles.user}>
-                <img src={img} />
+                <img src={img} alt="avatar"/>
                 <span>{name}</span>
               </div>
             </div>
