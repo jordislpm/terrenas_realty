@@ -1,19 +1,19 @@
 import prisma from "src/lib/prisma";
-import {User } from "src/entities";
+import {Post} from "src/entities";
 
 
-export const getOnePost = async (id:string|undefined): Promise<User> => {
+export const getOnePost = async (id:string|undefined): Promise<Post> => {
 
   try {
-       const user = await prisma.user.findUnique({
+       const post = await prisma.post.findUnique({
       where: { id },
     });
 
-    if (!user) {
-      throw new Error("User not found");
+    if (!post) {
+      throw new Error("Post not found");
     }
 
-    return user;
+    return post;
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : "Unknown error");
   }

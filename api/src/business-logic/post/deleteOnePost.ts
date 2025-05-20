@@ -1,22 +1,37 @@
 import argon2 from "argon2";
 import prisma from "src/lib/prisma";
-import {updateUserDTO, User } from "src/entities";
+import {Post,} from "src/entities";
 
 
 
-export const deleteOnePost = async (id: string): Promise<User> => {
+export const deleteOnePost = async (postId: string, tokenUserId: string): Promise<Post> => {
 
 
  try {
-       const user = await prisma.user.delete({
-      where: { id },
+       const post = await prisma.post.findUnique({
+      where: { id:postId },
+       include: { postDetail: true },
     });
 
-    if (!user) {
-      throw new Error("User not found");
+    if (!post) {
+      throw new Error("post not found");
     }
 
-    return user;
+     if (post.userId !== tokenUserId) {
+      throw new Error("Not Authorized");
+    }
+
+    if (post.postDetail){
+    await prisma.postDetail.delete({
+      where: { postId: post.id},
+    })
+    }
+
+      await prisma.post.delete({
+    where: { id: postId },
+  });
+
+    return post;
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : "Unknown error");
   }

@@ -1,6 +1,13 @@
+import { PostDetail } from '../postDetail';
 import { Post } from './post';
 
 
 
-type createPostDTO = Omit<Post, "id">
-type updatePostDTO = Partial<Post>
+export interface createPostDTO {
+  postData: Omit<Post, "id" | "createdAt" | "userId" | "user" | "postDetail" | "savedPosts">;
+  postDetail?: Omit<PostDetail, "id" | "postId" | "post">;
+}
+export interface updatePostDTO {
+  postData?: Partial<Omit<Post, "id" | "createdAt" | "userId" | "user" | "postDetail" | "savedPosts">>;
+  postDetail?: Partial<Omit<PostDetail, "id" | "postId" | "post">>;
+}

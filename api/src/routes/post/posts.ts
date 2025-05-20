@@ -6,11 +6,11 @@ const getPosts: Router = Router();
 
 getPosts.get("/", async (req: Request, res: Response) => {
   try {
-    const users = await getAllPosts();
-    res.status(200).json(users);
+    const posts = await getAllPosts();
+    res.status(200).json(posts);
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).json({ error: `Failed to get Users: ${error}` });
+    res.status(500).json({ error: `Failed to get Posts: ${error}` });
   }
 });
 

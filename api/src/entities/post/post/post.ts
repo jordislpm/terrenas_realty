@@ -1,4 +1,6 @@
 import { User } from "src/entities/user";
+import { PostDetail } from "../postDetail";
+import { SavedPost } from "../savedPost";
 
 export interface Post {
   id: string;

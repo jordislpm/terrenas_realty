@@ -54,6 +54,7 @@ export type UserDataType = {
   username: string;
   email: string;
   avatar?: string | null;
+  createdAt?: Date;
 };
 
 // Global context for map state

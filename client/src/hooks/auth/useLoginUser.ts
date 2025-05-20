@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from 'services/auth/login';
 import { userStore } from 'global/auth/user';
 
-import { LoginUserDTO, UserFromServerType } from 'types/types';
+import { LoginUserDTO, UserDataType, UserFromServerType } from 'types/types';
 
 type UseLoginUserResult = {
   login: (user: LoginUserDTO) => Promise<void>;
@@ -37,7 +37,15 @@ export const useLoginUser = (): UseLoginUserResult => {
       const response = await loginUser(user);
       setSuccess(true);
       setUserLogged(response);
-      setUser(response);
+
+      const userFormated: UserFromServerType= {
+        id: response.id,
+        username: response.username,
+        email: response.email,
+        avatar: response.avatar.avatar,
+        createdAt: response.createdAt,
+      }
+      setUser(userFormated);
       navigate("/");
     } catch (err: any) {
       setError(err.message || 'An error occurred');

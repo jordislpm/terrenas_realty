@@ -19,6 +19,7 @@ import Register from 'pages/Register';
 import HomeImageSection from 'components/share/HomeImageSection';
 import { Layout, RequireAuth  } from 'components/layout';
 import ProfileUpdatePage from 'pages/ProfileUpdatePage';
+import NewPostPage from 'pages/NewPostPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -59,6 +60,10 @@ const App = () => {
         {
           path:"/profile/update",
           element:<ProfileUpdatePage/>
+        },
+        {
+          path:"/add",
+          element:<NewPostPage/>
         },
       ]
     }
