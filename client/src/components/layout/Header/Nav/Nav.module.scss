@@ -58,7 +58,7 @@ nav {
       height: 100%;
       z-index: 1000;
   
-      @include lg {
+      @include md {
         background-color: transparent;
       }
   

@@ -26,36 +26,31 @@ function GoogleMapComponent({ mapaData, singleMapaData }: MapProps) {
   });
 
 
-  const {isMarkerListingOpen, toggleIsMarkerListingOpen}= useMapGlobalState();
-  const [center, setCenter ] = useState({ lat: 19.312346, lng: -69.542513 })
-
-
-  useEffect(()=>{
-    if(singleMapaData){
-
-      const singleLat = parseInt(singleMapaData.latitude)
-      const singleLng = parseInt(singleMapaData.longitude)
-
-      setCenter({lat:singleLat, lng:singleLng})
+  const { isMarkerListingOpen, toggleIsMarkerListingOpen } = useMapGlobalState();
+  const [mapState, setMapState] = useState(
+    {
+      center: { lat: 19.312346, lng: -69.542513 },
+      zoom: 13
     }
-  },[singleMapaData])
-
-useEffect(()=>{
- if (singleMapaData){
-       setCenter({ lat: parseFloat(singleMapaData.latitude), lng: parseFloat(singleMapaData.longitude)})
-     }
-
-
-     return () => {
-        if (isMarkerListingOpen === true){
-            toggleIsMarkerListingOpen();
-        }
-      };
-
-}, [])
+  )
 
 
 
+  useEffect(() => {
+    if (singleMapaData) {
+      const singleLat = parseFloat(singleMapaData.latitude)
+      const singleLng = parseFloat(singleMapaData.longitude)
+
+      setMapState(({zoom: 15, center:{ lat: singleLat, lng: singleLng }}))
+    }
+
+    return () => {
+      if (isMarkerListingOpen === true) {
+        toggleIsMarkerListingOpen();
+      }
+    };
+
+  }, [singleMapaData])
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
 
@@ -64,7 +59,7 @@ useEffect(()=>{
     // const bounds = new window.google.maps.LatLngBounds(center);
     // map.fitBounds(bounds);
     setMap(map);
-  }, [center]);
+  }, [mapState]);
 
   const onUnmount = useCallback(() => {
     setMap(null);
@@ -75,8 +70,8 @@ useEffect(()=>{
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={center}
-      zoom={14}
+      center={mapState.center}
+      zoom={mapState.zoom}
       onLoad={onLoad}
       onUnmount={onUnmount}
       options={{ mapTypeControl: false }}
@@ -85,7 +80,7 @@ useEffect(()=>{
         <MapMarker key={`marker-${marker.id}`} property={marker} />
       ))}
 
-{singleMapaData && <MapMarkerSingle key={`marker-${singleMapaData.id}`} property={singleMapaData} />}
+      {singleMapaData && <MapMarkerSingle key={`marker-${singleMapaData.id}`} property={singleMapaData} />}
 
 
 

@@ -12,16 +12,16 @@ function Slider({ images }: SliderProps) {
 
     useEffect(() => {
         if (imageIndex !== null) {
-          const scrollY = window.scrollY;
-          document.body.style.top = `-${scrollY}px`;
-          document.body.classList.add("modal-open");
+            const scrollY = window.scrollY;
+            document.body.style.top = `-${scrollY}px`;
+            document.body.classList.add("modal-open");
         } else {
-          const scrollY = document.body.style.top;
-          document.body.classList.remove("modal-open");
-          window.scrollTo(0, parseInt(scrollY || "0") * -1);
-          document.body.style.top = "";
+            const scrollY = document.body.style.top;
+            document.body.classList.remove("modal-open");
+            window.scrollTo(0, parseInt(scrollY || "0") * -1);
+            document.body.style.top = "";
         }
-      }, [imageIndex]);
+    }, [imageIndex]);
 
     const changeSlide = (direction: "right" | "left") => {
 
@@ -42,8 +42,6 @@ function Slider({ images }: SliderProps) {
             }
         }
     }
-
-
     return (
         <div className={styles.slider}>
 
@@ -69,7 +67,7 @@ function Slider({ images }: SliderProps) {
                 <img src={images[0]} alt={images[0]} onClick={() => setImageIndex(0)} />
             </div>
             <div className={styles.smallImages}>
-                {images.slice(1, 4).map((image, index) => (
+                {[...images].slice(1, 4).map((image, index) => (
                     <img onClick={() => setImageIndex(index + 1)} src={image} key={`slice: ${image},${index}`} />
                 ))}
             </div>

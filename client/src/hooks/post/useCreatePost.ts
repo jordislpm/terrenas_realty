@@ -10,13 +10,14 @@ type UseCreatePostResult = {
   isLoading: boolean;
   error: string | null;
   success: boolean;
+  postSaved: PostDataType | null;
 };
 
 export const useCreatePost = (): UseCreatePostResult => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
-  const [postSaved, setPostSaved]= useState<PostDataType>()
+  const [postSaved, setPostSaved]= useState<PostDataType | null>(null)
 
 
   const navigate =  useNavigate()
@@ -41,9 +42,5 @@ export const useCreatePost = (): UseCreatePostResult => {
     }
   };
 
-  if (success && postSaved){
-    navigate(`/post/${postSaved.id}`)
-   }
-
-  return { newPost, isLoading, error, success };
+  return { newPost, isLoading, error, success, postSaved };
 };

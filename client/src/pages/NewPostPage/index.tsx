@@ -4,6 +4,7 @@ import useUser from 'hooks/globalState/userLoggedState';
 import { useCreatePost } from 'hooks/post/useCreatePost';
 import UploadWidget from 'components/share/UploadWidget';
 import { uwConfig as defaultUwConfig } from 'constants/uploadWidget';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -16,7 +17,10 @@ function NewPostPage() {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const { user } = useUser()
   const form = useRef<HTMLFormElement>(null)
-  const { newPost, isLoading, error } = useCreatePost()
+  const { newPost, isLoading, error , success, postSaved} = useCreatePost()
+
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -40,7 +44,6 @@ function NewPostPage() {
       console.error("No user ID found. Cannot create post.");
       return;
     }
-
      const postData = {
       title: inputs.title,
       price: parseInt(inputs.price),
@@ -98,6 +101,12 @@ function NewPostPage() {
     folder: "posts",
   };
 
+  useEffect(() => {
+  if (success && postSaved) {
+    navigate(`/post/${postSaved.id}`);
+  }
+}, [success, postSaved]);
+
   return (
     <div className={styles.newPostPage}>
       <div className={styles.formContainer}>
@@ -109,7 +118,7 @@ function NewPostPage() {
               <input id="title" name="title" type="text" required />
             </div>
             <div className={styles.item}>
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">Price (USD)</label>
               <input id="price" name="price" type="number" required />
             </div>
             <div className={styles.item}>

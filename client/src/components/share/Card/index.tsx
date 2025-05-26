@@ -7,6 +7,7 @@ import bath from "../../../assets/icons/bath.png"
 import save from "../../../assets/icons/save.png"
 import chat from "../../../assets/icons/chat.png"
 import { Post, PropertyType } from 'types/types'
+import { formatPrice } from 'lib/format'
 
 interface CardProps {
     property: PropertyType
@@ -37,7 +38,7 @@ function Card(post: Post) {
                     <img src={pin} alt="pin" />
                     <span>{address}</span>
                 </p>
-                <p className={styles.price}>$ {price}</p>
+                <p className={styles.price}>{formatPrice(price)}</p>
                 <div className={styles.bottom}>
                     <div className={styles.features}>
                         <div className={styles.feature}>

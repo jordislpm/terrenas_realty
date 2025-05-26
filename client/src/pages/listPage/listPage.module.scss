@@ -40,13 +40,13 @@
 
 .listPage {
   display: flex;
-  height: 100%;
+  height: 100vh; // ← Cambiar aquí
 
   .listContainer {
     flex: 3;
-    height: 100%;
+    height: 100vh; // ← Asegura altura completa
 
-    .wrapper{
+    .wrapper {
       height: 100%;
       padding-right: 50px;
       display: flex;
@@ -56,12 +56,13 @@
       padding-bottom: 50px;
     }
   }
+
   .mapContainer {
     flex: 2;
-    height: 100%;
+    height: 100vh; // ← Asegura que el mapa tenga espacio
     background-color: var(--background-color-secundary);
 
-    @include lg{
+    @include md {
       display: none;
     }
   }

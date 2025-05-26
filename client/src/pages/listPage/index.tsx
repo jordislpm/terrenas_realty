@@ -4,23 +4,25 @@ import { listData } from '../../lib/dummyData'
 import Filter from '../../components/share/Filter'
 import Card from '../../components/share/Card'
 import GoogleMapComponent from 'components/share/GoogleMap'
+import { useLoaderData } from 'react-router-dom'
+import { FullPost } from 'types/types'
 
 function ListPage() {
 
-    const data = listData
+    const posts = useLoaderData() as FullPost[]
     return (
         <div className={styles.listPage}>
             <div className={styles.listContainer}>
                 <div className={styles.wrapper}>
                     <Filter />
-                    {listData.map((data)=>(
+                    {posts.map((data)=>(
                         <Card {...data} key={data.id}/>
                     ))}
                 </div>
             </div>
             <div className={styles.mapContainer}>
                 {/* <Map mapaData={data}/> */}
-                <GoogleMapComponent mapaData={data}/>
+                <GoogleMapComponent mapaData={posts}/>
             </div>
         </div>
     )

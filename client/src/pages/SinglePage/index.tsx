@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./singlePage.module.scss"
 import Slider from 'components/share/Slider'
-import { listData} from 'lib/dummyData'
+import { listData } from 'lib/dummyData'
 import GoogleMapComponent from 'components/share/GoogleMap'
 
 // start images
@@ -20,6 +20,7 @@ import restaurant from "./../../assets/icons/restaurant.png"
 import useUser from 'hooks/globalState/userLoggedState'
 import { useLoaderData } from 'react-router-dom'
 import { FullPost, Post } from 'types/types'
+import { formatDistances, formatPrice } from 'lib/format'
 //images end
 
 
@@ -29,20 +30,20 @@ import { FullPost, Post } from 'types/types'
 function SinglePage() {
 
   const post = useLoaderData() as FullPost
-  console.log("singlePage",post)
+
+  const {
+    images,
+    title,
+    address,
+    price,
+    postDetail,
+    bathroom,
+    bedroom,
+    user
+  } = post;
 
 
 
-    const {
-      images, 
-      title, 
-      address, 
-      price, 
-      postDetail, 
-      bathroom, 
-      bedroom,
-      user
-      }=post
 
   return (
     <div className={styles.singlePage}>
@@ -57,10 +58,10 @@ function SinglePage() {
                   <img src={pin} alt="pin" />
                   <span>{address}</span>
                 </div>
-                <div className={styles.price}>$ {price}</div>
+                <div className={styles.price}>{formatPrice(price)}</div>
               </div>
               <div className={styles.user}>
-                <img src={user?.avatar} alt="avatar"/>
+                <img src={user?.avatar} alt="avatar" />
                 <span>{user?.username}</span>
               </div>
             </div>
@@ -78,21 +79,31 @@ function SinglePage() {
               <img src={utility} alt='utility' />
               <div className={styles.featureText}>
                 <span>Utilities</span>
-                <p>{postDetail?.utilities} is responsible</p>
+                {postDetail?.utilities === "owner"
+                  ?
+                  <p>Owner is responsible</p>
+                  :
+                  <p>Tenant is responsible</p>
+                }
               </div>
             </div>
             <div className={styles.feature}>
               <img src={pet} alt='pet' />
               <div className={styles.featureText}>
                 <span>Pet Policy</span>
-                <p>{postDetail?.pet}</p>
+                {postDetail?.pet === "allowed"
+                  ?
+                  <p>Pets Allowed</p>
+                  :
+                  <p>Pets not Allowed</p>
+                }
               </div>
             </div>
             <div className={styles.feature}>
               <img src={fee} alt='fee' />
               <div className={styles.featureText}>
-                <span>Renter is responsible</span>
-                <p>Must have 3x the rent in total household income</p>
+                <span>Income Policy</span>
+                <p>{postDetail?.income}</p>
               </div>
             </div>
           </div>
@@ -117,27 +128,27 @@ function SinglePage() {
               <img src={school} alt="school" />
               <div className={styles.featureText}>
                 <span>School</span>
-                <p>{postDetail?.school}m away</p>
+                <p>{formatDistances(postDetail?.school)} away</p>
               </div>
             </div>
             <div className={styles.feature}>
               <img src={bus} alt="bus" />
               <div className={styles.featureText}>
                 <span>Bus Stop</span>
-                <p>{postDetail?.bus}m away</p>
+                <p>{formatDistances(postDetail?.bus)} away</p>
               </div>
             </div>
             <div className={styles.feature}>
               <img src={restaurant} alt="restaurant" />
               <div className={styles.featureText}>
                 <span>Restaurant</span>
-                <p>{postDetail?.restaurant}m away</p>
+                <p>{formatDistances(postDetail?.restaurant)} away</p>
               </div>
             </div>
           </div>
           <p className={styles.title}>Location</p>
           <div className={styles.mapContainer}>
-            <GoogleMapComponent singleMapaData={post}/>
+            <GoogleMapComponent singleMapaData={post} />
           </div>
           <div className={styles.buttons}>
             <button className={styles.button}>
@@ -148,7 +159,6 @@ function SinglePage() {
               <img src={saveIcon} alt='save' />
               Save the Place
             </button>
-
           </div>
         </div>
       </div>
