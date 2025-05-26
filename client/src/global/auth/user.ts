@@ -1,7 +1,6 @@
 import { UserFromServerType, UserStateProps } from 'types/types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import noAvatar from "../../assets/icons/noAvatar.png"
 
 export const userStore = create<UserStateProps>()(
     persist(
@@ -10,7 +9,7 @@ export const userStore = create<UserStateProps>()(
             setUser: (newUser: UserFromServerType | null) => {
                 if (newUser?.avatar === "" || newUser?.avatar === null){
                     set(() => ({
-                        user: newUser ? { ...newUser, avatar: noAvatar} : null,
+                        user: newUser ? { ...newUser} : null,
                     }));
                     return;
                 } else {
@@ -18,8 +17,7 @@ export const userStore = create<UserStateProps>()(
                         user: newUser ? { ...newUser } : null,
                     }));
                     return;
-                }
-             
+                }  
        }
         }),
         {

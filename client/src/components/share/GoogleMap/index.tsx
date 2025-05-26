@@ -1,7 +1,7 @@
 import React, { useState, useCallback, use, useEffect } from 'react';
 import styles from "./googleMapComponent.module.scss";
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { PostDataType, PropertyType } from 'types/types';
+import { Post, PostDataType, PropertyType } from 'types/types';
 import MapMarker from '../MapMarker';
 import MapMarkerSingle from '../MapMarkerSingle';
 import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
@@ -14,8 +14,8 @@ const containerStyle = {
 };
 
 interface MapProps {
-  mapaData?: PropertyType[];
-  singleMapaData?: PostDataType;
+  mapaData?: Post[];
+  singleMapaData?: Post;
 }
 
 function GoogleMapComponent({ mapaData, singleMapaData }: MapProps) {
@@ -29,9 +29,20 @@ function GoogleMapComponent({ mapaData, singleMapaData }: MapProps) {
   const {isMarkerListingOpen, toggleIsMarkerListingOpen}= useMapGlobalState();
   const [center, setCenter ] = useState({ lat: 19.312346, lng: -69.542513 })
 
+
+  useEffect(()=>{
+    if(singleMapaData){
+
+      const singleLat = parseInt(singleMapaData.latitude)
+      const singleLng = parseInt(singleMapaData.longitude)
+
+      setCenter({lat:singleLat, lng:singleLng})
+    }
+  },[singleMapaData])
+
 useEffect(()=>{
  if (singleMapaData){
-       setCenter({ lat: singleMapaData.latitude, lng: singleMapaData.longitude})
+       setCenter({ lat: parseFloat(singleMapaData.latitude), lng: parseFloat(singleMapaData.longitude)})
      }
 
 

@@ -1,19 +1,19 @@
 import React from 'react';
 import styles from "./markerListingItem.module.scss";
-import { PostDataType, PropertyType } from 'types/types';
+import { Post, PostDataType, PropertyType } from 'types/types';
 import { Link } from 'react-router-dom';
 import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
 
 
 interface MarkerListingItemProps {
-    item?: PropertyType  ;
-    itemSingle?: PostDataType;
+    item?:Post
+    itemSingle?: Post;
 }
 
 function MarkerListingItem({ item, itemSingle }: MarkerListingItemProps) {
 
     if (item){
-        const { img, id, title, bedroom, price } = item;
+        const { id, title, bedroom, price, images } = item;
     } else if(itemSingle){
 
     }
@@ -25,8 +25,6 @@ function MarkerListingItem({ item, itemSingle }: MarkerListingItemProps) {
 
         if(isMarkerListingOpen === true){
             toggleIsMarkerListingOpen()
-
-            console.log("try to close")
         } else{
             toggleIsMarkerListingOpen()
         }
@@ -37,10 +35,10 @@ function MarkerListingItem({ item, itemSingle }: MarkerListingItemProps) {
         <div className={styles.item}>
             
        {  item &&   <>
-            <img src={item.img} alt='Property Image' />
+            <img src={item.images[0]} alt='Property Image' />
             <div className={styles.textContainer}>
                 <h2 className={styles.title}>
-                    <Link to={`/${item.id}`}>{item.title}</Link>
+                    <Link to={`/post/${item.id}`}>{item.title}</Link>
                 </h2>
                 <span>{item.bedroom} bedroom</span>
                 <b>$ {item.price}</b>

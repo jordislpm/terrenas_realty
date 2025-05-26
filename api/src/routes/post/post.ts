@@ -7,14 +7,11 @@ import { verifyToken } from "src/middleware/verifyToken";
 
 const getPost: Router = Router();
 
-getPost.get("/:id",verifyToken,  async (req: Request, res: Response) => {
+getPost.get("/:id",  async (req: Request, res: Response) => {
 
   const id=req.params.id
-  const body = req.body;
-
-
   try {
-    const user = await getOnePost(body.id)
+    const user = await getOnePost(id)
     res.status(200).json(user);
   } catch (error) {
     console.error("Error:", error);

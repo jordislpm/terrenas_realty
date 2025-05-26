@@ -61,7 +61,7 @@
     height: 100%;
     background-color: var(--background-color-secundary);
 
-    @include md{
+    @include lg{
       display: none;
     }
   }

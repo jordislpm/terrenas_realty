@@ -44,6 +44,8 @@ model Post {
   userId     String      @db.ObjectId
   postDetail PostDetail?
   savedPosts SavedPost[]
+
+   seenBy     String[]    @db.ObjectId
 }
 
 enum Type {

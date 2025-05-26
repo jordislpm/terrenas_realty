@@ -4,24 +4,22 @@ import argon2 from "argon2";
 import { Post, updatePostDTO, updateUserDTO } from "src/entities";
 
 export const updateOnePost = async (id: string, post: updatePostDTO, tokenUserId: string): Promise<Post> => {
-
+console.log("business-logic update post start")
 
 
     try {
+console.log("business-logic",post)
 
-        const updatedPost = await prisma.post.update({
-            where: { id },
+        if (post.postData){
+            const updatedPost = await prisma.post.update({
+            where: { id: id},
             data: {
                 ...post.postData, 
-                postDetail: {
-                    update: {
-                        ...post.postDetail,
-                    }
-                }
             }
         });
-
         return updatedPost;
+        }
+         throw new Error("Unknown error");
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Unknown error");
     }

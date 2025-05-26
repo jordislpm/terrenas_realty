@@ -13,7 +13,7 @@ interface UploadWidgetConfig {
 interface UploadWidgetProps {
   uwConfig: UploadWidgetConfig; // You can replace `object` with a stricter type if you want
   setPublicId?: (id: string) => void;
-  setAvatar: React.Dispatch<React.SetStateAction<string>>;
+  setState: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 declare global {
@@ -35,7 +35,7 @@ declare global {
   }
 }
 
-const UploadWidget: React.FC<UploadWidgetProps> = ({ uwConfig, setPublicId, setAvatar }) => {
+const UploadWidget: React.FC<UploadWidgetProps> = ({ uwConfig, setPublicId, setState }) => {
   const uploadWidgetRef = useRef<ReturnType<typeof window.cloudinary.createUploadWidget> | null>(null);
   const uploadButtonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -48,7 +48,7 @@ const UploadWidget: React.FC<UploadWidgetProps> = ({ uwConfig, setPublicId, setA
           (error, result) => {
             if (!error && result && result.event === 'success') {
               console.log('Upload successful:', result.info);
-             setAvatar(result.info.secure_url);
+             setState(prev=>[...prev,result.info.secure_url] );
             }
           }
         );

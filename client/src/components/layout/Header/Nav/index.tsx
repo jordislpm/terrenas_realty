@@ -11,7 +11,6 @@ function Nav() {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const { user, setUser } = useUser();
-
   const navigate =  useNavigate()
 
   const toggleModal = () => {
@@ -19,6 +18,7 @@ function Nav() {
   };
 
   useEffect(() => {
+    setOpen(false)
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };

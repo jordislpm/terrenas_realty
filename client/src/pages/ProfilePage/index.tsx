@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from "./profilePage.module.scss"
-import { userData } from 'lib/dummyData';
 import List from 'components/share/List';
 import Chat from 'components/share/Chat';
 import { useLogoutUser } from 'hooks/auth/useLogoutUser';
 import { useNavigate } from 'react-router-dom';
 import useUser from 'hooks/globalState/userLoggedState';
 import noAvatar from "../../assets/icons/noAvatar.png"
+import { Link } from 'react-router-dom';
 
 function ProfilePage() {
 
@@ -25,7 +25,9 @@ function ProfilePage() {
           <div className={styles.wrapper}>
             <div className={styles.title}>
               <h1>User Information</h1>
-              <button onClick={()=>navigate("/profile/update")}>Update Profile</button>
+              <Link to="/profile/update">
+              <button>Update Profile</button>
+                 </Link>
             </div>
             <div className={styles.info}>
               <span>
@@ -45,7 +47,9 @@ function ProfilePage() {
             </div>
             <div className={styles.title}>
               <h1>My List</h1>
-              <button>Create New Post</button>
+              <Link to="/add">
+              <button >Create New Post</button>
+              </Link>
             </div>
             <List />
             <div className={styles.title}>

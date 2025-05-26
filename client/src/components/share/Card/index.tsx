@@ -6,32 +6,32 @@ import bed from "../../../assets/icons/bed.png"
 import bath from "../../../assets/icons/bath.png"
 import save from "../../../assets/icons/save.png"
 import chat from "../../../assets/icons/chat.png"
-import { PropertyType } from 'types/types'
+import { Post, PropertyType } from 'types/types'
 
 interface CardProps {
     property: PropertyType
 }
 
-function Card(property: PropertyType) {
+function Card(post: Post) {
 
     const {
         id,
-        img,
+        images,
         title,
         address,
         price,
         bedroom,
         bathroom
-    } = property;
+    } = post;
 
     return (
         <div className={styles.card}>
-            <Link to={`/${id}`} className={styles.imageContainer}>
-                <img src={img} alt='Property Image' />
+            <Link to={`/post/${id}`} className={styles.imageContainer}>
+                <img src={images[0]} alt='Property Image' />
             </Link>
             <div className={styles.textContainer}>
                 <h2 className={styles.title}>
-                    <Link to={`/${id}`}>{title}</Link>
+                    <Link to={`/post/${id}`}>{title}</Link>
                 </h2>
                 <p className={styles.address}>
                     <img src={pin} alt="pin" />

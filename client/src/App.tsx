@@ -20,6 +20,8 @@ import HomeImageSection from 'components/share/HomeImageSection';
 import { Layout, RequireAuth  } from 'components/layout';
 import ProfileUpdatePage from 'pages/ProfileUpdatePage';
 import NewPostPage from 'pages/NewPostPage';
+import { postLoader } from 'services/loader/postLoader';
+import ErrorPage from 'components/share/ErrorPage';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -36,8 +38,10 @@ const App = () => {
           element:<ListPage/>
         },
         {
-          path:"/:id",
-          element:<SinglePage/>
+          path:"/post/:id",
+          element:<SinglePage/>,
+          loader: postLoader,
+           errorElement: <ErrorPage/>
         },
         {
           path:"/login",

@@ -11,6 +11,8 @@ updatePost.put("/:id",verifyToken,  async (req: Request, res: Response) => {
   const tokenUserId = req.userId;
   const body: updatePostDTO = req.body;
 
+  console.log(body.postData?.id)
+
   console.log(id, tokenUserId)
 
   if (id !== tokenUserId){
@@ -23,9 +25,14 @@ updatePost.put("/:id",verifyToken,  async (req: Request, res: Response) => {
        res.status(403).json({Message: "id is not valid!"});
     } else {
 
-    const post = await updateOnePost(id, body, tokenUserId)
+      if (body.postData?.id){
+const post = await updateOnePost(body.postData?.id, body, tokenUserId)
 
-    res.status(200).json(post);    }
+      }
+
+    
+
+     }
 
   } catch (error) {
     console.error("Error:", error);

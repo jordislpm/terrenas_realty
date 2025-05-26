@@ -1,9 +1,12 @@
 import argon2 from "argon2";
 import { createUserDTO, User } from "src/entities";
+
 import prisma from "src/lib/prisma";
 
 export const registerNewUser = async (data: createUserDTO): Promise<User> => {
   const { username, email, password, avatar } = data;
+
+  console.log(data)
 
   try {
     // Check if username or email already exists

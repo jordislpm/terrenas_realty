@@ -8,6 +8,6 @@ export interface createPostDTO {
   postDetail?: Omit<PostDetail, "id" | "postId" | "post">;
 }
 export interface updatePostDTO {
-  postData?: Partial<Omit<Post, "id" | "createdAt" | "userId" | "user" | "postDetail" | "savedPosts">>;
+  postData?: Partial<Omit<Post,  "createdAt" | "userId" | "user" | "postDetail" | "savedPosts">>;
   postDetail?: Partial<Omit<PostDetail, "id" | "postId" | "post">>;
 }

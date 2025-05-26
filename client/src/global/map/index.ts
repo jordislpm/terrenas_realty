@@ -1,6 +1,6 @@
-import { MapStateProps, PostDataType, PropertyType } from 'types/types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { MapStateProps, Post } from 'types/types';
 
 export const MapStore = create<MapStateProps>()(
   persist(
@@ -15,16 +15,21 @@ export const MapStore = create<MapStateProps>()(
       selectedMarketListing: {
         id: "0",
         title: '',
-        img: '',
+        price: 0,
+        images: [],
+        address: '',
+        city: '',
         bedroom: 0,
         bathroom: 0,
-        price: 0,
-        address: '',
-        latitude: 0,
-        longitude: 0,
-      } as PropertyType,
+        latitude: '',
+        longitude: '',
+        type: "rent",
+        property: "apartment",
+        createdAt: new Date(),
+        userId: '',
+      },
 
-      setSelectedMarketListing: (property: PropertyType) =>
+      setSelectedMarketListing: (property: Post) =>
         set(() => ({
           selectedMarketListing: { ...property },
         })),
@@ -34,23 +39,19 @@ export const MapStore = create<MapStateProps>()(
         title: '',
         price: 0,
         images: [],
+        address: '',
+        city: '',
         bedroom: 0,
         bathroom: 0,
-        size: 0,
-        latitude: 0,
-        longitude: 0,
-        city: '',
-        address: '',
-        school: 0,
-        bus: 0,
-        restaurant: 0,
-        description: '',
+        latitude: '',
+        longitude: '',
         type: "rent",
         property: "apartment",
-        createdAt:  new Date()
-      } as PostDataType,
+        createdAt: new Date(),
+        userId: '',
+      },
 
-      setSingleMarketListing: (property: PostDataType) =>
+      setSingleMarketListing: (property: Post) =>
         set(() => ({
           singleMarketListing: { ...property },
         })),

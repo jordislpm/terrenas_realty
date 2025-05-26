@@ -7,6 +7,15 @@ export const getOnePost = async (id:string|undefined): Promise<Post> => {
   try {
        const post = await prisma.post.findUnique({
       where: { id },
+      include: {
+        postDetail: true,
+        user: {
+          select: {
+            username: true,
+            avatar: true,
+          },
+        },
+      },
     });
 
     if (!post) {

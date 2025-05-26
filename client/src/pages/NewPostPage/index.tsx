@@ -1,12 +1,109 @@
+import React, { useRef, useEffect, useState, FormEvent } from 'react';
 import styles from "./NewPostPage.module.scss";
+import useUser from 'hooks/globalState/userLoggedState';
+import { useCreatePost } from 'hooks/post/useCreatePost';
+import UploadWidget from 'components/share/UploadWidget';
+import { uwConfig as defaultUwConfig } from 'constants/uploadWidget';
+
+
+
 
 function NewPostPage() {
- return (
+
+  const [value, setValue] = useState('');
+  const [images, setImages] = useState<string[]>([]);
+
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const { user } = useUser()
+  const form = useRef<HTMLFormElement>(null)
+  const { newPost, isLoading, error } = useCreatePost()
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      const scrollHeight = textareaRef.current.scrollHeight;
+      textareaRef.current.style.height = `${Math.min(scrollHeight, 200)}px`;
+    }
+  }, [value]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+     if (images.length < 4) {
+    alert("You must upload at least 4 images.");
+    return;
+  }
+
+    const formData = new FormData(e.currentTarget);
+    const inputs = Object.fromEntries(formData.entries()) as Record<string, string>;
+
+    if (!user?.id) {
+      console.error("No user ID found. Cannot create post.");
+      return;
+    }
+
+     const postData = {
+      title: inputs.title,
+      price: parseInt(inputs.price),
+      address: inputs.address,
+      city: inputs.city,
+      bedroom: parseInt(inputs.bedroom),
+      bathroom: parseInt(inputs.bathroom),
+      type: inputs.type as "buy" | "rent",
+      property: inputs.property as "apartment" | "house" | "condo" | "land",
+      latitude: inputs.latitude,
+      longitude: inputs.longitude,
+      images: images,
+    };
+
+    // Preparar postDetail solo si hay algún valor
+    const postDetailFields = {
+      utilities: inputs.utilities || undefined,
+      pet: inputs.pet || undefined,
+      income: inputs.income || undefined,
+      size: inputs.size ? parseInt(inputs.size) : undefined,
+      school: inputs.school ? parseInt(inputs.school) : undefined,
+      bus: inputs.bus ? parseInt(inputs.bus) : undefined,
+      restaurant: inputs.restaurant ? parseInt(inputs.restaurant) : undefined,
+      desc: value
+    };
+
+    // Verifica si postDetail tiene algún campo con valor
+    const hasPostDetail = Object.values(postDetailFields).some(v => v !== undefined && v !== "");
+
+    try {
+      await newPost(
+        {
+          postData: postData,
+          postDetail: hasPostDetail ? postDetailFields : undefined,
+        },
+        user.id
+      );
+
+      console.log("Post created!");
+      // Puedes redirigir o resetear el formulario aquí
+    } catch (error) {
+      console.error("Error creating post:", error);
+    }
+  };
+
+  const secundarySubmit = () => {
+    if (form.current) {
+      form.current.requestSubmit();
+    }
+  }
+
+  const dynamicUwConfig = {
+    ...defaultUwConfig,
+    multiple: true,
+    folder: "posts",
+  };
+
+  return (
     <div className={styles.newPostPage}>
       <div className={styles.formContainer}>
         <h1>Add New Post</h1>
         <div className={styles.wrapper}>
-          <form onSubmit={()=>{}}>
+          <form onSubmit={handleSubmit} ref={form}>
             <div className={styles.item}>
               <label htmlFor="title">Title</label>
               <input id="title" name="title" type="text" required />
@@ -21,7 +118,15 @@ function NewPostPage() {
             </div>
             <div className={`${styles.item} ${styles.description}`}>
               <label htmlFor="desc">Description</label>
-              {/* <ReactQuill theme="snow" onChange={setValue} value={value} /> */}
+              <div className={styles.container}>
+                <textarea
+                  ref={textareaRef}
+                  className={styles.editor}
+                  placeholder="Write a description..."
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                />
+              </div>
             </div>
             <div className={styles.item}>
               <label htmlFor="city">City</label>
@@ -79,7 +184,7 @@ function NewPostPage() {
               <input id="income" name="income" type="text" placeholder="Income Policy" />
             </div>
             <div className={styles.item}>
-              <label htmlFor="size">Total Size (sqft)</label>
+              <label htmlFor="size">Total Size (mts2)</label>
               <input min={0} id="size" name="size" type="number" />
             </div>
             <div className={styles.item}>
@@ -95,24 +200,24 @@ function NewPostPage() {
               <input min={0} id="restaurant" name="restaurant" type="number" />
             </div>
             <button className={styles.sendButton}>Add</button>
-            {/* {error && <span className={styles.error}>{error}</span>} */}
+            {error && <span className={styles.error}>{error}</span>}
           </form>
         </div>
       </div>
       <div className={styles.sideContainer}>
-        {/* {images.map((image, index) => (
+        {images.length === 0 &&
+          <h2>Please add images</h2>
+        }
+        {images.map((image, index) => (
           <img src={image} key={index} alt={`Uploaded ${index}`} />
         ))}
         <UploadWidget
-          uwConfig={{
-            multiple: true,
-            cloudName: "lamadev",
-            uploadPreset: "estate",
-            folder: "posts",
-          }}
+          uwConfig={dynamicUwConfig}
           setState={setImages}
-        /> */}
+        />
+
       </div>
+      <button className={styles.sendButton_md} onClick={secundarySubmit}>Add</button>
     </div>
   );
 }

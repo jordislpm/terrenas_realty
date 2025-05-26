@@ -3,13 +3,28 @@
 .newPostPage {
   height: 100%;
   display: flex;
+  padding-bottom: 50px;
+
+  @include md {
+    flex-direction: column;
+  }
 
   .formContainer {
     flex: 3;
     overflow: scroll;
 
+    @include md {
+      flex: 1;
+      overflow: visible;
+    }
+
     .wrapper {
       margin: 30px 50px 100px 0px;
+
+      @include md {
+        margin: 0px;
+        margin-bottom: 50px;
+      }
 
       form {
         display: flex;
@@ -17,14 +32,23 @@
         flex-wrap: wrap;
         gap: 20px;
 
+        @include md {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
         .item {
           width: 30%;
           display: flex;
           flex-direction: column;
           gap: 5px;
 
-          label {
+          @include md {
+            width: 100%;
           }
+
+          label {}
 
           input {
             padding: 20px;
@@ -34,19 +58,22 @@
 
           select {
             padding: 19px;
+            max-width: 100%;
           }
 
           &.description {
             width: 100%;
-            height: 320px;
+            height: max-content;
 
-            .quill > .ql-container > .ql-editor{
+            .quill>.ql-container>.ql-editor {
               height: 200px;
               font-size: 16px;
             }
           }
         }
+
         .sendButton {
+          display: block;
           width: 30%;
           border-radius: 5px;
           border: none;
@@ -54,6 +81,13 @@
           color: white;
           font-weight: bold;
           cursor: pointer;
+
+          @include md {
+            display: none;
+            width: 70%;
+            padding: 20px;
+            height: 30px;
+          }
         }
       }
     }
@@ -68,6 +102,12 @@
     align-items: center;
     justify-content: center;
 
+    @include md {
+      flex: 1;
+      width: 100%;
+      min-height: 200px;
+    }
+
     img {
       width: 50%;
       height: 180px;
@@ -75,4 +115,52 @@
       border-radius: 5px;
     }
   }
+
+  .sendButton_md {
+    display: none;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--green-primary);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: center;
+    margin: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+
+    @include md {
+      display: block;
+      width: 70%;
+
+    }
+  }
+}
+
+.container {
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor {
+  border: 1px solid #ccc;
+  min-height: 100px;
+  max-height: 200px; // límite de crecimiento
+  padding: 10px;
+  border-radius: 4px;
+  outline: none;
+  background-color: #fff;
+  overflow-y: auto; // scroll cuando se pasa
+  resize: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 16px;
+  line-height: 1.5;
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from 'services/auth/register';
 import { RegisterUserDTO} from 'types/types';
-
+import noAvatar from "../../assets/icons/noAvatar.png"
 
 type UseRegisterUserResult = {
   register: (user: RegisterUserDTO) => Promise<void>;

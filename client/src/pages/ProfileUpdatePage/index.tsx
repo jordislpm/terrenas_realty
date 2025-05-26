@@ -8,6 +8,7 @@ import { FormEvent, useState } from "react";
 import UploadWidget from "components/share/UploadWidget";
 import { Cloudinary } from '@cloudinary/url-gen';
 import { AdvancedImage, responsive, placeholder } from '@cloudinary/react';
+import { uwConfig } from "constants/uploadWidget";
 
 function ProfileUpdatePage() {
 
@@ -18,38 +19,10 @@ function ProfileUpdatePage() {
   const navigate = useNavigate()
 
   // states 
-  const [avatar, setAvatar] = useState<string>(user?.avatar ? user.avatar : "");
+  const [avatar, setAvatar] = useState<string[]>([]);
    const [publicId, setPublicId] = useState('');
 
-  // Configuration UploadWidget 
-  const cloudName = 'jordisdev';
-  const uploadPreset = 'Las Terrenas Realty';
-  // Cloudinary configuration
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName,
-    },
-  });
-
-  // Upload Widget Configuration
-  const uwConfig = {
-    cloudName,
-    uploadPreset,
-    // Uncomment and modify as needed:
-    // cropping: true,
-    // showAdvancedOptions: true,
-    // sources: ['local', 'url'],
-    // multiple: false,
-    // folder: 'user_images',
-    // tags: ['users', 'profile'],
-    // context: { alt: 'user_uploaded' },
-    // clientAllowedFormats: ['images'],
-    // maxImageFileSize: 2000000,
-    // maxImageWidth: 2000,
-    // theme: 'purple',
-  };
-
-
+  
   // consts and variables
   const userID = user ? user.id : ""
 
@@ -63,7 +36,7 @@ function ProfileUpdatePage() {
     const user: UpdateUserDTO = Object.fromEntries(
       Object.entries(rawData).filter(([_, value]) => value !== "")
     ) as UpdateUserDTO;
-    await update({...user, avatar: avatar}, userID);
+    await update({...user, avatar: avatar[0]}, userID ? userID : "");
   };
 
   return (
@@ -90,13 +63,13 @@ function ProfileUpdatePage() {
       </div>
       <div className={styles.sideContainer}>
         <img
-          src={avatar}
+          src={avatar[0] ? avatar[0]: user?.avatar}
           alt="User avatar"
           className={styles.avatar}
         />
         <UploadWidget
           uwConfig={uwConfig} setPublicId={setPublicId}
-          setAvatar={setAvatar}
+          setState={setAvatar}
         />
       </div>
     </div>

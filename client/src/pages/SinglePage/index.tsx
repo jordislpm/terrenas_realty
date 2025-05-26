@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from "./singlePage.module.scss"
 import Slider from 'components/share/Slider'
-import { singlePostData, userData } from 'lib/dummyData'
+import { listData} from 'lib/dummyData'
 import GoogleMapComponent from 'components/share/GoogleMap'
 
 // start images
@@ -18,6 +18,8 @@ import school from "./../../assets/icons/school.png"
 import bus from "./../../assets/icons/bus.png"
 import restaurant from "./../../assets/icons/restaurant.png"
 import useUser from 'hooks/globalState/userLoggedState'
+import { useLoaderData } from 'react-router-dom'
+import { FullPost, Post } from 'types/types'
 //images end
 
 
@@ -26,8 +28,21 @@ import useUser from 'hooks/globalState/userLoggedState'
 
 function SinglePage() {
 
-  const { title, address, price, description, images } = singlePostData;
-    const { user, setUser } = useUser();
+  const post = useLoaderData() as FullPost
+  console.log("singlePage",post)
+
+
+
+    const {
+      images, 
+      title, 
+      address, 
+      price, 
+      postDetail, 
+      bathroom, 
+      bedroom,
+      user
+      }=post
 
   return (
     <div className={styles.singlePage}>
@@ -50,7 +65,7 @@ function SinglePage() {
               </div>
             </div>
             <div className={styles.bottom}>
-              {description}
+              {postDetail?.desc}
             </div>
           </div>
         </div>
@@ -63,14 +78,14 @@ function SinglePage() {
               <img src={utility} alt='utility' />
               <div className={styles.featureText}>
                 <span>Utilities</span>
-                <p>Renter is responsible</p>
+                <p>{postDetail?.utilities} is responsible</p>
               </div>
             </div>
             <div className={styles.feature}>
               <img src={pet} alt='pet' />
               <div className={styles.featureText}>
                 <span>Pet Policy</span>
-                <p>Pets Allowed</p>
+                <p>{postDetail?.pet}</p>
               </div>
             </div>
             <div className={styles.feature}>
@@ -85,15 +100,15 @@ function SinglePage() {
           <div className={styles.sizes}>
             <div className={styles.size}>
               <img src={size} alt='size' />
-              <span> 80 sqft</span>
+              <span> {postDetail?.size} mts2</span>
             </div>
             <div className={styles.size}>
               <img src={bed} alt='size' />
-              <span> 2 beds</span>
+              <span> {bedroom} bedrooms</span>
             </div>
             <div className={styles.size}>
               <img src={bath} alt='bath' />
-              <span> 1 bathroom</span>
+              <span> {bathroom} bathroom</span>
             </div>
           </div>
           <p className={styles.title}>Nearby Places</p>
@@ -102,27 +117,27 @@ function SinglePage() {
               <img src={school} alt="school" />
               <div className={styles.featureText}>
                 <span>School</span>
-                <p>250m away</p>
+                <p>{postDetail?.school}m away</p>
               </div>
             </div>
             <div className={styles.feature}>
               <img src={bus} alt="bus" />
               <div className={styles.featureText}>
                 <span>Bus Stop</span>
-                <p>100m away</p>
+                <p>{postDetail?.bus}m away</p>
               </div>
             </div>
             <div className={styles.feature}>
               <img src={restaurant} alt="restaurant" />
               <div className={styles.featureText}>
                 <span>Restaurant</span>
-                <p>200m away</p>
+                <p>{postDetail?.restaurant}m away</p>
               </div>
             </div>
           </div>
           <p className={styles.title}>Location</p>
           <div className={styles.mapContainer}>
-            <GoogleMapComponent singleMapaData={singlePostData} />
+            <GoogleMapComponent singleMapaData={post}/>
           </div>
           <div className={styles.buttons}>
             <button className={styles.button}>

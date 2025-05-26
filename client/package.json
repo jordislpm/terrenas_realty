@@ -5,11 +5,12 @@
   "dependencies": {
     "@cloudinary/react": "^1.14.3",
     "@cloudinary/url-gen": "^1.21.0",
+    "@lexical/react": "^0.31.2",
     "@react-google-maps/api": "^2.20.6",
     "cra-template-typescript": "1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.0",
+    "react-router-dom": "^6.30.1",
     "react-scripts": "5.0.1",
     "sass": "^1.83.4",
     "web-vitals": "^4.2.4",

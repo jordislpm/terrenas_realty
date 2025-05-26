@@ -42,9 +42,10 @@ export const useLoginUser = (): UseLoginUserResult => {
         id: response.id,
         username: response.username,
         email: response.email,
-        avatar: response.avatar.avatar,
+        avatar: response.avatar,
         createdAt: response.createdAt,
       }
+      
       setUser(userFormated);
       navigate("/");
     } catch (err: any) {

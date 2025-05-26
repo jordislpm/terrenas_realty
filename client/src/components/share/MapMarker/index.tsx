@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import styles from "./mapMarker.module.scss"
 import { GoogleMap, useJsApiLoader, Marker, MarkerF, OverlayView } from '@react-google-maps/api';
-import { PostDataType, PropertyType } from 'types/types';
+import { Post, PostDataType, PropertyType } from 'types/types';
 import pin from "../../../assets/icons/pin.png"
 import MarkerListingItem from '../MarkerListingItem';
 import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
 
 interface MapMarkerProps {
-    property: PropertyType;
+    property: Post;
 }
 
 
@@ -42,9 +42,9 @@ function MapMarker({ property }: MapMarkerProps) {
 
     const position =
     {
-        lat: property.latitude,
-        lng: property.longitude,
-    }
+        lat: parseFloat(property.latitude),
+        lng: parseFloat(property.longitude)
+    } 
     return (
         <div className={styles.body}>
             <MarkerF
@@ -60,8 +60,8 @@ function MapMarker({ property }: MapMarkerProps) {
                 {isMarkerListingOpen &&
                     <OverlayView
                         position={{
-                            lat: selectedMarketListing.latitude,
-                            lng: selectedMarketListing.longitude,
+                            lat: parseFloat(selectedMarketListing.latitude),
+                            lng: parseFloat(selectedMarketListing.longitude)
                         }}
                         mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}>
                             <MarkerListingItem item={selectedMarketListing} />
