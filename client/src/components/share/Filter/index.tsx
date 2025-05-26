@@ -23,7 +23,7 @@ function Filter() {
     };
 
     const handleFilter = () => {
-        setSearchParams(query);
+        setSearchParams({...query, city: query.city.toLocaleLowerCase()});
     };
 
 

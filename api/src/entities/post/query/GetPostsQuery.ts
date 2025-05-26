@@ -2,7 +2,7 @@ export type GetPostsQuery = {
   type: 'buy' | 'rent';
   city?: string;
   property: 'apartment' | 'house' | 'condo' | 'land';
-  minPrice?: string;
-  maxPrice?: string;
-  bedroom?: string;
+  minPrice: string;
+  maxPrice: string;
+  bedroom: string;
 };
