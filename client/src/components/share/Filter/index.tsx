@@ -5,7 +5,10 @@ import { useSearchParams } from 'react-router-dom';
 
 function Filter() {
 
-    const [searchParams, setSearchParams] = useSearchParams();
+   const [searchParams, setSearchParams] = useSearchParams();
+
+
+ 
     const [query, setQuery] = useState({
         type: searchParams.get("type") || "",
         city: searchParams.get("city") || "",
@@ -23,13 +26,30 @@ function Filter() {
     };
 
     const handleFilter = () => {
-        setSearchParams({...query, city: query.city.toLocaleLowerCase()});
+        setSearchParams({ ...query, city: query.city.toLocaleLowerCase() });
     };
+
+   const cleanFilter = () => {
+  const emptyFilters = {
+    type: "",
+    city: "",
+    property: "",
+    minPrice: "",
+    maxPrice: "",
+    bedroom: "",
+  };
+
+  setQuery(emptyFilters);        
+  setSearchParams({});           
+};
 
 
     return (
         <div className={styles.filter}>
-            <h1>Search results for <b>{searchParams.get("city")}</b></h1>
+            <div className={styles.filterHeader}>
+                <h1>Search results for <b>{searchParams.get("city")}</b></h1>
+                <button onClick={cleanFilter}>Clean Filter</button>
+            </div>
             <div className={styles.top}>
                 <div className={styles.item}>
                     <label htmlFor='city'>Location</label>
@@ -40,6 +60,7 @@ function Filter() {
                         placeholder="City Location"
                         onChange={handleChange}
                         defaultValue={query.city}
+                        value={query.city}
                     />
                 </div>
             </div>
@@ -51,6 +72,7 @@ function Filter() {
                         id="type"
                         onChange={handleChange}
                         defaultValue={query.type}
+                        value={query.type}
                     >
                         <option value="">Any</option>
                         <option value="buy">Buy</option>
@@ -64,6 +86,7 @@ function Filter() {
                         id="property"
                         onChange={handleChange}
                         defaultValue={query.property}
+                        value={query.property}
                     >
                         <option value="">Any</option>
                         <option value="apartment">Apartment</option>
@@ -81,6 +104,7 @@ function Filter() {
                         placeholder="any"
                         onChange={handleChange}
                         defaultValue={query.minPrice}
+                        value={query.minPrice}
                     />
                 </div>
                 <div className={styles.item}>
@@ -92,6 +116,7 @@ function Filter() {
                         placeholder="any"
                         onChange={handleChange}
                         defaultValue={query.maxPrice}
+                        value={query.maxPrice}
                     />
                 </div>
                 <div className={styles.item}>
@@ -103,6 +128,7 @@ function Filter() {
                         placeholder="any"
                         onChange={handleChange}
                         defaultValue={query.bedroom}
+                        value={query.bedroom}
                     />
                 </div>
                 <button onClick={handleFilter}>

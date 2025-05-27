@@ -1,55 +1,78 @@
 .filter {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+
+  .filterHeader {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-  
+    width: 100%;
+    justify-content: space-between;
+
     h1 {
       font-weight: 300;
       font-size: 24px;
-    }
-  
-    .item {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-  
-      label {
-        font-size: 10px;
-      }
-  
-      input,
-      select {
-        width: 100px;
-        padding: 10px;
-        border: 1px solid var(--gray-primary);
-        border-radius: 5px;
-        font-size: 14px;
+
+      b {
+        font-weight: 600;
       }
     }
-  
-    .top {
-      input {
-        width: 100%;
-      }
-    }
-  
-    .bottom {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-  
-      button {
-        width: 100px;
-        padding: 10px;
-        border: none;
+
+    button{
+      padding: 5px;
+
+      &:hover{
         cursor: pointer;
-        background-color: rgba(var(--yellow-primary-rgb), 0.638);
-  
-        img {
-          width: 24px;
-          height: 24px;
-        }
+      }
+
+    }
+
+  }
+
+
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    label {
+      font-size: 10px;
+    }
+
+    input,
+    select {
+      width: 100px;
+      padding: 10px;
+      border: 1px solid var(--gray-primary);
+      border-radius: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .top {
+    input {
+      width: 100%;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    button {
+      width: 100px;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      background-color: rgba(var(--yellow-primary-rgb), 0.638);
+
+      img {
+        width: 24px;
+        height: 24px;
       }
     }
   }
+}

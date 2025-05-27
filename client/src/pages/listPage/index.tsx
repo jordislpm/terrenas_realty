@@ -6,6 +6,7 @@ import Card from '../../components/share/Card'
 import GoogleMapComponent from 'components/share/GoogleMap'
 import { useLoaderData } from 'react-router-dom'
 import { FullPost } from 'types/types'
+import EmptyStateMessage from 'components/share/EmptyStateMessage'
 
 function ListPage() {
 
@@ -15,14 +16,19 @@ function ListPage() {
             <div className={styles.listContainer}>
                 <div className={styles.wrapper}>
                     <Filter />
-                    {posts.map((data)=>(
-                        <Card {...data} key={data.id}/>
-                    ))}
+                    {posts.length < 1
+                        ?
+                        <EmptyStateMessage/>
+                        :
+                        <>{posts.map((data) => (
+                            <Card {...data} key={data.id} />
+                        ))}</>
+                    }
+
                 </div>
             </div>
             <div className={styles.mapContainer}>
-                {/* <Map mapaData={data}/> */}
-                <GoogleMapComponent mapaData={posts}/>
+                <GoogleMapComponent mapaData={posts} />
             </div>
         </div>
     )
