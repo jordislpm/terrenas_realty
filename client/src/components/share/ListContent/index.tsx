@@ -7,13 +7,15 @@ interface ListContentProps {
   postsPromise: Promise<FullPost[]>;
 }
 
-function ListContent({ postsPromise }: { postsPromise: Promise<FullPost[]> }) {
-  const posts = React.use(postsPromise);
+function ListContent({ posts }: { posts: Promise<FullPost[]> }) {
+  const data = React.use(posts);
 
-  return (
+  return data.length === 0 ? (
+    <EmptyStateMessage />
+  ) : (
     <>
-      {posts.map((post) => (
-        <Card key={post.id} {...post} />
+      {data.map((post) => (
+        <Card {...post} key={post.id} />
       ))}
     </>
   );

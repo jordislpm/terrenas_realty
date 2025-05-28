@@ -1,5 +1,4 @@
 import React, { useState, useCallback, use, useEffect } from 'react';
-import styles from "./googleMapComponent.module.scss";
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { FullPost, Post, PostDataType, PropertyType } from 'types/types';
 import MapMarker from '../MapMarker';
@@ -18,7 +17,7 @@ interface MapProps {
   singleMapaData?: Post;
 }
 
-function GoogleMapComponent({ mapaDataPromise, singleMapaData }: MapProps) {
+function LoadingGoogleMap() {
   const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "";
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -34,28 +33,6 @@ function GoogleMapComponent({ mapaDataPromise, singleMapaData }: MapProps) {
     }
   )
 
-
-
-
-  let mapaData = mapaDataPromise ? React.use(mapaDataPromise) : null;
-
-
-
-  useEffect(() => {
-    if (singleMapaData) {
-      const singleLat = parseFloat(singleMapaData.latitude)
-      const singleLng = parseFloat(singleMapaData.longitude)
-
-      setMapState(({zoom: 15, center:{ lat: singleLat, lng: singleLng }}))
-    }
-
-    return () => {
-      if (isMarkerListingOpen === true) {
-        toggleIsMarkerListingOpen();
-      }
-    };
-
-  }, [singleMapaData])
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
 
@@ -81,18 +58,10 @@ function GoogleMapComponent({ mapaDataPromise, singleMapaData }: MapProps) {
       onUnmount={onUnmount}
       options={{ mapTypeControl: false }}
     >
-      <React.Suspense>
-      {mapaData?.map((marker) => (
-        <MapMarker key={`marker-${marker.id}`} property={marker} />
-      ))}
-      </React.Suspense>
-
-      {singleMapaData && <MapMarkerSingle key={`marker-${singleMapaData.id}`} property={singleMapaData} />}
-
-
+    
 
     </GoogleMap>
   );
 }
 
-export default GoogleMapComponent;
+export default LoadingGoogleMap;
