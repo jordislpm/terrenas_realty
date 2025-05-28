@@ -1,3 +1,5 @@
+@import "../../layout/layoutResponsive.module.scss";
+
 .filter {
   display: flex;
   flex-direction: column;
@@ -18,10 +20,48 @@
       }
     }
 
-    button{
+    .reset {
+      all: unset;
+      cursor: pointer;
+      color: white;
+      padding: 5px;
+      border-radius: 5px;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1rem;
+      background-color: black;
+
+      @include md {
+        background-color: white;
+      }
+
+
+
+      span {
+        display: flex;
+
+        @include md {
+          display: none;
+        }
+      }
+
+
+      img {
+        display: none;
+
+        @include md {
+          display: flex;
+        }
+
+        width: 2rem;
+      }
+    }
+
+    button {
       padding: 5px;
 
-      &:hover{
+      &:hover {
         cursor: pointer;
       }
 

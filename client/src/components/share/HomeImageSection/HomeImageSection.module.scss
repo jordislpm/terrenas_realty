@@ -65,6 +65,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    padding-top: 50px;
 
     @include md {
       display: none;

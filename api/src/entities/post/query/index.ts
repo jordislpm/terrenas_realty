@@ -1,1 +1,1 @@
-export * from './getPostsQuery';
+export * from './GetPostsQuery';

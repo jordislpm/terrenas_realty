@@ -3,6 +3,7 @@ import styles from "./markerListingItem.module.scss";
 import { Post, PostDataType, PropertyType } from 'types/types';
 import { Link } from 'react-router-dom';
 import useMapGlobalState from 'hooks/globalState/useMapGlobalState';
+import { formatPrice } from 'lib/format';
 
 
 interface MarkerListingItemProps {
@@ -41,10 +42,9 @@ function MarkerListingItem({ item, itemSingle }: MarkerListingItemProps) {
                     <Link to={`/post/${item.id}`}>{item.title}</Link>
                 </h2>
                 <span>{item.bedroom} bedroom</span>
-                <b>$ {item.price}</b>
+                <b>{formatPrice(item.price)}</b>
             </div>
             </>}
-
             {  itemSingle &&   <>
             <img src={itemSingle.images[0]} alt='Property Image' />
             <div className={styles.textContainer}>
@@ -52,7 +52,7 @@ function MarkerListingItem({ item, itemSingle }: MarkerListingItemProps) {
                     <Link to={`/${itemSingle.id}`}>{itemSingle.title}</Link>
                 </h2>
                 <span>{itemSingle.bedroom} bedroom</span>
-                <b>$ {itemSingle.price}</b>
+                <b>{formatPrice(itemSingle.price)}</b>
             </div>
             </>}
             <div className={styles.close}

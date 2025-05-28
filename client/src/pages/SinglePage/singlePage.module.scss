@@ -27,12 +27,14 @@
       @include lg {
         padding-right: 20px;
       }
+
       @include md {
         padding-right: 0px;
       }
 
       .info {
         margin-top: 50px;
+
         .top {
           display: flex;
           justify-content: space-between;
@@ -46,9 +48,11 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+
             h1 {
               font-weight: 400;
             }
+
             .address {
               display: flex;
               gap: 5px;
@@ -61,6 +65,7 @@
                 height: 16px;
               }
             }
+
             .price {
               padding: 5px;
               background-color: rgba(254, 205, 81, 0.438);
@@ -70,6 +75,7 @@
               font-weight: 300;
             }
           }
+
           .user {
             display: flex;
             flex-direction: column;
@@ -93,6 +99,7 @@
             }
           }
         }
+
         .bottom {
           margin-top: 50px;
           color: #555;
@@ -101,6 +108,7 @@
       }
     }
   }
+
   .features {
     flex: 2;
     background-color: #fcf5f3;
@@ -120,20 +128,22 @@
       gap: 20px;
       container-type: inline-size;
 
-        @container (max-width: 300px) {
+      .nearbySm {
 
-          .nearbySm{
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 20px 10px;
-            background-color: white;
-            border-radius: 10px;
-          }
 
-   
+        @include sm {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          padding: 20px 10px;
+          background-color: white;
+          border-radius: 10px;
         }
-      
+      }
+
+
+
+
 
       @include md {
         padding: 20px;
@@ -163,6 +173,7 @@
           span {
             font-weight: bold;
           }
+
           p {
             font-size: 14px;
           }
@@ -177,6 +188,7 @@
         background-color: white;
         border-radius: 10px;
       }
+
       .listHorizontal {
         display: flex;
         justify-content: space-between;
@@ -202,6 +214,7 @@
           background-color: white;
           padding: 10px;
           border-radius: 5px;
+          text-align: center;
         }
       }
 
@@ -223,6 +236,10 @@
           border: 1px solid #fece51;
           border-radius: 5px;
           cursor: pointer;
+
+          @include md {
+            padding: 10px;
+          }
 
           img {
             width: 16px;

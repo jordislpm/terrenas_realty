@@ -37,7 +37,6 @@ export const useLoginUser = (): UseLoginUserResult => {
       const response = await loginUser(user);
       setSuccess(true);
       setUserLogged(response);
-
       const userFormated: UserFromServerType= {
         id: response.id,
         username: response.username,
@@ -45,7 +44,6 @@ export const useLoginUser = (): UseLoginUserResult => {
         avatar: response.avatar,
         createdAt: response.createdAt,
       }
-      
       setUser(userFormated);
       navigate("/");
     } catch (err: any) {

@@ -3,6 +3,8 @@ import styles from "./filter.module.scss"
 import searchLogo from "../../../assets/icons/search.png"
 import { useSearchParams } from 'react-router-dom';
 
+import undo from "../../../assets/icons/undo.png"
+
 function Filter() {
 
    const [searchParams, setSearchParams] = useSearchParams();
@@ -47,8 +49,18 @@ function Filter() {
     return (
         <div className={styles.filter}>
             <div className={styles.filterHeader}>
+                {!searchParams.get("city")
+                ?
+                 <h1>Please search a City Location</h1>
+                :
                 <h1>Search results for <b>{searchParams.get("city")}</b></h1>
-                <button onClick={cleanFilter}>Clean Filter</button>
+                }
+                
+                <button className={styles.reset} onClick={cleanFilter}
+                >
+                    <span>Reset</span>
+                    <img src={undo}/>
+                </button>
             </div>
             <div className={styles.top}>
                 <div className={styles.item}>

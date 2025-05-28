@@ -130,6 +130,7 @@ export type Post = {
   postDetail?: PostDetail;
 };
 
+
 export type CreatePostDTO = {
   postData: Omit<Post, "id" | "createdAt" | "userId" | "postDetail">;
   postDetail?: Omit<PostDetail, "id" | "postId">;

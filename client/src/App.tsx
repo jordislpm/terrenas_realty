@@ -38,7 +38,7 @@ const App = () => {
           path:"/list",
           element:<ListPage/>,
           loader: listLoader,
-           errorElement: <ErrorPage/>
+            errorElement: <ErrorPage/>
         },
         {
           path:"/post/:id",

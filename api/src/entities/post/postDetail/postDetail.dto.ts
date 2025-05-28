@@ -1,5 +1,5 @@
 import { PostDetail } from "./postDetatil"
 
 
-type createPostDetailDTO = Omit<PostDetail, "id">
-type updatePostDetailDTO = Partial<PostDetail>
+export type createPostDetailDTO = Omit<PostDetail, "id">
+export type updatePostDetailDTO = Partial<PostDetail>
