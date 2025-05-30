@@ -20,4 +20,5 @@ export interface Post {
   user?: User;
   postDetail?: PostDetail | null;
   savedPosts?: SavedPost[];
+  isSaved?: boolean;
 }

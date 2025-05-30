@@ -160,6 +160,7 @@ export type UpdateSavedDTO = Partial<SavedPostDTO>;
 export type FullPost = Post & {
   postDetail?: PostDetail;
   user?: UserType;
+   isSaved:boolean;
 };
 
 // ===============================

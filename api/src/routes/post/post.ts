@@ -10,8 +10,9 @@ const getPost: Router = Router();
 getPost.get("/:id",  async (req: Request, res: Response) => {
 
   const id=req.params.id
+  const token=req.cookies.token;
   try {
-    const user = await getOnePost(id)
+    const user = await getOnePost(id, token)
     res.status(200).json(user);
   } catch (error) {
     console.error("Error:", error);

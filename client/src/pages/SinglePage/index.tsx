@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useOptimistic, useState } from 'react'
 import styles from "./singlePage.module.scss"
 import Slider from 'components/share/Slider'
 import { listData } from 'lib/dummyData'
@@ -21,6 +21,7 @@ import useUser from 'hooks/globalState/userLoggedState'
 import { useLoaderData } from 'react-router-dom'
 import { FullPost, Post } from 'types/types'
 import { formatDistances, formatPrice } from 'lib/format'
+import { useSavePost } from 'hooks/user/useSavePost'
 //images end
 
 
@@ -29,7 +30,12 @@ import { formatDistances, formatPrice } from 'lib/format'
 
 function SinglePage() {
 
-  const post = useLoaderData() as FullPost
+    const post = useLoaderData() as FullPost
+
+  const {save, success, isLoading, error}= useSavePost()
+
+
+  console.log("Post for SinglePage",post)
 
   const {
     images,
@@ -39,9 +45,28 @@ function SinglePage() {
     postDetail,
     bathroom,
     bedroom,
-    user
+    user,
+    id,
+    isSaved
   } = post;
 
+const [saved, setSaved] = useState(isSaved);
+
+const[optimisticSaved, toggleOptimisticSaved] = useOptimistic(
+  saved,
+  (state: boolean, newValue: boolean)=> newValue
+)
+
+const handleSave = async ()=>{
+
+  const newValue = !optimisticSaved;
+
+  toggleOptimisticSaved(newValue);
+
+ const newPostSaved = await save(id)
+
+ console.log("New Post Saved",newPostSaved)
+}
 
 
 
@@ -155,7 +180,7 @@ function SinglePage() {
               <img src={chatIcon} alt='chat' />
               Send a Message
             </button>
-            <button className={styles.button}>
+            <button onClick={handleSave} className={styles.button}>
               <img src={saveIcon} alt='save' />
               Save the Place
             </button>

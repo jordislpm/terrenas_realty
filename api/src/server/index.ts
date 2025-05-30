@@ -5,7 +5,7 @@ import cors from "cors";
 import apiRoutes from "../routes";
 // importa otras dependencias según sea necesario
 
-const PORT = 8000;
+const PORT = process.env.API_PORT || 8000;
 const server = express();
 
 // Middleware para registrar las solicitudes entrantes

@@ -3,9 +3,9 @@ import { Chat, Post, SavedPost } from "@prisma/client";
 
 export interface User {
   id?: string;
-  email: string;
+  email?: string;
   username: string;
-  password: string;
+  password?: string;
   avatar?: string | null;
   createdAt?: Date;
   posts?: Post[];

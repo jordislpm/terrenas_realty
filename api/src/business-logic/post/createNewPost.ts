@@ -1,5 +1,4 @@
 import prisma from "src/lib/prisma";
-import argon2 from "argon2";
 
 import { createPostDTO, Post} from "src/entities";
 
