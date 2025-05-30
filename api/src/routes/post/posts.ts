@@ -8,8 +8,9 @@ const getPosts: Router = Router();
 getPosts.get("/", async (req: Request, res: Response) => {
 
   const query = req.query as GetPostsQuery;
+  const token=req.cookies.token;
   try {
-    const posts = await getAllPosts(query);
+    const posts = await getAllPosts(query, token);
     res.status(200).json(posts);
   } catch (error) {
     console.error("Error:", error);

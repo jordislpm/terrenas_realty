@@ -8,7 +8,9 @@ interface ListContentProps {
 }
 
 function ListContent({ posts }: { posts: Promise<FullPost[]> }) {
-  const data = React.use(posts);
+  const data: FullPost[] = React.use(posts);
+
+console.log(data)
 
   return data.length === 0 ? (
     <EmptyStateMessage />

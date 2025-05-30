@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import './styles/App.scss';
 import {
   createBrowserRouter,
@@ -12,65 +12,75 @@ import {
 
 import Home from './pages/Home';
 import ListPage from './pages/listPage';
-import SinglePage from './pages/SinglePage';
+//import SinglePage from './pages/SinglePage';
 import ProfilePage from 'pages/ProfilePage';
 import Login from 'pages/Login';
 import Register from 'pages/Register';
 import HomeImageSection from 'components/share/HomeImageSection';
-import { Layout, RequireAuth  } from 'components/layout';
+import { Layout, RequireAuth } from 'components/layout';
 import ProfileUpdatePage from 'pages/ProfileUpdatePage';
 import NewPostPage from 'pages/NewPostPage';
 import ErrorPage from 'components/share/ErrorPage';
 import { postLoader } from 'loaders/postLoader';
 import { listLoader } from 'loaders/listLoader';
+import { profilePageLoader } from 'loaders/profilePageLoader';
+import Loading from 'components/share/Loading';
 
 const App = () => {
+
+  const SinglePage = lazy(() => import('./pages/SinglePage'));
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Layout />,
-      children:[
+      children: [
         {
-          path:"/",
-          element:<Home/>
+          path: "/",
+          element: <Home />
         },
         {
-          path:"/list",
-          element:<ListPage/>,
+          path: "/list",
+          element: <ListPage />,
           loader: listLoader,
-            errorElement: <ErrorPage/>
+          errorElement: <ErrorPage />
         },
         {
-          path:"/post/:id",
-          element:<SinglePage/>,
+          path: "/post/:id",
+          element: (
+            <Suspense fallback={<Loading/>}>
+              <SinglePage />
+            </Suspense>
+          ),
           loader: postLoader,
-           errorElement: <ErrorPage/>
+          errorElement: <ErrorPage />
         },
         {
-          path:"/login",
-          element:<Login/>
+          path: "/login",
+          element: <Login />
         },
         {
-          path:"/register",
-          element:<Register/>
+          path: "/register",
+          element: <Register />
         }
       ]
     },
     {
       path: "/",
       element: <RequireAuth />,
-      children:[
+      children: [
         {
-          path:"/profile",
-          element:<ProfilePage/>
+          path: "/profile",
+          element: <ProfilePage />,
+          loader: profilePageLoader,
+          errorElement: <ErrorPage />
         },
         {
-          path:"/profile/update",
-          element:<ProfileUpdatePage/>
+          path: "/profile/update",
+          element: <ProfileUpdatePage />
         },
         {
-          path:"/add",
-          element:<NewPostPage/>
+          path: "/add",
+          element: <NewPostPage />
         },
       ]
     }

@@ -1,5 +1,5 @@
 import React, { useEffect, useOptimistic, useState, useTransition } from 'react'
-import styles from "./card.module.scss"
+import styles from "./cardPostSaved.module.scss"
 import { Link } from 'react-router-dom'
 import pin from "../../../assets/icons/pin.png"
 import bed from "../../../assets/icons/bed.png"
@@ -14,47 +14,43 @@ interface CardProps {
     property: PropertyType
 }
 
-function Card(post: FullPost) {
+function CardPostSaved(post:Post) {
 
     const {save, success, isLoading, error}= useSavePost()
 
     const {
-      images,
-      title,
-      address,
-      price,
-      postDetail,
-      bathroom,
-      bedroom,
-      user,
-      id,
-      isSaved
+        id,
+        images,
+        title,
+        address,
+        price,
+        bedroom,
+        bathroom,
     } = post;
-  
-  const [saved, setSaved] = useState(isSaved);
-  
-  const[optimisticSaved, toggleOptimisticSaved] = useOptimistic(
-    saved,
-    (state: boolean, newValue: boolean)=> newValue
-  )
-   const [isPending, startTransition] = useTransition();
-  
-  const handleSave = async () => {
-    const newValue = !optimisticSaved;
-    toggleOptimisticSaved(newValue);
-  
-    startTransition(async () => {
-      try {
-        const newSavedStatus = await save(id);
-        
-        setSaved(newSavedStatus); 
-      } catch (err) {
-        toggleOptimisticSaved(saved);
-      }
-    });
-  };
 
-  console.log(title, isSaved)
+    // const [saved, setSaved] = useState(false);
+    // const[optimisticSaved, toggleOptimisticSaved] = useOptimistic(
+    //   saved,
+    //   (state: boolean, newValue: boolean)=> newValue
+    // )
+
+
+    //  const [isPending, startTransition] = useTransition();
+    
+    // const handleSave = async () => {
+    //   const newValue = !optimisticSaved;
+    //   toggleOptimisticSaved(newValue);
+    
+    //   startTransition(async () => {
+    //     try {
+    //       const newSavedStatus = await save(id);
+          
+    //       setSaved(newSavedStatus); 
+    //     } catch (err) {
+    //       toggleOptimisticSaved(saved);
+    //     }
+    //   });
+    // };
 
     return (
         <div className={styles.card}>
@@ -82,8 +78,7 @@ function Card(post: FullPost) {
                         </div>
                     </div>
                     <div className={styles.icons}>
-                        <div onClick={handleSave} className={`${styles.icon} ${saved ? styles.saved : ""}`} 
-                        >
+                        <div className={styles.icon}>
                             <img src={saveImg}/>
                         </div>
                         <div className={styles.icon}>
@@ -96,4 +91,4 @@ function Card(post: FullPost) {
     )
 }
 
-export default Card
+export default CardPostSaved

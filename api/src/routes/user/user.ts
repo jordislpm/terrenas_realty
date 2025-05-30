@@ -8,7 +8,7 @@ import { verifyToken } from "src/middleware/verifyToken";
 
 const getUser: Router = Router();
 
-getUser.get("/:id",verifyToken,  async (req: Request, res: Response) => {
+getUser.get("/search/:id",verifyToken,  async (req: Request, res: Response) => {
 
   const id=req.params.id
   try {

@@ -30,7 +30,7 @@ export const saveOnePost = async (
       await prisma.savedPost.create({
         data: {
           userId: tokenUserId,
-          postId,
+          postId: postId,
         },
       });
 

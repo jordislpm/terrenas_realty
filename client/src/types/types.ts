@@ -163,6 +163,11 @@ export type FullPost = Post & {
    isSaved:boolean;
 };
 
+export type AllProfilePosts = {
+        userPosts: FullPost[],
+        savedPosts: Post[]
+    }
+
 // ===============================
 // Map + Marker Listing Context
 // ===============================

@@ -1,13 +1,16 @@
+import jwt, { JwtPayload } from "jsonwebtoken";
 import prisma from "src/lib/prisma";
-import {GetPostsQuery, Post} from "src/entities";
+import { GetPostsQuery, Post } from "src/entities";
 
 
-export const getAllPosts = async (query: GetPostsQuery): Promise<Post[]> => {
+export const getAllPosts = async (query: GetPostsQuery, token: string): Promise<Post[]> => {
   console.log(query)
+  const jwtSecret = process.env.JWT_SECRET_KEY || "";
 
+  console.log("token", token)
   try {
-    return await prisma.post.findMany({
-  where: {
+    const postsFilters = await prisma.post.findMany({
+      where: {
         city: query.city || undefined,
         type: query.type || undefined,
         property: query.property || undefined,
@@ -18,6 +21,51 @@ export const getAllPosts = async (query: GetPostsQuery): Promise<Post[]> => {
         },
       },
     });
+
+
+    let userId: string | null = null;
+
+    if (token) {
+      try {
+        const payload = jwt.verify(token, jwtSecret) as JwtPayload;
+
+        if (payload && typeof payload !== "string" && payload.id) {
+          userId = payload.id;
+        }
+      } catch (err) {
+        console.warn("Invalid token:", err);
+        userId = null;
+      }
+    }
+
+    if (userId) {
+      const allSaved = await prisma.savedPost.findMany({
+        where: { userId: userId },
+        include: {
+          post: true
+        }
+      })
+
+
+     const postFilterWithSaved = postsFilters.map((post)=>{
+
+        const isSaved = allSaved.some((saved)=> saved.post.id === post.id)
+        return {...post, isSaved: !!isSaved}
+
+       
+      })
+ return postFilterWithSaved
+   
+    } else{
+   console.log("postsFilters", postsFilters)
+
+    return postsFilters
+    }
+
+ 
+
+
+
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : "Unknown error");
   }
