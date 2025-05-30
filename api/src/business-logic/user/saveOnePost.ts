@@ -1,37 +1,43 @@
 import prisma from "src/lib/prisma";
 
-import { createPostDTO, Post, SavedPost } from "src/entities";
-
-export const saveOnePost = async (postId: string, tokenUserId: string): Promise<SavedPost> => {
-
-  console.log("saveOnePost", postId, tokenUserId)
+export const saveOnePost = async (
+  postId: string,
+  tokenUserId: string
+): Promise<{ message: string }> => {
   try {
+    console.log("🔍 Buscando si ya está guardado:", { postId, tokenUserId });
+
     const isSavePost = await prisma.savedPost.findUnique({
       where: {
         userId_postId: {
           userId: tokenUserId,
-          postId
-        }
-      }
+          postId,
+        },
+      },
     });
 
     if (isSavePost) {
-      const savePostDelete = await prisma.savedPost.delete({
-        where: {
-          id: isSavePost.id
-        }
-      })
-      return savePostDelete
+      console.log("🗑️ Eliminando post guardado:", isSavePost.id);
+
+      await prisma.savedPost.delete({
+        where: { id: isSavePost.id },
+      });
+
+      return { message: "Post deleted" };
     } else {
-      const savePostNew = await prisma.savedPost.create({
+      console.log("💾 Guardando nuevo post");
+
+      await prisma.savedPost.create({
         data: {
           userId: tokenUserId,
-          postId
-        }
-      })
-      return savePostNew
+          postId,
+        },
+      });
+
+      return { message: "Post saved" };
     }
   } catch (error) {
+    console.error("❌ Error en saveOnePost:", error);
     throw new Error(error instanceof Error ? error.message : "Unknown error");
   }
 };

@@ -18,8 +18,6 @@ savePost.post("/save/:id", verifyToken, async (req: Request, res: Response) => {
             res.status(403).json({ Message: "id is not valid!" });
         } else {
             const post = await saveOnePost(postId, tokenUserId)
-
-            console.log(post)
             res.status(200).json(post);
         }
     } catch (error) {

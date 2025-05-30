@@ -1,7 +1,6 @@
-import React, { useOptimistic, useState } from 'react'
+import React, { useOptimistic, useState, useTransition } from 'react'
 import styles from "./singlePage.module.scss"
 import Slider from 'components/share/Slider'
-import { listData } from 'lib/dummyData'
 import GoogleMapComponent from 'components/share/GoogleMap'
 
 // start images
@@ -17,9 +16,8 @@ import bath from "./../../assets/icons/bath.png"
 import school from "./../../assets/icons/school.png"
 import bus from "./../../assets/icons/bus.png"
 import restaurant from "./../../assets/icons/restaurant.png"
-import useUser from 'hooks/globalState/userLoggedState'
 import { useLoaderData } from 'react-router-dom'
-import { FullPost, Post } from 'types/types'
+import { FullPost} from 'types/types'
 import { formatDistances, formatPrice } from 'lib/format'
 import { useSavePost } from 'hooks/user/useSavePost'
 //images end
@@ -33,9 +31,6 @@ function SinglePage() {
     const post = useLoaderData() as FullPost
 
   const {save, success, isLoading, error}= useSavePost()
-
-
-  console.log("Post for SinglePage",post)
 
   const {
     images,
@@ -56,18 +51,22 @@ const[optimisticSaved, toggleOptimisticSaved] = useOptimistic(
   saved,
   (state: boolean, newValue: boolean)=> newValue
 )
+ const [isPending, startTransition] = useTransition();
 
-const handleSave = async ()=>{
-
+const handleSave = async () => {
   const newValue = !optimisticSaved;
-
   toggleOptimisticSaved(newValue);
 
- const newPostSaved = await save(id)
-
- console.log("New Post Saved",newPostSaved)
-}
-
+  startTransition(async () => {
+    try {
+      const newSavedStatus = await save(id);
+      
+      setSaved(newSavedStatus); 
+    } catch (err) {
+      toggleOptimisticSaved(saved);
+    }
+  });
+};
 
 
   return (
@@ -180,9 +179,10 @@ const handleSave = async ()=>{
               <img src={chatIcon} alt='chat' />
               Send a Message
             </button>
-            <button onClick={handleSave} className={styles.button}>
+            <button onClick={handleSave} className={styles.button}
+            style={{backgroundColor: saved ? "#fece51" :"white"}}>
               <img src={saveIcon} alt='save' />
-              Save the Place
+              {saved ? "Place Saved " : "Save the Place"}
             </button>
           </div>
         </div>
