@@ -8,7 +8,7 @@ export async function listLoader({ request }: LoaderFunctionArgs) {
   const posts = new Promise(async (resolve, reject) => {
     try {
      // await new Promise((r) => setTimeout(r, 2000)); // optional delay
-      const res = await fetch(`${API}/post?${query}`, {
+      const res = await fetch(`${API}/posts?${query}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

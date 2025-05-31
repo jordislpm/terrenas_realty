@@ -5,7 +5,7 @@ const API = process.env.REACT_APP_API_URL || "";
 
 
 export async function getOnePost(post:CreatePostDTO, userID: string) {
-    const res = await fetch(`${API}/post/${userID}`,{
+    const res = await fetch(`${API}/posts/${userID}`,{
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include"

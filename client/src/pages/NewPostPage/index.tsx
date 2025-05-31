@@ -17,7 +17,7 @@ function NewPostPage() {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const { user } = useUser()
   const form = useRef<HTMLFormElement>(null)
-  const { newPost, isLoading, error , success, postSaved} = useCreatePost()
+  const { newPost, isLoading, error, success, postSaved } = useCreatePost()
 
   const navigate = useNavigate();
 
@@ -32,10 +32,10 @@ function NewPostPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-     if (images.length < 4) {
-    alert("You must upload at least 4 images.");
-    return;
-  }
+    if (images.length < 4) {
+      alert("You must upload at least 4 images.");
+      return;
+    }
 
     const formData = new FormData(e.currentTarget);
     const inputs = Object.fromEntries(formData.entries()) as Record<string, string>;
@@ -44,7 +44,7 @@ function NewPostPage() {
       console.error("No user ID found. Cannot create post.");
       return;
     }
-     const postData = {
+    const postData = {
       title: inputs.title,
       price: parseInt(inputs.price),
       address: inputs.address,
@@ -102,10 +102,10 @@ function NewPostPage() {
   };
 
   useEffect(() => {
-  if (success && postSaved) {
-    navigate(`/post/${postSaved.id}`);
-  }
-}, [success, postSaved]);
+    if (success && postSaved) {
+      navigate(`/post/${postSaved.id}`);
+    }
+  }, [success, postSaved]);
 
   return (
     <div className={styles.newPostPage}>
@@ -217,9 +217,11 @@ function NewPostPage() {
         {images.length === 0 &&
           <h2>Please add images</h2>
         }
-        {images.map((image, index) => (
-          <img src={image} key={index} alt={`Uploaded ${index}`} />
-        ))}
+        <div className={styles.imageGrid}>
+          {images.map((image, index) => (
+            <img src={image} key={index} alt={`Uploaded ${index}`} />
+          ))}
+        </div>
         <UploadWidget
           uwConfig={dynamicUwConfig}
           setState={setImages}

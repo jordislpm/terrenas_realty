@@ -165,7 +165,7 @@ export type FullPost = Post & {
 
 export type AllProfilePosts = {
         userPosts: FullPost[],
-        savedPosts: Post[]
+        savedPosts: FullPost[]
     }
 
 // ===============================

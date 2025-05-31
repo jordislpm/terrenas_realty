@@ -14,9 +14,6 @@ interface ListProfileProps {
 function ListProfile({ allProfilePosts, list }: ListProfileProps) {
   const data: AllProfilePosts = React.use(allProfilePosts);
 
-  console.log(data)
-
-
 
   if (list === "saved") {
     return <>
@@ -29,7 +26,7 @@ function ListProfile({ allProfilePosts, list }: ListProfileProps) {
           :
           <>
             {data.savedPosts.map((post) => (
-              <CardPostSaved {...post} key={post.id} />
+              <Card {...post} key={post.id} />
             ))}
           </>
       }

@@ -5,7 +5,7 @@ const API = process.env.REACT_APP_API_URL || "";
 
 
 export async function updateUser(user:UpdateUserDTO, id: string) {
-    const res = await fetch(`${API}/user/${id}`,{
+    const res = await fetch(`${API}/users/${id}`,{
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(user),

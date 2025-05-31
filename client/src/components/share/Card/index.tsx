@@ -9,12 +9,15 @@ import chat from "../../../assets/icons/chat.png"
 import { FullPost, Post, PropertyType } from 'types/types'
 import { formatPrice } from 'lib/format'
 import { useSavePost } from 'hooks/user/useSavePost'
+import useUser from 'hooks/globalState/userLoggedState'
 
 interface CardProps {
     property: PropertyType
 }
 
 function Card(post: FullPost) {
+
+    const {user}=useUser()
 
     const {save, success, isLoading, error}= useSavePost()
 
@@ -26,9 +29,9 @@ function Card(post: FullPost) {
       postDetail,
       bathroom,
       bedroom,
-      user,
       id,
-      isSaved
+      isSaved,
+      userId
     } = post;
   
   const [saved, setSaved] = useState(isSaved);
@@ -40,6 +43,11 @@ function Card(post: FullPost) {
    const [isPending, startTransition] = useTransition();
   
   const handleSave = async () => {
+
+    if(user?.id === userId){
+        alert("you can't save your own posts")
+ 
+    } else {
     const newValue = !optimisticSaved;
     toggleOptimisticSaved(newValue);
   
@@ -52,10 +60,7 @@ function Card(post: FullPost) {
         toggleOptimisticSaved(saved);
       }
     });
-  };
-
-  console.log(title, isSaved)
-
+  }};
     return (
         <div className={styles.card}>
             <Link to={`/post/${id}`} className={styles.imageContainer}>

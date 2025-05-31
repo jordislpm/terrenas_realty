@@ -18,20 +18,26 @@ export const profilePosts = async (id: string | undefined): Promise<
             where: { userId: id },
         });
 
-
-        console.log("userPosts",userPosts)
-
         const saved = await prisma.savedPost.findMany({
             where: { userId: id },
             include: {
                 post: true
             }
         })
+// change this part
+        const savedPosts = saved.map(item => {return {...item.post, isSaved: true}});
 
-            console.log("saved",saved)
+        console.log("saved",saved)
 
-        const savedPosts = saved.map(item => item.post)
-        return {savedPosts: savedPosts, userPosts: userPosts};
+        const userPostWithIsSaved = userPosts.map((post) => {
+
+        const isSaved = savedPosts.some((saved) => saved.id === post.id)
+        return { ...post, isSaved: !!isSaved }
+      })
+
+
+
+        return {savedPosts: savedPosts, userPosts: userPostWithIsSaved};
     } catch (error) {
         throw new Error(error instanceof Error ? error.message : "Unknown error");
     }

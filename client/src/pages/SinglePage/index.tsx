@@ -17,9 +17,10 @@ import school from "./../../assets/icons/school.png"
 import bus from "./../../assets/icons/bus.png"
 import restaurant from "./../../assets/icons/restaurant.png"
 import { useLoaderData } from 'react-router-dom'
-import { FullPost} from 'types/types'
+import { FullPost } from 'types/types'
 import { formatDistances, formatPrice } from 'lib/format'
 import { useSavePost } from 'hooks/user/useSavePost'
+import useUser from 'hooks/globalState/userLoggedState'
 //images end
 
 
@@ -28,9 +29,10 @@ import { useSavePost } from 'hooks/user/useSavePost'
 
 function SinglePage() {
 
-    const post = useLoaderData() as FullPost
+  const post = useLoaderData() as FullPost
 
-  const {save, success, isLoading, error}= useSavePost()
+  const { save, success, isLoading, error } = useSavePost()
+  const { user } = useUser()
 
   const {
     images,
@@ -40,33 +42,40 @@ function SinglePage() {
     postDetail,
     bathroom,
     bedroom,
-    user,
     id,
-    isSaved
+    isSaved,
+    userId
   } = post;
 
-const [saved, setSaved] = useState(isSaved);
+  const [saved, setSaved] = useState(isSaved);
 
-const[optimisticSaved, toggleOptimisticSaved] = useOptimistic(
-  saved,
-  (state: boolean, newValue: boolean)=> newValue
-)
- const [isPending, startTransition] = useTransition();
+  const [optimisticSaved, toggleOptimisticSaved] = useOptimistic(
+    saved,
+    (state: boolean, newValue: boolean) => newValue
+  )
+  const [isPending, startTransition] = useTransition();
 
-const handleSave = async () => {
-  const newValue = !optimisticSaved;
-  toggleOptimisticSaved(newValue);
+  const handleSave = async () => {
+    if (user?.id === userId) {
+      alert("you can't save your own posts")
 
-  startTransition(async () => {
-    try {
-      const newSavedStatus = await save(id);
-      
-      setSaved(newSavedStatus); 
-    } catch (err) {
-      toggleOptimisticSaved(saved);
+    } else {
+
+
+      const newValue = !optimisticSaved;
+      toggleOptimisticSaved(newValue);
+
+      startTransition(async () => {
+        try {
+          const newSavedStatus = await save(id);
+
+          setSaved(newSavedStatus);
+        } catch (err) {
+          toggleOptimisticSaved(saved);
+        }
+      });
     }
-  });
-};
+  };
 
 
   return (
@@ -85,8 +94,8 @@ const handleSave = async () => {
                 <div className={styles.price}>{formatPrice(price)}</div>
               </div>
               <div className={styles.user}>
-                <img src={user?.avatar} alt="avatar" />
-                <span>{user?.username}</span>
+                <img src={post.user?.avatar} alt="avatar" />
+                <span>{post.user?.username}</span>
               </div>
             </div>
             <div className={styles.bottom}>
@@ -180,7 +189,7 @@ const handleSave = async () => {
               Send a Message
             </button>
             <button onClick={handleSave} className={styles.button}
-            style={{backgroundColor: saved ? "#fece51" :"white"}}>
+              style={{ backgroundColor: saved ? "#fece51" : "white" }}>
               <img src={saveIcon} alt='save' />
               {saved ? "Place Saved " : "Save the Place"}
             </button>

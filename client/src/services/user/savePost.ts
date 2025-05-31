@@ -4,7 +4,7 @@ const API = process.env.REACT_APP_API_URL || "";
 
 
 export async function savePost(userID: string, postId: string): Promise<{message: string}> {
-    const res = await fetch(`${API}/user/save/${userID}`,{
+    const res = await fetch(`${API}/users/save/${userID}`,{
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({postId:postId}),

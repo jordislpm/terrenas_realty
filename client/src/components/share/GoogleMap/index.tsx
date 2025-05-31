@@ -30,7 +30,7 @@ function GoogleMapComponent({ mapaDataPromise, singleMapaData }: MapProps) {
   const [mapState, setMapState] = useState(
     {
       center: { lat: 19.312346, lng: -69.542513 },
-      zoom: 13
+      zoom: 12
     }
   )
 
@@ -81,11 +81,10 @@ function GoogleMapComponent({ mapaDataPromise, singleMapaData }: MapProps) {
       onUnmount={onUnmount}
       options={{ mapTypeControl: false }}
     >
-      <React.Suspense>
+      
       {mapaData?.map((marker) => (
         <MapMarker key={`marker-${marker.id}`} property={marker} />
       ))}
-      </React.Suspense>
 
       {singleMapaData && <MapMarkerSingle key={`marker-${singleMapaData.id}`} property={singleMapaData} />}
 

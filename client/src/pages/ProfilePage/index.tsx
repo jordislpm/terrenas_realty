@@ -21,8 +21,6 @@ function ProfilePage() {
 
   const { allProfilePosts } = useLoaderData() as { allProfilePosts: Promise<AllProfilePosts> };
 
-  console.log("allProfilePosts", allProfilePosts)
-
   return (
 
     <div className={styles.profilePage}>

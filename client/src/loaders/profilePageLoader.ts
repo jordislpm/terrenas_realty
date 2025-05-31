@@ -8,7 +8,7 @@ export async function profilePageLoader() {
   const allProfilePosts = new Promise(async (resolve, reject) => {
     try {
      // await new Promise((r) => setTimeout(r, 2000)); // optional delay
-      const res = await fetch(`${API}/user/profilePosts`, {
+      const res = await fetch(`${API}/users/profilePosts`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

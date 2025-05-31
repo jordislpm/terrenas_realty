@@ -7,7 +7,7 @@ export async function postLoader({ params }: LoaderFunctionArgs) {
 
     const API = process.env.REACT_APP_API_URL || "";
 
-    const res = await fetch(`${API}/post/${postID}`, {
+    const res = await fetch(`${API}/posts/${postID}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
