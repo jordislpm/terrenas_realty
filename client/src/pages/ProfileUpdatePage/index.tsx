@@ -46,11 +46,11 @@ function ProfileUpdatePage() {
           <h1>Update Profile</h1>
           <div className={styles.item}>
             <label htmlFor="username">Username</label>
-            <input id="username" name="username" type="text" />
+            <input id="username" name="username" type="text" placeholder={user?.username}/>
           </div>
           <div className={styles.item}>
             <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" />
+            <input id="email" name="email" type="email" placeholder={user?.email}/>
           </div>
           <div className={styles.item}>
             <label htmlFor="password">Password</label>
