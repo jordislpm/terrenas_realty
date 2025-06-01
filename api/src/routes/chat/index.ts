@@ -1,10 +1,13 @@
 import { Router } from "express";
-import routerAdmin from "../test/admin";
+import addChat from "./addChat";
+import getChat from "./getChat";
+import getChats from "./getChats";
+import readChat from "./readChat";
 
 
 
 const chatRoutes: Router = Router();
-chatRoutes.use(routerAdmin);
+chatRoutes.use(addChat, getChat, getChats, readChat);
 
 
 export default chatRoutes;

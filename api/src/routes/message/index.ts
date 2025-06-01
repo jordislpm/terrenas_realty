@@ -1,10 +1,10 @@
 import { Router } from "express";
-import routerAdmin from "../test/admin";
+import addMessage from "./addMessage";
 
 
 
 const messageRoutes: Router = Router();
-messageRoutes.use(routerAdmin);
+messageRoutes.use(addMessage);
 
 
 export default messageRoutes;

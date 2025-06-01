@@ -10,3 +10,8 @@ export interface Chat {
   messages?: Message[];
   lastMessage?: string | null;
 }
+
+
+export interface AddChat {
+  receiverId: string;
+}
