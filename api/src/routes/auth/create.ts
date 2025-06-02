@@ -8,7 +8,7 @@ routerCreate.post("/register", async (req: Request, res: Response) => {
   const { body } = req;
   const user = body as createUserDTO;
   try {
-    const newUser = await registerNewUser(user);
+    const newUser = await registerNewUser({data:user});
     res.status(201).json({ message: "user Created sucessfuly"});
   } catch (error) {
     console.error("Error:", error);

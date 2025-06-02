@@ -3,49 +3,34 @@ import prisma from "src/lib/prisma";
 import { Chat, GetPostsQuery, Post } from "src/entities";
 
 
-type GetOneChatParams = {
+type ReadOneChatParams = {
 tokenUserId: string;
 chatId: string
 };
 
 
-export const getOnechat = async ({tokenUserId,chatId}:GetOneChatParams): Promise<Chat> => {
+export const readOnechat = async ({tokenUserId, chatId}: ReadOneChatParams): Promise<Chat> => {
 
     const jwtSecret = process.env.JWT_SECRET_KEY || "";
 
     try {
-        const chat = await prisma.chat.findUnique({
-            where: {
+        const chat = await prisma.chat.update({
+             where: {
                 id: chatId,
                 userIDs: {
                     hasSome: [tokenUserId]
                 }
             },
-            include: {
-                messages: {
-                    orderBy: {
-                        createdAt: "asc"
-                    }
-                }
-            }
-        });
-
-          if (!chat) {
-            throw new Error("chat not found");
-        }
-
-        await prisma.chat.update({
-            where: {
-                id: chatId
-            },
-            data: {
-                seenBy: {
-                    push: [tokenUserId]
+            data:{
+                seenBy:{
+                    push:[tokenUserId]
                 }
             }
         })
 
-      
+        if (!chat) {
+            throw new Error("chat not found");
+        }
 
         return chat;
 

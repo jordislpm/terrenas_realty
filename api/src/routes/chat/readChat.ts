@@ -1,35 +1,32 @@
 import { Request, Response, Router } from "express";
 import { verifyToken } from "src/middleware/verifyToken";
-import { createNewPost, updateOnePost} from 'src/business-logic';
+import { readOnechat } from 'src/business-logic';
 import { createPostDTO } from "src/entities";
+
 
 const readChat: Router = Router();
 
-readChat.post("/:id",verifyToken,  async (req: Request, res: Response) => {
+readChat.put("/:id", verifyToken, async (req: Request, res: Response) => {
 
-  const id=req.params.id;
-  const tokenUserId = req.userId;
-  const body: createPostDTO = req.body;
+    const chatId = req.params.id;
+    const tokenUserId = req.userId;
+    if (!tokenUserId) {
+        res.status(403).json({ Message: "Not Authorized" });
+    }
 
-  console.log(id, tokenUserId)
+    try {
 
-  if (id !== tokenUserId){
-   res.status(403).json({Message: "Not Authorized"});
-  }
+        if (!tokenUserId || !chatId) {
+            res.status(403).json({ Message: "chat id is missing" });
+        } else {
+            const chat = await readOnechat({tokenUserId: tokenUserId, chatId: tokenUserId})
+            res.status(200).json(chat);
+        }
 
-  try {
-
-    if (!id){
-       res.status(403).json({Message: "id is not valid!"});
-    } else {
-    const post = await createNewPost(id, body)
-
-    res.status(200).json(post);    }
-
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: `Failed to create post: ${error}` });
-  }
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ error: `Failed to read chat: ${error}` });
+    }
 });
 
 export default readChat;

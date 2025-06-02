@@ -3,8 +3,13 @@ import prisma from "src/lib/prisma";
 import {Post,} from "src/entities";
 
 
+type DeleteOnePostParams = {
+   postId: string;
+   tokenUserId: string;
+};
 
-export const deleteOnePost = async (postId: string, tokenUserId: string): Promise<Post> => {
+
+export const deleteOnePost = async ({postId, tokenUserId}:DeleteOnePostParams): Promise<Post> => {
 
 
  try {

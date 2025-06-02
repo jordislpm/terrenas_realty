@@ -22,7 +22,7 @@ createPost.post("/:id",verifyToken,  async (req: Request, res: Response) => {
     if (!id){
        res.status(403).json({Message: "id is not valid!"});
     } else {
-    const post = await createNewPost(id, body)
+    const post = await createNewPost({id: id, post: body})
 
     res.status(200).json(post);    }
 

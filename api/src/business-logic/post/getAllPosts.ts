@@ -3,7 +3,12 @@ import prisma from "src/lib/prisma";
 import { GetPostsQuery, Post } from "src/entities";
 
 
-export const getAllPosts = async (query: GetPostsQuery, token: string): Promise<Post[]> => {
+type GetAllPostsParams = {
+ query: GetPostsQuery; 
+ token: string
+};
+
+export const getAllPosts = async ({query,token}: GetAllPostsParams): Promise<Post[]> => {
   console.log(query)
   const jwtSecret = process.env.JWT_SECRET_KEY || "";
 
@@ -21,8 +26,6 @@ export const getAllPosts = async (query: GetPostsQuery, token: string): Promise<
         },
       },
     });
-
-
     let userId: string | null = null;
 
     if (token) {
@@ -45,24 +48,19 @@ export const getAllPosts = async (query: GetPostsQuery, token: string): Promise<
           post: true
         }
       })
+      const postFilterWithSaved = postsFilters.map((post) => {
+        const isSaved = allSaved.some((saved) => saved.post.id === post.id)
+        return { ...post, isSaved: !!isSaved }
 
 
-     const postFilterWithSaved = postsFilters.map((post)=>{
-
-        const isSaved = allSaved.some((saved)=> saved.post.id === post.id)
-        return {...post, isSaved: !!isSaved}
-
-       
       })
- return postFilterWithSaved
-   
-    } else{
-   console.log("postsFilters", postsFilters)
+      return postFilterWithSaved
 
-    return postsFilters
+    } else {
+      return postsFilters
     }
 
- 
+
 
 
 

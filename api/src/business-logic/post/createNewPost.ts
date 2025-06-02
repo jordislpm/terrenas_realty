@@ -2,7 +2,14 @@ import prisma from "src/lib/prisma";
 
 import { createPostDTO, Post} from "src/entities";
 
-export const createNewPost = async (id: string, post:createPostDTO ): Promise<Post> => {
+
+type CreateNewPostParams = {
+   id: string;
+   post:createPostDTO
+};
+
+
+export const createNewPost = async ({id, post}:CreateNewPostParams ): Promise<Post> => {
   try {
     const newPost = await prisma.post.create({
        data: {

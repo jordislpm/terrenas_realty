@@ -4,7 +4,17 @@ import jwt from "jsonwebtoken";
 import prisma from "src/lib/prisma";
 import dotenv from 'dotenv';
 
-export const loginUser = async (data: loginUserDTO): Promise<{token: string, age: number, user:User}> => {
+type LoginUserParams = {
+data: loginUserDTO;
+};
+
+type LoginUserReturn ={
+ token: string, 
+ age: number, 
+ user:User 
+}
+
+export const loginUser = async ({data}:LoginUserParams): Promise<LoginUserReturn> => {
   const { username, password } = data;
   dotenv.config();
   const jwtSecret = process.env.JWT_SECRET_KEY;

@@ -26,7 +26,7 @@ updateUser.put("/:id",verifyToken,  async (req: Request, res: Response) => {
     if (!id){
        res.status(403).json({Message: "id is not valid!"});
     } else {
-    const user = await updateOneUser(id, body)
+    const user = await updateOneUser({id:id, user:body})
 
      const {password,...userInfo}= user;
     res.status(200).json(userInfo);    }

@@ -3,7 +3,13 @@ import argon2 from "argon2";
 
 import { updateUserDTO, User } from "src/entities";
 
-export const updateOneUser = async (id: string, user: updateUserDTO): Promise<User> => {
+
+type UpdateOneUserParams ={
+  id: string;
+  user: updateUserDTO
+}
+
+export const updateOneUser = async ({id, user}:UpdateOneUserParams): Promise<User> => {
   const { password, avatar, username, email } = user;
 
   let updatedPassword: string | null = null;

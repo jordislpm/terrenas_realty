@@ -10,7 +10,7 @@ routerLogin.post("/login", async (req: Request, res: Response) => {
   const { body } = req;
   const userToLogin = body as loginUserDTO;
   try {
-    const userValidated = await loginUser(userToLogin);
+    const userValidated = await loginUser({data: userToLogin});
     const {token, age, user} = userValidated
 
   const {password,...userInfo}= user;

@@ -2,7 +2,13 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import prisma from "src/lib/prisma";
 import { Post } from "src/entities";
 
-export const getOnePost = async (id: string | undefined, token?: string): Promise<Post> => {
+
+type GetOnePostParams = {
+id: string | undefined;
+token: string | undefined;
+};
+
+export const getOnePost = async ({id, token}:GetOnePostParams): Promise<Post> => {
   const jwtSecret = process.env.JWT_SECRET_KEY || "";
 
   if (!id) {

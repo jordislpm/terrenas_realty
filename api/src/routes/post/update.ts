@@ -26,11 +26,9 @@ updatePost.put("/:id",verifyToken,  async (req: Request, res: Response) => {
     } else {
 
       if (body.postData?.id){
-const post = await updateOnePost(body.postData?.id, body, tokenUserId)
+const post = await updateOnePost({id:body.postData?.id , post: body})
 
       }
-
-    
 
      }
 

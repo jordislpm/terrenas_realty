@@ -1,9 +1,13 @@
 import prisma from "src/lib/prisma";
 
-export const saveOnePost = async (
-  postId: string,
+
+
+type SaveOnePostParams = {
+    postId: string;
   tokenUserId: string
-): Promise<{ message: string }> => {
+}
+
+export const saveOnePost = async ({  postId,  tokenUserId}: SaveOnePostParams): Promise<{ message: string }> => {
   try {
     console.log("🔍 Buscando si ya está guardado:", { postId, tokenUserId });
 

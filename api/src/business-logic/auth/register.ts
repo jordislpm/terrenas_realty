@@ -3,12 +3,30 @@ import { createUserDTO, User } from "src/entities";
 
 import prisma from "src/lib/prisma";
 
-export const registerNewUser = async (data: createUserDTO): Promise<User> => {
+
+type RegisterNewUserParams = {
+data: createUserDTO;
+};
+
+
+
+export const registerNewUser = async ({data}: RegisterNewUserParams): Promise<User> => {
   const { username, email, password, avatar } = data;
 
   console.log(data)
 
   try {
+
+
+    if(!password){
+       throw new Error("password not found");
+    }
+
+     if(!email){
+       throw new Error("email not found");
+    }
+
+
     // Check if username or email already exists
     const existingUser = await prisma.user.findFirst({
       where: {

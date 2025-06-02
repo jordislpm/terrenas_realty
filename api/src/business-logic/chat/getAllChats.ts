@@ -3,11 +3,15 @@ import prisma from "src/lib/prisma";
 import { Chat, GetPostsQuery, Post } from "src/entities";
 
 
-export const getAllchats = async (tokenUserId: string): Promise<Chat[]> => {
+
+type getAllChatsParams = {
+tokenUserId: string
+};
+
+
+export const getAllchats = async ({tokenUserId}: getAllChatsParams): Promise<Chat[]> => {
 
     const jwtSecret = process.env.JWT_SECRET_KEY || "";
-
-
     try {
         const chats = await prisma.chat.findMany({
             where: {
