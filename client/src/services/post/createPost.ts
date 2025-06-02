@@ -6,7 +6,7 @@ const API = process.env.REACT_APP_API_URL || "";
 
 
 export async function createPost(post:CreatePostDTO, userID: string) {
-    const res = await fetch(`${API}/post/${userID}`,{
+    const res = await fetch(`${API}/posts/${userID}`,{
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(post),

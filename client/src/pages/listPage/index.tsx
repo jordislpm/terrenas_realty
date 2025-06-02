@@ -9,6 +9,7 @@ import { FullPost } from 'types/types'
 import EmptyStateMessage from 'components/share/EmptyStateMessage'
 import ListContent from 'components/share/ListContent'
 import LoadingGoogleMap from 'components/share/LoadingGoogleMap'
+import Loading from 'components/share/Loading'
 
 function ListPage() {
   const { posts } = useLoaderData() as { posts: Promise<FullPost[]> };
@@ -18,7 +19,7 @@ function ListPage() {
       <div className={styles.listContainer}>
         <div className={styles.wrapper}>
           <Filter />
-          <React.Suspense fallback={<div>Loading properties...</div>}>
+          <React.Suspense fallback={<Loading/>}>
             <ListContent posts={posts} />
           </React.Suspense>
         </div>
