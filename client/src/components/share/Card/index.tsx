@@ -17,52 +17,78 @@ interface CardProps {
 
 function Card(post: FullPost) {
 
-    const {user}=useUser()
+    const { user } = useUser()
 
-    const {save, success, isLoading, error}= useSavePost()
+    const { save, success, isLoading, error } = useSavePost()
 
     const {
-      images,
-      title,
-      address,
-      price,
-      postDetail,
-      bathroom,
-      bedroom,
-      id,
-      isSaved,
-      userId
+        images,
+        title,
+        address,
+        price,
+        postDetail,
+        bathroom,
+        bedroom,
+        id,
+        isSaved,
+        userId
     } = post;
-  
-  const [saved, setSaved] = useState(isSaved);
-  
-  const[optimisticSaved, toggleOptimisticSaved] = useOptimistic(
-    saved,
-    (state: boolean, newValue: boolean)=> newValue
-  )
-   const [isPending, startTransition] = useTransition();
-  
-  const handleSave = async () => {
 
-    if(user?.id === userId){
-        alert("you can't save your own posts")
- 
-    } else {
-    const newValue = !optimisticSaved;
-    toggleOptimisticSaved(newValue);
-  
-    startTransition(async () => {
-      try {
-        const newSavedStatus = await save(id);
-        
-        setSaved(newSavedStatus); 
-      } catch (err) {
-        toggleOptimisticSaved(saved);
-      }
-    });
-  }};
+    const [saved, setSaved] = useState(isSaved);
+
+    const [optimisticSaved, toggleOptimisticSaved] = useOptimistic(
+        saved,
+        (state: boolean, newValue: boolean) => newValue
+    )
+    const [isPending, startTransition] = useTransition();
+
+    const handleSave = async () => {
+
+        if (user?.id === userId) {
+            alert("you can't save your own posts")
+
+        } else {
+            const newValue = !optimisticSaved;
+            toggleOptimisticSaved(newValue);
+
+            startTransition(async () => {
+                try {
+                    const newSavedStatus = await save(id);
+
+                    setSaved(newSavedStatus);
+                } catch (err) {
+                    toggleOptimisticSaved(saved);
+                }
+            });
+        }
+    };
+
+
+        const handleMessage = async () => {
+
+        if (user?.id === userId) {
+            alert("you can't send a message to yourself")
+
+        } else {
+            // const newValue = !optimisticSaved;
+            // toggleOptimisticSaved(newValue);
+
+            // startTransition(async () => {
+            //     try {
+            //         const newSavedStatus = await save(id);
+
+            //         setSaved(newSavedStatus);
+            //     } catch (err) {
+            //         toggleOptimisticSaved(saved);
+            //     }
+            // });
+        }
+    };
     return (
         <div className={styles.card}>
+            {user?.id === userId && <div className={styles.myProperty}>
+                    <img src={user?.avatar} alt='myAvatar' />
+            </div>}
             <Link to={`/post/${id}`} className={styles.imageContainer}>
                 <img src={images[0]} alt='Property Image' />
             </Link>
@@ -87,12 +113,12 @@ function Card(post: FullPost) {
                         </div>
                     </div>
                     <div className={styles.icons}>
-                        <div onClick={handleSave} className={`${styles.icon} ${saved ? styles.saved : ""}`} 
+                        <div onClick={handleSave} className={`${styles.icon} ${saved ? styles.saved : ""}`}
                         >
-                            <img src={saveImg}/>
+                            <img src={saveImg} />
                         </div>
-                        <div className={styles.icon}>
-                            <img src={chat}/>
+                        <div className={styles.icon} onClick={handleMessage}>
+                            <img src={chat} />
                         </div>
                     </div>
                 </div>

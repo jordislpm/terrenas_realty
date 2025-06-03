@@ -77,6 +77,27 @@ function SinglePage() {
     }
   };
 
+  const handleMessage = async () => {
+
+    if (user?.id === userId) {
+      alert("you can't send a message to yourself")
+
+    } else {
+      // const newValue = !optimisticSaved;
+      // toggleOptimisticSaved(newValue);
+
+      // startTransition(async () => {
+      //     try {
+      //         const newSavedStatus = await save(id);
+
+      //         setSaved(newSavedStatus);
+      //     } catch (err) {
+      //         toggleOptimisticSaved(saved);
+      //     }
+      // });
+    }
+  };
+
 
   return (
     <div className={styles.singlePage}>
@@ -184,7 +205,7 @@ function SinglePage() {
             <GoogleMapComponent singleMapaData={post} />
           </div>
           <div className={styles.buttons}>
-            <button className={styles.button}>
+            <button className={styles.button} onClick={handleMessage}>
               <img src={chatIcon} alt='chat' />
               Send a Message
             </button>
