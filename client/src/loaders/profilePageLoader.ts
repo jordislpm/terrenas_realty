@@ -25,7 +25,28 @@ export async function profilePageLoader() {
     }
   });
 
+   const allProfileChats = new Promise(async (resolve, reject) => {
+    try {
+     // await new Promise((r) => setTimeout(r, 2000)); // optional delay
+      const res = await fetch(`${API}/chats/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+      if (!res.ok) {
+        reject(new Response("Failed to load chats", { status: res.status }));
+        return;
+      }
+
+      const data = await res.json();
+      resolve(data);
+    } catch (error) {
+      reject(error);
+    }
+  });
+
   return { 
-    allProfilePosts
+    allProfilePosts,
+    allProfileChats
 }; // ✅ MUST RETURN AN OBJECT
 }

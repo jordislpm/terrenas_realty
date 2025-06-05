@@ -9,6 +9,7 @@ export interface Chat {
   seenBy?: string[]; // users who saw the last message
   messages?: Message[];
   lastMessage?: string | null;
+  receiver?: User;
 }
 
 

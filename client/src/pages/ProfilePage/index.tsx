@@ -1,15 +1,15 @@
 import React from 'react'
 import styles from "./profilePage.module.scss"
-import Chat from 'components/share/Chat';
 import { useLogoutUser } from 'hooks/auth/useLogoutUser';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import useUser from 'hooks/globalState/userLoggedState';
 import noAvatar from "../../assets/icons/noAvatar.png"
 import { Link } from 'react-router-dom';
-import { AllProfilePosts, FullPost } from 'types/types';
+import { AllProfilePosts, Chat, FullPost } from 'types/types';
 import ListContent from 'components/share/ListContent';
 import Loading from 'components/share/Loading';
 import ListProfile from 'components/share/ListProfile';
+import ChatComponent from 'components/share/ChatComponent';
 
 function ProfilePage() {
 
@@ -20,6 +20,7 @@ function ProfilePage() {
   const navigate = useNavigate()
 
   const { allProfilePosts } = useLoaderData() as { allProfilePosts: Promise<AllProfilePosts> };
+  const { allProfileChats } = useLoaderData() as { allProfileChats: Promise<Chat[]> };
 
   return (
 
@@ -71,7 +72,9 @@ function ProfilePage() {
       </div>
       <div className={styles.chatContainer}>
         <div className={styles.wrapper}>
-          <Chat />
+          <React.Suspense fallback={<Loading />}>
+          <ChatComponent allProfileChats={allProfileChats}/>
+          </React.Suspense>
         </div>
       </div>
     </div>

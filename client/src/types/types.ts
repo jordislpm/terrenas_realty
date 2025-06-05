@@ -211,6 +211,7 @@ export type Chat = {
   seenBy?: string[];
   messages?: Message[];
   lastMessage?: string | null;
+  receiver?: UserType;
 };
 
 export type CreateChatDTO = Omit<Chat, "id" | "users" | "messages" | "lastMessage">;
