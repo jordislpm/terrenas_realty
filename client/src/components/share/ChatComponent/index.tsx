@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import styles from "./chatComponent.module.scss"
 import { Chat, Message, UserType } from 'types/types';
 import noAvatar from "../../../assets/icons/noAvatar.png"
@@ -19,6 +19,15 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
 
   const { sendMessage } = useSendNewMessage()
 
+  const ChatContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const container = ChatContainerRef.current;
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }, [chat?.messages?.length]);
+
   useEffect(() => {
     allProfileChats.then(setChats); // wait and store once
   }, [allProfileChats]);
@@ -28,22 +37,28 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
   };
 
   const handleSubmitMessage = async (e: FormEvent<HTMLFormElement>) => {
-   const form = e.currentTarget;
-  const formData = new FormData(form);
-  const text = formData.get("text") as string;
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    const text = formData.get("text") as string;
 
- if (chat) {
-    const newMessage = await sendMessage(text, chat.id);
-    if (newMessage) {
-      setChat({
-        ...chat,
-        messages: [...(chat.messages || []), newMessage],
-      });
+    if (chat) {
+      const newMessage = await sendMessage(text, chat.id);
 
-      // form.reset();
+      if (newMessage) {
+        setChat((prev) =>
+          prev
+            ? {
+              ...prev,
+              messages: [...(prev.messages || []), newMessage],
+            }
+            : prev
+        );
+
+        form.reset();
+      }
     }
-  }
-};
+  };
 
   if (!user) return null;
 
@@ -81,7 +96,7 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
             </span>
           </div>
 
-          <div className={styles.center}>
+          <div ref={ChatContainerRef} className={styles.center}>
             {chat.messages?.map((message) => (
               <div
                 className={`${styles.chatMessage} ${message.userId === user.id ? styles.own : ""}`}
@@ -98,7 +113,17 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
           </div>
 
           <form onSubmit={handleSubmitMessage} className={styles.bottom}>
-            <textarea name='text' required></textarea>
+            <textarea
+              name='text'
+              required
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault(); 
+                  const form = e.currentTarget.form;
+                  if (form) form.requestSubmit();
+                }
+              }}
+            ></textarea>
             <button type="submit">Send</button>
           </form>
         </div>

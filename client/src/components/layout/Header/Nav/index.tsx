@@ -11,7 +11,7 @@ function Nav() {
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const { user, setUser } = useUser();
-  const navigate =  useNavigate()
+  const navigate = useNavigate()
 
   const toggleModal = () => {
     setOpen(!open);
@@ -49,7 +49,10 @@ function Nav() {
           {
             user ? (
               <div className={styles.user}>
-                  <img onClick={()=>navigate("/profile")} src={user.avatar} alt="user-photo" />
+                <div className={styles.userImgContainer}>
+                  <img onClick={() => navigate("/profile")} src={user.avatar} alt="user-photo" />
+                  <div className={styles.notification}>3</div>
+                </div>
                 <span>{user.username}</span>
                 <Link to="/profile" className={styles.profile}>
                   <div className={styles.notification}>3</div>

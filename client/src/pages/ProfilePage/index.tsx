@@ -6,7 +6,6 @@ import useUser from 'hooks/globalState/userLoggedState';
 import noAvatar from "../../assets/icons/noAvatar.png"
 import { Link } from 'react-router-dom';
 import { AllProfilePosts, Chat, FullPost } from 'types/types';
-import ListContent from 'components/share/ListContent';
 import Loading from 'components/share/Loading';
 import ListProfile from 'components/share/ListProfile';
 import ChatComponent from 'components/share/ChatComponent';
@@ -56,24 +55,24 @@ function ProfilePage() {
             </Link>
           </div>
           <React.Suspense fallback={<Loading />}>
-            <ListProfile 
-            allProfilePosts={allProfilePosts} 
-            list="my list"/>
+            <ListProfile
+              allProfilePosts={allProfilePosts}
+              list="my list" />
           </React.Suspense>
           <div className={styles.title}>
             <h1>Saved List</h1>
           </div>
           <React.Suspense fallback={<Loading />}>
-            <ListProfile 
-            allProfilePosts={allProfilePosts} 
-            list="saved"/>
+            <ListProfile
+              allProfilePosts={allProfilePosts}
+              list="saved" />
           </React.Suspense>
         </div>
       </div>
       <div className={styles.chatContainer}>
         <div className={styles.wrapper}>
           <React.Suspense fallback={<Loading />}>
-          <ChatComponent allProfileChats={allProfileChats}/>
+            <ChatComponent allProfileChats={allProfileChats} />
           </React.Suspense>
         </div>
       </div>
