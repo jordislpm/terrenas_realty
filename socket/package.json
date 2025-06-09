@@ -3,7 +3,7 @@
 		"socket.io": "^4.8.1"
 	},
 	"scripts": {
-		"socket": "ts-node app.ts"
+		"socket": "ts-node-dev --respawn --transpile-only app.ts"
 	},
 	"devDependencies": {
 		"@types/node": "^22.15.30",

@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { MapStateProps, Post } from 'types/types';
 
-export const MapStore = create<MapStateProps>()(
+export const mapStore = create<MapStateProps>()(
   persist(
     (set) => ({
       isMarkerListingOpen: false,

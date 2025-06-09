@@ -1,12 +1,12 @@
-import { MapStore } from "global/map";
+import { mapStore } from "global/map";
 
-const useMapGlobalState = ()=>{
-const isMarkerListingOpen = MapStore((state)=> state.isMarkerListingOpen)
-const toggleIsMarkerListingOpen = MapStore((state)=> state.toggleIsMarkerListingOpen)
-const selectedMarketListing = MapStore((state)=> state.selectedMarketListing)
-const setSelectedMarketListing = MapStore((state)=> state.setSelectedMarketListing)
-const singleMarketListing = MapStore((state)=> state.singleMarketListing)
-const setSingleMarketListing = MapStore((state)=> state.setSingleMarketListing)
+const usemapGlobalState = ()=>{
+const isMarkerListingOpen = mapStore((state)=> state.isMarkerListingOpen)
+const toggleIsMarkerListingOpen = mapStore((state)=> state.toggleIsMarkerListingOpen)
+const selectedMarketListing = mapStore((state)=> state.selectedMarketListing)
+const setSelectedMarketListing = mapStore((state)=> state.setSelectedMarketListing)
+const singleMarketListing = mapStore((state)=> state.singleMarketListing)
+const setSingleMarketListing = mapStore((state)=> state.setSingleMarketListing)
 
 
     return{
@@ -20,4 +20,4 @@ setSingleMarketListing
 }
 
 
-export default useMapGlobalState;
+export default usemapGlobalState;

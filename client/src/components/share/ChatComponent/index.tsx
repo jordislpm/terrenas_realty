@@ -6,6 +6,7 @@ import useUser from 'hooks/globalState/userLoggedState';
 import { useGetOneChat } from 'hooks/chat/useGetOneChat';
 import { format } from 'timeago.js';
 import { useSendNewMessage } from 'hooks/chat/useSendNewMessage';
+import useSocketGlobal from 'hooks/globalState/useSocketGlobal';
 
 
 interface ChatComponentType {
@@ -18,8 +19,13 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
   const { user } = useUser();
 
   const { sendMessage } = useSendNewMessage()
+  const {socket, connect, disconnect}= useSocketGlobal()
 
   const ChatContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(()=>{
+  console.log(socket)
+  },[socket])
 
   useEffect(() => {
     const container = ChatContainerRef.current;
@@ -29,7 +35,8 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
   }, [chat?.messages?.length]);
 
   useEffect(() => {
-    allProfileChats.then(setChats); // wait and store once
+    allProfileChats.then(setChats);
+     // wait and store once
   }, [allProfileChats]);
 
   const handleOpenChat = async (id: string, receiver: UserType | undefined) => {

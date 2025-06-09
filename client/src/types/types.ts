@@ -1,3 +1,4 @@
+import { Socket } from "socket.io-client";
 
 
 
@@ -199,6 +200,17 @@ export type UserStateProps = {
   user: UserFromServerType | null;
   setUser: (user: UserFromServerType | null) => void;
 };
+
+// ===============================
+// Socket Global Context
+// ===============================
+
+
+export type SocketStoreProps = {
+  socket: Socket | null
+  connect: () => void
+  disconnect: () => void
+}
 
 // ===============================
 // Chat Types
