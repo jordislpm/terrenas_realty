@@ -47,7 +47,7 @@ const App = () => {
         {
           path: "/post/:id",
           element: (
-            <Suspense fallback={<Loading/>}>
+            <Suspense fallback={<Loading />}>
               <SinglePage />
             </Suspense>
           ),

@@ -7,8 +7,6 @@ import HomeImageSection from 'components/share/HomeImageSection'
 function Home() {
   return (
     <HomeImageSection>
-
-
       <h1 className={styles.title}>Find Real Estate & Get Your Dream Place</h1>
       <p className={styles.description}>
         Whether you're looking for a peaceful retirement spot, a remote work paradise,
