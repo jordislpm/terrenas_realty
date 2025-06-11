@@ -5,10 +5,12 @@ import menu from "../../../../assets/icons/menu.png";
 import { Link, useNavigate } from 'react-router-dom';
 import OverlayComponent from 'components/share/OverlayComponent';
 import useUser from 'hooks/globalState/userLoggedState';
+import useNotificationGlobalState from 'hooks/globalState/useNotificationGlobalState';
 
 function Nav() {
   const [open, setOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const {number}= useNotificationGlobalState()
 
   const { user, setUser } = useUser();
   const navigate = useNavigate()
@@ -51,11 +53,11 @@ function Nav() {
               <div className={styles.user}>
                 <div className={styles.userImgContainer}>
                   <img onClick={() => navigate("/profile")} src={user.avatar} alt="user-photo" />
-                  <div className={styles.notification}>3</div>
+                  {number > 0 && <div className={`${styles.notification} ${styles.bouncing}`}>{number}</div>}
                 </div>
                 <span>{user.username}</span>
                 <Link to="/profile" className={styles.profile}>
-                  <div className={styles.notification}>3</div>
+                 { number > 0 && <div className={`${styles.notification} ${styles.bouncing}`}>{number}</div>}
                   <span>Profile</span>
                 </Link>
               </div>

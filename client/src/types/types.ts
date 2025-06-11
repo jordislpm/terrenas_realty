@@ -213,6 +213,18 @@ export type SocketStoreProps = {
 }
 
 // ===============================
+// Notification Global Context
+// ===============================
+
+
+export type NotificationStoreProps ={
+number: number;
+fetchNotification: ()=> void;
+decrease: ()=> void;
+reset : ()=> void;
+}
+
+// ===============================
 // Chat Types
 // ===============================
 export type Chat = {

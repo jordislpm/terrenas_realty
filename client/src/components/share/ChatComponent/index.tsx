@@ -7,25 +7,82 @@ import { useGetOneChat } from 'hooks/chat/useGetOneChat';
 import { format } from 'timeago.js';
 import { useSendNewMessage } from 'hooks/chat/useSendNewMessage';
 import useSocketGlobal from 'hooks/globalState/useSocketGlobal';
+import useNotificationGlobalState from 'hooks/globalState/useNotificationGlobalState';
+import { useGetAllChats } from 'hooks/chat/useGetAllChats';
+import Loading from '../Loading';
 
 
 interface ChatComponentType {
   allProfileChats: Promise<Chat[]>
 }
 
-function ChatComponent({ allProfileChats }: ChatComponentType) {
-  const [chats, setChats] = useState<Chat[]>([]);
-  const { chat, getChatWithReceiver, isLoading, setChat } = useGetOneChat();
-  const { user } = useUser();
+const API = process.env.REACT_APP_API_URL || "";
 
-  const { sendMessage } = useSendNewMessage()
-  const {socket, connect, disconnect}= useSocketGlobal()
+function ChatComponent() {
+  const [chats, setChats] = useState<Chat[]>([]);
+  const { chat, getChatWithReceiver, isLoadingOneChat, setChat } = useGetOneChat();
+  const { user } = useUser();
+  const { decrease } = useNotificationGlobalState()
+  const {getChats, allChats,isLoadingAllChats, errorAllChats}=useGetAllChats()
+
+  const { sendMessage } = useSendNewMessage();
+  const { socket } = useSocketGlobal();
 
   const ChatContainerRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(()=>{
-  console.log(socket)
-  },[socket])
+
+  const read = async (id: string) => {
+    try {
+      const res = await fetch(`${API}/chats/read/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include"
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    if (!socket || !chat?.id) return;
+
+    const handleMessage = (data: Message) => {
+      // if (chat.id === data.id) {
+        setChat((prev) => {
+          const alreadyExists = prev?.messages?.some((m) => m.id === data.id);
+          if (alreadyExists) return prev;
+          return prev
+            ? {
+              ...prev,
+              messages: [...(prev.messages || []), data],
+            }
+            : prev;
+        });
+        read(chat?.id)
+        decrease()
+      // }
+    };
+    socket.on("getMessage", handleMessage);
+
+    return () => {
+      socket.off("getMessage", handleMessage);
+    };
+  }, [socket, chat?.id]);
+
+
+  ////
+
+useEffect(()=>{
+  getChats();
+},
+[])
+
+useEffect(()=>{
+  if(allChats)
+  setChats(allChats)
+},[allChats])
+
+  ///
 
   useEffect(() => {
     const container = ChatContainerRef.current;
@@ -33,11 +90,6 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
       container.scrollTop = container.scrollHeight;
     }
   }, [chat?.messages?.length]);
-
-  useEffect(() => {
-    allProfileChats.then(setChats);
-     // wait and store once
-  }, [allProfileChats]);
 
   const handleOpenChat = async (id: string, receiver: UserType | undefined) => {
     if (receiver) await getChatWithReceiver(id, receiver);
@@ -50,8 +102,7 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
     const text = formData.get("text") as string;
 
     if (chat) {
-      const newMessage = await sendMessage(text, chat.id);
-
+      const newMessage = await sendMessage(text, chat);
       if (newMessage) {
         setChat((prev) =>
           prev
@@ -61,24 +112,58 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
             }
             : prev
         );
-
         form.reset();
+        socket?.emit("sendMessage", {
+          receiverId: chat.receiver?.id,
+          data: newMessage
+        })
       }
     }
   };
 
-  if (!user) return null;
+const closeChat = (chatId: string, userId: string) => {
+  setChats((prev) =>
+    prev
+      ? prev.map((c) => {
+          if (c.id === chatId) {
+            let newSeenBy: string[] = c.seenBy ? [...c.seenBy] : [];
+
+
+              newSeenBy.push(userId);
+
+
+            return { ...c, seenBy: newSeenBy };
+          } else {
+            return c;
+          }
+        })
+      : prev
+  );
+  read(chatId)
+
+  setChat(null);
+};
+
+
+
+  if (!user) return <div>Please Log in Fisrt</div>;
 
   return (
     <div className={styles.chat}>
       <div className={styles.messages}>
         <h1>Messages</h1>
+
+
+        {isLoadingAllChats && <Loading/>}
+        {errorAllChats && <div> There was a problem loading chats, please try later</div>}
+
         {chats.map((c) => (
           <div
             key={c.id}
             className={styles.message}
             style={{
-              backgroundColor: c.seenBy?.includes(user.id) ? "white" : "#fecd514e",
+              backgroundColor: c.seenBy?.includes(user.id) || chat?.id === c.id ?
+                "white" : "#fecd514e",
             }}
             onClick={() => handleOpenChat(c.id, c.receiver)}
           >
@@ -88,9 +173,7 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
           </div>
         ))}
       </div>
-
-      {isLoading && <div> Loading Message...</div>}
-
+      {isLoadingOneChat && <div> Loading Message...</div>}
       {chat && (
         <div className={styles.chatBox}>
           <div className={styles.top}>
@@ -98,7 +181,7 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
               <img src={chat.receiver?.avatar || noAvatar} alt="receiver avatar" />
               {chat.receiver?.username}
             </div>
-            <span className={styles.close} onClick={() => setChat(null)}>
+            <span className={styles.close} onClick={() => closeChat(chat.id, user.id)}>
               X
             </span>
           </div>
@@ -125,7 +208,7 @@ function ChatComponent({ allProfileChats }: ChatComponentType) {
               required
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
-                  e.preventDefault(); 
+                  e.preventDefault();
                   const form = e.currentTarget.form;
                   if (form) form.requestSubmit();
                 }

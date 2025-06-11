@@ -13,9 +13,8 @@ interface LayoutProps {
 export function Layout() {
   return (
     <div className={styles.layout}>
-      <div className={styles.navbar}>
         <Header />
-      </div>
+
       <div className={styles.content}>
         <Outlet />
       </div>

@@ -6,7 +6,7 @@ import { createPostDTO } from "src/entities";
 
 const readChat: Router = Router();
 
-readChat.put("/:id", verifyToken, async (req: Request, res: Response) => {
+readChat.put("/read/:id", verifyToken, async (req: Request, res: Response) => {
 
     const chatId = req.params.id;
     const tokenUserId = req.userId;
@@ -18,9 +18,12 @@ readChat.put("/:id", verifyToken, async (req: Request, res: Response) => {
 
         if (!tokenUserId || !chatId) {
             res.status(403).json({ Message: "chat id is missing" });
+           
         } else {
-            const chat = await readOnechat({tokenUserId: tokenUserId, chatId: tokenUserId})
-            res.status(200).json(chat);
+            const chat = await readOnechat({ tokenUserId: tokenUserId, chatId: chatId })
+            if (chat) {
+                res.status(200).json(chat);
+            }
         }
 
     } catch (error) {

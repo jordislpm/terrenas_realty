@@ -8,6 +8,24 @@ nav {
   align-items: center;
   z-index: 1000;
   display: relative;
+  width: 100%;
+
+  @keyframes pulseScale {
+
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.5);
+    }
+  }
+
+  .bouncing {
+    animation: pulseScale 1.5s ease-in-out infinite;
+  }
+
 
   a {
     transition: all 0.4s ease;
@@ -90,8 +108,8 @@ nav {
           align-items: center;
           justify-content: center;
 
-          @include sm{
-                   display: flex;
+          @include sm {
+            display: flex;
           }
         }
 

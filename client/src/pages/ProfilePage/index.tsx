@@ -22,7 +22,6 @@ function ProfilePage() {
   const { allProfileChats } = useLoaderData() as { allProfileChats: Promise<Chat[]> };
 
   return (
-
     <div className={styles.profilePage}>
       <div className={styles.details}>
         <div className={styles.wrapper}>
@@ -71,9 +70,7 @@ function ProfilePage() {
       </div>
       <div className={styles.chatContainer}>
         <div className={styles.wrapper}>
-          <React.Suspense fallback={<Loading />}>
-            <ChatComponent allProfileChats={allProfileChats} />
-          </React.Suspense>
+            <ChatComponent/>
         </div>
       </div>
     </div>
