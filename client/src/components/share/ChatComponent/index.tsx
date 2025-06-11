@@ -92,7 +92,7 @@ useEffect(()=>{
   }, [chat?.messages?.length]);
 
   const handleOpenChat = async (id: string, receiver: UserType | undefined) => {
-    if (receiver) await getChatWithReceiver(id, receiver);
+    if (receiver) await getChatWithReceiver(id, receiver)
   };
 
   const handleSubmitMessage = async (e: FormEvent<HTMLFormElement>) => {
