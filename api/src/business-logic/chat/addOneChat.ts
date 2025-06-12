@@ -3,7 +3,13 @@ import prisma from "src/lib/prisma";
 
 import { AddChat, Chat} from "src/entities";
 
-export const addOneChat = async (tokenUserId: string, body:AddChat ): Promise<Chat> => {
+
+interface AddOneChatType {
+  tokenUserId: string, 
+  body:AddChat
+}
+
+export const addOneChat = async ({tokenUserId, body}:AddOneChatType ): Promise<Chat> => {
 
   try {
     const newPost = await prisma.chat.create({
