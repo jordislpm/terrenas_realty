@@ -1,5 +1,6 @@
 import { Socket } from "socket.io-client";
 
+
 // Full post details
 export type PostDataType = {
   id: string;
