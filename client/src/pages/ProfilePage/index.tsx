@@ -70,7 +70,7 @@ function ProfilePage() {
       </div>
       <div className={styles.chatContainer}>
         <div className={styles.wrapper}>
-            <ChatComponent/>
+          <ChatComponent />
         </div>
       </div>
     </div>

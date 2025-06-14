@@ -19,12 +19,12 @@
 //             &::-webkit-scrollbar {
 //                 width: 8px; /* Make it very thin */
 //               }
-            
+
 //               &::-webkit-scrollbar-thumb {
 //                 background-color: rgba(0, 0, 0, 0.2); /* Very light visibility */
 //                 border-radius: 10px; /* Rounded edges */
 //               }
-            
+
 //               &::-webkit-scrollbar-track {
 //                 background: transparent; /* No background */
 //               }
@@ -42,9 +42,18 @@
   display: flex;
   height: 100vh; // ← Cambiar aquí
 
+  @include md {
+    height: 100%;
+  }
+
+
   .listContainer {
     flex: 3;
     height: 100vh; // ← Asegura altura completa
+
+    @include md {
+      height: 100%;
+    }
 
     .wrapper {
       height: 100%;
@@ -57,6 +66,7 @@
 
       @include md {
         padding-right: 0px;
+        overflow-y: hidden;
       }
     }
   }
