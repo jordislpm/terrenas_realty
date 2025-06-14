@@ -9,13 +9,18 @@ function Header() {
 
   const { connect, socket, disconnect } = useSocketGlobal();
   const { user } = useUser();
-  const {fetchNotification}=useNotificationGlobalState();
+  const { fetchNotification } = useNotificationGlobalState();
 
 
 
   useEffect(() => {
 
-    fetchNotification();
+    if (user) {
+
+      fetchNotification();
+    }
+
+
     if (!socket) {
       connect()
     }
@@ -23,7 +28,7 @@ function Header() {
     return () => {
       disconnect();
     }
-  }, [])
+  }, [user])
 
   useEffect(() => {
 
