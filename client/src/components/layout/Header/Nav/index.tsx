@@ -10,7 +10,7 @@ import useNotificationGlobalState from 'hooks/globalState/useNotificationGlobalS
 function Nav() {
   const [open, setOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const {number}= useNotificationGlobalState()
+  const { number } = useNotificationGlobalState()
 
   const { user, setUser } = useUser();
   const navigate = useNavigate()
@@ -29,6 +29,10 @@ function Nav() {
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 
+  const singOut = ()=>{
+    setUser(null)
+    toggleModal();
+  }
 
   return (
     <>
@@ -57,7 +61,7 @@ function Nav() {
                 </div>
                 <span>{user.username}</span>
                 <Link to="/profile" className={styles.profile}>
-                 { number > 0 && <div className={`${styles.notification} ${styles.bouncing}`}>{number}</div>}
+                  {number > 0 && <div className={`${styles.notification} ${styles.bouncing}`}>{number}</div>}
                   <span>Profile</span>
                 </Link>
               </div>
@@ -84,6 +88,7 @@ function Nav() {
             <a href='/'>Agents</a>
             <a href='/login'>Sign in</a>
             <a href='/register'>Sign up</a>
+            <a onClick={singOut} >Sign out</a>
           </div>
         </div>
       </nav>
