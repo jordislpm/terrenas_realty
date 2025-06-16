@@ -12,9 +12,6 @@ import { useGetAllChats } from 'hooks/chat/useGetAllChats';
 import Loading from '../Loading';
 
 
-interface ChatComponentType {
-  allProfileChats: Promise<Chat[]>
-}
 
 const API = process.env.REACT_APP_API_URL || "";
 
@@ -23,7 +20,7 @@ function ChatComponent() {
   const { chat, getChatWithReceiver, isLoadingOneChat, setChat } = useGetOneChat();
   const { user } = useUser();
   const { decrease } = useNotificationGlobalState()
-  const {getChats, allChats,isLoadingAllChats, errorAllChats}=useGetAllChats()
+  const { getChats, allChats, isLoadingAllChats, errorAllChats } = useGetAllChats()
 
   const { sendMessage } = useSendNewMessage();
   const { socket } = useSocketGlobal();
@@ -48,18 +45,18 @@ function ChatComponent() {
 
     const handleMessage = (data: Message) => {
       // if (chat.id === data.id) {
-        setChat((prev) => {
-          const alreadyExists = prev?.messages?.some((m) => m.id === data.id);
-          if (alreadyExists) return prev;
-          return prev
-            ? {
-              ...prev,
-              messages: [...(prev.messages || []), data],
-            }
-            : prev;
-        });
-        read(chat?.id)
-        decrease()
+      setChat((prev) => {
+        const alreadyExists = prev?.messages?.some((m) => m.id === data.id);
+        if (alreadyExists) return prev;
+        return prev
+          ? {
+            ...prev,
+            messages: [...(prev.messages || []), data],
+          }
+          : prev;
+      });
+      read(chat?.id)
+      decrease()
       // }
     };
     socket.on("getMessage", handleMessage);
@@ -72,15 +69,19 @@ function ChatComponent() {
 
   ////
 
-useEffect(()=>{
-  getChats();
-},
-[])
+  useEffect(() => {
+    getChats();
 
-useEffect(()=>{
-  if(allChats)
-  setChats(allChats)
-},[allChats])
+  },
+    [])
+
+  useEffect(() => {
+         console.log(allChats)
+    if (allChats !== null){
+ 
+      setChats(allChats)
+      }
+  }, [allChats])
 
   ///
 
@@ -121,15 +122,15 @@ useEffect(()=>{
     }
   };
 
-const closeChat = (chatId: string, userId: string) => {
-  setChats((prev) =>
-    prev
-      ? prev.map((c) => {
+  const closeChat = (chatId: string, userId: string) => {
+    setChats((prev) =>
+      prev
+        ? prev.map((c) => {
           if (c.id === chatId) {
             let newSeenBy: string[] = c.seenBy ? [...c.seenBy] : [];
 
 
-              newSeenBy.push(userId);
+            newSeenBy.push(userId);
 
 
             return { ...c, seenBy: newSeenBy };
@@ -137,16 +138,18 @@ const closeChat = (chatId: string, userId: string) => {
             return c;
           }
         })
-      : prev
-  );
-  read(chatId)
+        : prev
+    );
+    read(chatId)
 
-  setChat(null);
-};
+    setChat(null);
+    getChats();
+  };
 
 
 
   if (!user) return <div>Please Log in Fisrt</div>;
+  if (chats.length < 1) return <div></div>;
 
   return (
     <div className={styles.chat}>
@@ -154,7 +157,7 @@ const closeChat = (chatId: string, userId: string) => {
         <h1>Messages</h1>
 
 
-        {isLoadingAllChats && <Loading/>}
+        {isLoadingAllChats && <Loading />}
         {errorAllChats && <div> There was a problem loading chats, please try later</div>}
 
         {chats.map((c) => (

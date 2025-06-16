@@ -10,6 +10,10 @@ import { FullPost, Post, PropertyType } from 'types/types'
 import { formatPrice } from 'lib/format'
 import { useSavePost } from 'hooks/user/useSavePost'
 import useUser from 'hooks/globalState/userLoggedState'
+import PopUp from '../PopUp'
+import ChatNew from '../ChatNew'
+import { useCreateNewChat } from '../../../hooks/chat/useCreateNewChat'
+import { useGetAllChats } from '../../../hooks/chat/useGetAllChats'
 
 interface CardProps {
     property: PropertyType
@@ -19,8 +23,11 @@ function Card(post: FullPost) {
 
     const { user } = useUser()
 
-    const { save, success, isLoading, error } = useSavePost()
+    const [popUp, setPopUp] = useState<boolean>(false);
+    const { getChats } = useGetAllChats()
 
+    const { save, success, isLoading, error } = useSavePost()
+    const { createChat } = useCreateNewChat()
     const {
         images,
         title,
@@ -31,7 +38,7 @@ function Card(post: FullPost) {
         bedroom,
         id,
         isSaved,
-        userId
+        userId,
     } = post;
 
     const [saved, setSaved] = useState(isSaved);
@@ -64,30 +71,29 @@ function Card(post: FullPost) {
     };
 
 
-        const handleMessage = async () => {
+    const handleMessage = async () => {
 
         if (user?.id === userId) {
             alert("you can't send a message to yourself")
 
         } else {
-            // const newValue = !optimisticSaved;
-            // toggleOptimisticSaved(newValue);
 
-            // startTransition(async () => {
-            //     try {
-            //         const newSavedStatus = await save(id);
-
-            //         setSaved(newSavedStatus);
-            //     } catch (err) {
-            //         toggleOptimisticSaved(saved);
-            //     }
-            // });
+            setPopUp(true)
         }
+
     };
+
+    const closingPopUp = async() => {
+      await getChats();
+        console.log("closing pop up")
+    }
     return (
         <div className={styles.card}>
+            <PopUp isOpen={popUp} setIsOpen={setPopUp} closePopUp={closingPopUp}>
+                <ChatNew userId={userId} receiver={post?.user} />
+            </PopUp>
             {user?.id === userId && <div className={styles.myProperty}>
-                    <img src={user?.avatar} alt='myAvatar' />
+                <img src={user?.avatar} alt='myAvatar' />
             </div>}
             <Link to={`/post/${id}`} className={styles.imageContainer}>
                 <img src={images[0]} alt='Property Image' />

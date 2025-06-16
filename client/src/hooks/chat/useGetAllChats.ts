@@ -18,11 +18,15 @@ export const useGetAllChats = (): UseGetAllChats => {
     const [errorAllChats, setErrorAllChats] = useState<string | null>(null);
 
     const getChats = async () => {
+
+        console.log("executing getChats")
         setIsLoadingAllChats(true);
         setErrorAllChats(null);
         try {
             const response = await getAllChats();
-            setAllChats(response); // full chat ready for UI
+            let newChats = [...response].reverse()
+            setAllChats(newChats); // full chat ready for UI
+             console.log("new all chats", newChats)
         } catch (err: any) {
             setErrorAllChats(err.message || 'An error occurred');
             console.error('Error getting all chats:', err);

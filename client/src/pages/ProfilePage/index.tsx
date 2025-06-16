@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from "./profilePage.module.scss"
 import { useLogoutUser } from 'hooks/auth/useLogoutUser';
 import { useLoaderData, useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { AllProfilePosts, Chat, FullPost } from 'types/types';
 import Loading from 'components/share/Loading';
 import ListProfile from 'components/share/ListProfile';
 import ChatComponent from 'components/share/ChatComponent';
+import { useGetAllChats } from '../../hooks/chat/useGetAllChats';
 
 function ProfilePage() {
 
@@ -21,6 +22,9 @@ function ProfilePage() {
   const { allProfilePosts } = useLoaderData() as { allProfilePosts: Promise<AllProfilePosts> };
   const { allProfileChats } = useLoaderData() as { allProfileChats: Promise<Chat[]> };
 
+  const {allChats, getChats}=useGetAllChats()
+
+  useEffect(()=>{getChats()},[])
   return (
     <div className={styles.profilePage}>
       <div className={styles.details}>
@@ -68,11 +72,11 @@ function ProfilePage() {
           </React.Suspense>
         </div>
       </div>
-      <div className={styles.chatContainer}>
+      {allChats &&<div className={styles.chatContainer}>
         <div className={styles.wrapper}>
           <ChatComponent />
         </div>
-      </div>
+      </div>}
     </div>
   );
 }

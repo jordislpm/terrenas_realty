@@ -12,7 +12,7 @@
     "isolatedModules": true,
     "baseUrl": "./src",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["react", "react-dom", "react-scripts"]
+    "types": ["react", "react-dom", "react-scripts", "node"]
   },
   "include": ["src"]
 }
