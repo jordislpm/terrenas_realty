@@ -72,11 +72,11 @@ function ProfilePage() {
           </React.Suspense>
         </div>
       </div>
-      {allChats &&<div className={styles.chatContainer}>
+      <div className={styles.chatContainer}>
         <div className={styles.wrapper}>
           <ChatComponent />
         </div>
-      </div>}
+      </div>
     </div>
   );
 }

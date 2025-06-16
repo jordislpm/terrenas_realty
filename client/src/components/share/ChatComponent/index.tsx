@@ -148,15 +148,12 @@ function ChatComponent() {
 
 
   if (!user) return <div>Please Log in Fisrt</div>;
-  if (chats.length < 1) return <div></div>;
-
   return (
     <div className={styles.chat}>
       <div className={styles.messages}>
         <h1>Messages</h1>
-
-
         {isLoadingAllChats && <Loading />}
+        {chats.length < 1 && <div> You Don't Have New Messages</div>}
         {errorAllChats && <div> There was a problem loading chats, please try later</div>}
 
         {chats.map((c) => (
