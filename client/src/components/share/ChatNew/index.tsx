@@ -25,7 +25,6 @@ interface ChatNewProps {
 function ChatNew({ userId, receiver }: ChatNewProps) {
   const { chat, getChatWithReceiver, isLoadingOneChat, setChat } = useGetOneChat();
   const { user } = useUser();
-  const { decrease } = useNotificationGlobalState()
   const { getChats, allChats, isLoadingAllChats, errorAllChats } = useGetAllChats()
   const {
     createChat,

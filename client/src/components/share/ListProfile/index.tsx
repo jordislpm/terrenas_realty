@@ -2,8 +2,6 @@ import React from 'react'
 import Card from '../Card'
 import styles from "./listProfile.module.scss"
 import { AllProfilePosts } from 'types/types';
-import EmptyStateMessage from '../EmptyStateMessage';
-import CardPostSaved from '../CardPostSaved';
 
 
 interface ListProfileProps {

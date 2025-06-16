@@ -141,7 +141,6 @@ function ChatComponent() {
         : prev
     );
     read(chatId)
-
     setChat(null);
     getChats();
   };
