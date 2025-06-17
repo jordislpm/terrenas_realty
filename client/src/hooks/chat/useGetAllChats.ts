@@ -24,8 +24,6 @@ export const useGetAllChats = (): UseGetAllChats => {
     const chatsGlobal = chatsStore((state) => state.chatsGlobal);
     
     const getChats = async () => {
-
-        console.log("executing getChats")
         setIsLoadingAllChats(true);
         setErrorAllChats(null);
         try {
@@ -33,7 +31,6 @@ export const useGetAllChats = (): UseGetAllChats => {
             let newChats = [...response].reverse()
             setAllChats(newChats); // full chat ready for UI
             updateChatsGlobal(newChats);
-             console.log("new all chats", newChats)
         } catch (err: any) {
             setErrorAllChats(err.message || 'An error occurred');
             console.error('Error getting all chats:', err);

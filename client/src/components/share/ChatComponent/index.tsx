@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
+import React, { FormEvent, useCallback, useEffect, useRef, useState } from 'react'
 import styles from "./chatComponent.module.scss"
 import { Chat, Message, UserType } from 'types/types';
 import noAvatar from "../../../assets/icons/noAvatar.png"
@@ -20,7 +20,7 @@ function ChatComponent() {
   const { chat, getChatWithReceiver, isLoadingOneChat, setChat } = useGetOneChat();
   const { user } = useUser();
   const { decrease } = useNotificationGlobalState()
-  const { getChats, allChats, isLoadingAllChats, errorAllChats } = useGetAllChats();
+  const { getChats, isLoadingAllChats, errorAllChats } = useGetAllChats();
 
   const { chatsGlobal, updateChatsGlobal } = useChatsStore()
 
@@ -71,15 +71,9 @@ function ChatComponent() {
   }, [socket, chat?.id]);
 
 
-  ////
 
+    useEffect(()=>{getChats()},[])
 
-  useEffect(() => {
-    console.log(allChats)
-    if (allChats !== null) {
-      updateChatsGlobal(allChats)
-    }
-  }, [allChats])
 
   useEffect(() => {
     const container = ChatContainerRef.current;
@@ -92,7 +86,8 @@ function ChatComponent() {
     if (receiver) await getChatWithReceiver(id, receiver)
   };
 
-  const handleSubmitMessage = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmitMessage = useCallback(
+  async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -104,40 +99,41 @@ function ChatComponent() {
         setChat((prev) =>
           prev
             ? {
-              ...prev,
-              messages: [...(prev.messages || []), newMessage],
-            }
+                ...prev,
+                messages: [...(prev.messages || []), newMessage],
+              }
             : prev
         );
         form.reset();
         socket?.emit("sendMessage", {
           receiverId: chat.receiver?.id,
-          data: newMessage
-        })
+          data: newMessage,
+        });
       }
     }
-  };
+  },
+  [chat, sendMessage, setChat, socket]
+);
 
-  const closeChat = (chatId: string, userId: string) => {
-  
+const closeChat = useCallback(
+  (chatId: string, userId: string) => {
     const newChatsGlobal = chatsGlobal.map((c) => {
       if (c.id === chatId) {
         let newSeenBy: string[] = c.seenBy ? [...c.seenBy] : [];
-
-
         newSeenBy.push(userId);
-
-
         return { ...c, seenBy: newSeenBy };
       } else {
         return c;
       }
-    })
-    updateChatsGlobal(newChatsGlobal)
-    read(chatId)
+    });
+
+    updateChatsGlobal(newChatsGlobal);
+    read(chatId);
     setChat(null);
     getChats();
-  };
+  },
+  [chatsGlobal, updateChatsGlobal, read, setChat, getChats]
+);
 
 
 

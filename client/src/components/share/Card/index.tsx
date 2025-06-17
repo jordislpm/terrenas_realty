@@ -24,6 +24,7 @@ function Card(post: FullPost) {
     const { user } = useUser()
 
     const [popUp, setPopUp] = useState<boolean>(false);
+    const {getChats}=useGetAllChats()
 
 
     const { save, success, isLoading, error } = useSavePost()
@@ -83,9 +84,13 @@ function Card(post: FullPost) {
 
     };
 
+    const closePopUp = ()=>{
+        getChats();
+    };
+
     return (
         <div className={styles.card}>
-            <PopUp isOpen={popUp} setIsOpen={setPopUp}>
+            <PopUp isOpen={popUp} setIsOpen={setPopUp} closePopUp={closePopUp}>
                 <ChatNew userId={userId} receiver={post?.user} />
             </PopUp>
             {user?.id === userId && <div className={styles.myProperty}>

@@ -21,10 +21,6 @@ function ProfilePage() {
 
   const { allProfilePosts } = useLoaderData() as { allProfilePosts: Promise<AllProfilePosts> };
   const { allProfileChats } = useLoaderData() as { allProfileChats: Promise<Chat[]> };
-
-  const {allChats, getChats}=useGetAllChats()
-
-  useEffect(()=>{getChats()},[])
   return (
     <div className={styles.profilePage}>
       <div className={styles.details}>

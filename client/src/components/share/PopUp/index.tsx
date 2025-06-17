@@ -21,13 +21,6 @@ function PopUp({ isOpen, setIsOpen, children, closePopUp }: PopUpProps) {
     }
   }
 
-  useEffect(() => {
-
-    return () => {
-      getChats();
-      console.log("closing popUp")
-    }
-  }, [])
 
   return (
     <>

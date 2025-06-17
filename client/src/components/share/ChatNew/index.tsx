@@ -43,51 +43,6 @@ function ChatNew({ userId, receiver }: ChatNewProps) {
 
   const ChatContainerRef = useRef<HTMLDivElement | null>(null);
 
-
-
-  // const read = async (id: string) => {
-  //   try {
-  //     const res = await fetch(`${API}/chats/read/${id}`, {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       credentials: "include"
-  //     });
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   if (!socket || !chat?.id) return;
-
-  //   const handleMessage = (data: Message) => {
-  //     // if (chat.id === data.id) {
-  //       setChat((prev) => {
-  //         const alreadyExists = prev?.messages?.some((m) => m.id === data.id);
-  //         if (alreadyExists) return prev;
-  //         return prev
-  //           ? {
-  //             ...prev,
-  //             messages: [...(prev.messages || []), data],
-  //           }
-  //           : prev;
-  //       });
-  //       read(chat?.id)
-  //       decrease()
-  //     // }
-  //   };
-  //   socket.on("getMessage", handleMessage);
-
-  //   return () => {
-  //     socket.off("getMessage", handleMessage);
-  //   };
-  // }, [socket, chat?.id]);
-
-
-  ////
-
-
-
   useEffect(() => {
     getUserReceiver(userId)
 
@@ -107,9 +62,9 @@ function ChatNew({ userId, receiver }: ChatNewProps) {
     }
   }, [chat?.messages?.length]);
 
-  const handleOpenChat = async (id: string, receiver: UserType | undefined) => {
-    if (receiver) await getChatWithReceiver(id, receiver)
-  };
+  // const handleOpenChat = async (id: string, receiver: UserType | undefined) => {
+  //   if (receiver) await getChatWithReceiver(id, receiver)
+  // };
 
   const handleSubmitMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
