@@ -1,6 +1,5 @@
 import { Socket } from "socket.io-client";
 
-
 // Full post details
 export type PostDataType = {
   id: string;
@@ -45,7 +44,7 @@ export type UserDataType = {
   id: string;
   username: string;
   email: string;
-  avatar?: string ;
+  avatar?: string;
   createdAt?: Date;
 };
 
@@ -85,8 +84,8 @@ export type LoginUserDTO = {
 
 export type UserInfo = {
   username: string;
-  avatar:string;
-}
+  avatar: string;
+};
 
 // ===============================
 // Post Detail Types
@@ -128,7 +127,6 @@ export type Post = {
   postDetail?: PostDetail;
 };
 
-
 export type CreatePostDTO = {
   postData: Omit<Post, "id" | "createdAt" | "userId" | "postDetail">;
   postDetail?: Omit<PostDetail, "id" | "postId">;
@@ -158,13 +156,13 @@ export type UpdateSavedDTO = Partial<SavedPostDTO>;
 export type FullPost = Post & {
   postDetail?: PostDetail;
   user?: UserType;
-   isSaved:boolean;
+  isSaved: boolean;
 };
 
 export type AllProfilePosts = {
-        userPosts: FullPost[],
-        savedPosts: FullPost[]
-    }
+  userPosts: FullPost[];
+  savedPosts: FullPost[];
+};
 
 // ===============================
 // Map + Marker Listing Context
@@ -202,24 +200,31 @@ export type UserStateProps = {
 // Socket Global Context
 // ===============================
 
-
 export type SocketStoreProps = {
-  socket: Socket | null
-  connect: () => void
-  disconnect: () => void
-}
+  socket: Socket | null;
+  connect: () => void;
+  disconnect: () => void;
+};
 
 // ===============================
 // Notification Global Context
 // ===============================
 
+export type NotificationStoreProps = {
+  number: number;
+  fetchNotification: () => void;
+  decrease: () => void;
+  reset: () => void;
+};
 
-export type NotificationStoreProps ={
-number: number;
-fetchNotification: ()=> void;
-decrease: ()=> void;
-reset : ()=> void;
-}
+// ===============================
+// Notification Global Context
+// ===============================
+
+export type ChatsStoreProps = {
+  chatsGlobal: Chat[];
+  updateChatsGlobal: (newChats: Chat[] | null) => void;
+};
 
 // ===============================
 // Chat Types
@@ -235,7 +240,10 @@ export type Chat = {
   receiver?: UserType;
 };
 
-export type CreateChatDTO = Omit<Chat, "id" | "users" | "messages" | "lastMessage">;
+export type CreateChatDTO = Omit<
+  Chat,
+  "id" | "users" | "messages" | "lastMessage"
+>;
 
 // ===============================
 // Message
@@ -258,7 +266,6 @@ export type QueryStateType = {
   maxPrice: number;
 };
 
-
 export type UserFromServerType = {
   id: string;
   username: string;
@@ -267,4 +274,3 @@ export type UserFromServerType = {
   createdAt: Date;
   password?: string;
 };
-

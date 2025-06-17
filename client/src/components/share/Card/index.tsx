@@ -24,7 +24,7 @@ function Card(post: FullPost) {
     const { user } = useUser()
 
     const [popUp, setPopUp] = useState<boolean>(false);
-    const { getChats } = useGetAllChats()
+
 
     const { save, success, isLoading, error } = useSavePost()
     const { createChat } = useCreateNewChat()
@@ -83,13 +83,9 @@ function Card(post: FullPost) {
 
     };
 
-    const closingPopUp = async() => {
-      await getChats();
-        console.log("closing pop up")
-    }
     return (
         <div className={styles.card}>
-            <PopUp isOpen={popUp} setIsOpen={setPopUp} closePopUp={closingPopUp}>
+            <PopUp isOpen={popUp} setIsOpen={setPopUp}>
                 <ChatNew userId={userId} receiver={post?.user} />
             </PopUp>
             {user?.id === userId && <div className={styles.myProperty}>

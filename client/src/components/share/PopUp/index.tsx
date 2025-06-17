@@ -1,5 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import styles from "./popUp.module.scss"
+import { useGetAllChats } from '../../../hooks/chat/useGetAllChats';
 
 type PopUpProps = {
   isOpen: boolean;
@@ -11,12 +12,22 @@ type PopUpProps = {
 
 function PopUp({ isOpen, setIsOpen, children, closePopUp }: PopUpProps) {
 
+  const { getChats, allChats, isLoadingAllChats, errorAllChats } = useGetAllChats();
+
   const ActionclosePopUp = () => {
     setIsOpen(false)
     if (closePopUp) {
       closePopUp()
     }
   }
+
+  useEffect(() => {
+
+    return () => {
+      getChats();
+      console.log("closing popUp")
+    }
+  }, [])
 
   return (
     <>

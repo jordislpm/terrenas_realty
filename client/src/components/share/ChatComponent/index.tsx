@@ -10,23 +10,24 @@ import useSocketGlobal from 'hooks/globalState/useSocketGlobal';
 import useNotificationGlobalState from 'hooks/globalState/useNotificationGlobalState';
 import { useGetAllChats } from 'hooks/chat/useGetAllChats';
 import Loading from '../Loading';
+import useChatsStore from '../../../hooks/globalState/useChatsGlobal';
 
 
 
 const API = process.env.REACT_APP_API_URL || "";
 
 function ChatComponent() {
-  const [chats, setChats] = useState<Chat[]>([]);
   const { chat, getChatWithReceiver, isLoadingOneChat, setChat } = useGetOneChat();
   const { user } = useUser();
   const { decrease } = useNotificationGlobalState()
-  const { getChats, allChats, isLoadingAllChats, errorAllChats } = useGetAllChats()
+  const { getChats, allChats, isLoadingAllChats, errorAllChats } = useGetAllChats();
+
+  const { chatsGlobal, updateChatsGlobal } = useChatsStore()
 
   const { sendMessage } = useSendNewMessage();
   const { socket } = useSocketGlobal();
 
   const ChatContainerRef = useRef<HTMLDivElement | null>(null);
-
 
   const read = async (id: string) => {
     try {
@@ -45,6 +46,8 @@ function ChatComponent() {
 
     const handleMessage = (data: Message) => {
       // if (chat.id === data.id) {
+
+
       setChat((prev) => {
         const alreadyExists = prev?.messages?.some((m) => m.id === data.id);
         if (alreadyExists) return prev;
@@ -55,6 +58,7 @@ function ChatComponent() {
           }
           : prev;
       });
+
       read(chat?.id)
       decrease()
       // }
@@ -69,21 +73,13 @@ function ChatComponent() {
 
   ////
 
-  useEffect(() => {
-    getChats();
-
-  },
-    [])
 
   useEffect(() => {
-         console.log(allChats)
-    if (allChats !== null){
- 
-      setChats(allChats)
-      }
+    console.log(allChats)
+    if (allChats !== null) {
+      updateChatsGlobal(allChats)
+    }
   }, [allChats])
-
-  ///
 
   useEffect(() => {
     const container = ChatContainerRef.current;
@@ -123,23 +119,21 @@ function ChatComponent() {
   };
 
   const closeChat = (chatId: string, userId: string) => {
-    setChats((prev) =>
-      prev
-        ? prev.map((c) => {
-          if (c.id === chatId) {
-            let newSeenBy: string[] = c.seenBy ? [...c.seenBy] : [];
+  
+    const newChatsGlobal = chatsGlobal.map((c) => {
+      if (c.id === chatId) {
+        let newSeenBy: string[] = c.seenBy ? [...c.seenBy] : [];
 
 
-            newSeenBy.push(userId);
+        newSeenBy.push(userId);
 
 
-            return { ...c, seenBy: newSeenBy };
-          } else {
-            return c;
-          }
-        })
-        : prev
-    );
+        return { ...c, seenBy: newSeenBy };
+      } else {
+        return c;
+      }
+    })
+    updateChatsGlobal(newChatsGlobal)
     read(chatId)
     setChat(null);
     getChats();
@@ -153,10 +147,10 @@ function ChatComponent() {
       <div className={styles.messages}>
         <h1>Messages</h1>
         {isLoadingAllChats && <Loading />}
-        {chats.length < 1 && <div> You Don't Have New Messages</div>}
+        {chatsGlobal.length < 1 && <div> You Don't Have New Messages</div>}
         {errorAllChats && <div> There was a problem loading chats, please try later</div>}
 
-        {chats.map((c) => (
+        {chatsGlobal.map((c) => (
           <div
             key={c.id}
             className={styles.message}
@@ -200,7 +194,6 @@ function ChatComponent() {
               </div>
             ))}
           </div>
-
           <form onSubmit={handleSubmitMessage} className={styles.bottom}>
             <textarea
               name='text'
