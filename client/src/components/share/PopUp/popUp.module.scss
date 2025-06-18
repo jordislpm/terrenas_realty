@@ -21,7 +21,7 @@
     min-width: 60vw;
     min-height: 50vh;
 
-    @include sm{
+    @include sm {
         padding: 0.5rem;
         max-width: 90%;
     }
@@ -31,6 +31,9 @@
 
 
 .closeButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
@@ -40,11 +43,14 @@
     border-radius: 50%;
     width: 1.5rem;
     height: 1.5rem;
-    background-color:var(--black-primary); ;
+    background-color: var(--black-primary);
+    text-align: center;
+    z-index: 5100;
+
 
     &:hover {
-     background-color:red;
-     color: var(--black-primary);
+        background-color: red;
+        color: var(--black-primary);
     }
 }
 
