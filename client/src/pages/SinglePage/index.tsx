@@ -21,6 +21,8 @@ import { FullPost } from 'types/types'
 import { formatDistances, formatPrice } from 'lib/format'
 import { useSavePost } from 'hooks/user/useSavePost'
 import useUser from 'hooks/globalState/userLoggedState'
+import PopUp from '../../components/share/PopUp'
+import ChatNew from '../../components/share/ChatNew'
 //images end
 
 
@@ -32,7 +34,8 @@ function SinglePage() {
   const post = useLoaderData() as FullPost
 
   const { save, success, isLoading, error } = useSavePost()
-  const { user } = useUser()
+  const { user } = useUser();
+  const [popUp, setPopUp] = useState<boolean>(false)
 
   const {
     images,
@@ -83,24 +86,24 @@ function SinglePage() {
       alert("you can't send a message to yourself")
 
     } else {
-      // const newValue = !optimisticSaved;
-      // toggleOptimisticSaved(newValue);
-
-      // startTransition(async () => {
-      //     try {
-      //         const newSavedStatus = await save(id);
-
-      //         setSaved(newSavedStatus);
-      //     } catch (err) {
-      //         toggleOptimisticSaved(saved);
-      //     }
-      // });
+      setPopUp(true)
     }
   };
+
+  const closePopUp = () => {
+
+  }
 
 
   return (
     <div className={styles.singlePage}>
+      <PopUp
+        isOpen={popUp}
+        setIsOpen={setPopUp}
+        // closePopUp={closePopUp}
+      >
+        <ChatNew userId={userId} receiver={post?.user} />
+      </PopUp>
       <div className={styles.details}>
         <div className={styles.wrapper}>
           <Slider images={images} />
@@ -206,7 +209,7 @@ function SinglePage() {
           </div>
           <div className={styles.buttons}>
             <button className={styles.button} onClick={handleMessage}>
-              <img src={chatIcon} alt='chat' />
+              <img src={chatIcon} alt='chat'/>
               Send a Message
             </button>
             <button onClick={handleSave} className={styles.button}

@@ -1,3 +1,5 @@
+@import "../../layout/layoutResponsive.module.scss";
+
 .chat {
     height: 100%;
     display: flex;
@@ -99,6 +101,7 @@
                 height: 100%;
                 border: none;
                 padding: 20px;
+                font-size: 16px
             }
 
             button {
