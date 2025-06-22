@@ -46,9 +46,9 @@ function Nav() {
             <span>Las Terrenas Realty</span>
           </Link>
           <Link to='/'>Home</Link>
-          <Link to='/'>About</Link>
-          <Link to='/'>Contract</Link>
-          <Link to='/'>Agents</Link>
+          <Link to='/about'>About</Link>
+          <Link to='/contact'>Contact</Link>
+          <Link to='/agents'>Agents</Link>
         </div>
 
         <div className={styles.right}>
@@ -83,9 +83,9 @@ function Nav() {
 
           <div className={`${styles.menu} ${open ? styles.active : ""}`}>
             <a href='/'>Home</a>
-            <a href='/'>About</a>
-            <a href='/'>Contract</a>
-            <a href='/'>Agents</a>
+            <a href='/about'>About</a>
+            <a href='/contact'>Contact</a>
+            <a href='/agents'>Agents</a>
             <a href='/login'>Sign in</a>
             <a href='/register'>Sign up</a>
             <a onClick={singOut} >Sign out</a>

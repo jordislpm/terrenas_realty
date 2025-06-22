@@ -25,6 +25,12 @@ import { postLoader } from 'loaders/postLoader';
 import { listLoader } from 'loaders/listLoader';
 import { profilePageLoader } from 'loaders/profilePageLoader';
 import Loading from 'components/share/Loading';
+import About from './pages/About';
+import Agents from './pages/Agents';
+import Contact from './pages/Contact';
+import RegisterAgent from './pages/RegisterAgent';
+
+
 
 const App = () => {
 
@@ -37,6 +43,18 @@ const App = () => {
         {
           path: "/",
           element: <Home />
+        },
+        {
+          path: "/about",
+          element: <About />
+        },
+        {
+          path: "/contact",
+          element: <Contact />
+        },
+        {
+          path: "/agents",
+          element: <Agents />
         },
         {
           path: "/list",
@@ -61,6 +79,10 @@ const App = () => {
         {
           path: "/register",
           element: <Register />
+        },
+        {
+          path: "/registerAgent",
+          element: <RegisterAgent />
         }
       ]
     },

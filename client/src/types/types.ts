@@ -274,3 +274,12 @@ export type UserFromServerType = {
   createdAt: Date;
   password?: string;
 };
+
+
+export type Agent ={
+  name: string;
+  photo: string;
+  languages: string[];
+  bio: string;
+  contact: string;
+}

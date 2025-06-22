@@ -1,4 +1,10 @@
-import { CreatePostDetailDTO, Post } from "types/types";
+import { Agent, CreatePostDetailDTO, Post } from "types/types";
+
+
+import male1 from "../assets/avatars/male1.jpeg"
+import male2 from "../assets/avatars/male2.jpg"
+import female1 from "../assets/avatars/female1.jpg"
+import female2 from "../assets/avatars/female2.jpg"
 
 export const listData: Post[] = [
   {
@@ -73,4 +79,35 @@ export const listData: Post[] = [
     createdAt: new Date(),
     userId: "user-2",
   },
+];
+
+export const agents:Agent[] = [
+  {
+    name: "Jordis De Peña",
+    photo: male1, // Feel free to update the photo path
+    languages: ["Spanish", "English"],
+    bio: "Dedicated to helping families and expats find cozy homes and investment properties near the best beaches in Las Terrenas. Known for clear communication and reliable support.",
+    contact: "jordis@lasterrenasrealty.com"
+  },
+  {
+    name: "María Rodríguez",
+    photo: female1,
+    languages: ["Spanish", "English", "French"],
+    bio: "Expert in luxury rentals and vacation villas. María has helped hundreds of international clients settle in the Dominican Republic with professionalism and warmth.",
+    contact: "maria@lasterrenasrealty.com"
+  },
+  {
+    name: "Carlos Mejía",
+    photo: male2,
+    languages: ["Spanish"],
+    bio: "Local market expert with deep knowledge of commercial properties and undeveloped land opportunities. Carlos specializes in helping entrepreneurs and builders find ideal locations.",
+    contact: "carlos@lasterrenasrealty.com"
+  },
+  {
+    name: "Emma Dubois",
+    photo: female2,
+    languages: ["French", "English"],
+    bio: "Originally from France, Emma assists newcomers looking to invest or relocate in Las Terrenas. Her focus is beachfront condos and gated community homes.",
+    contact: "emma@lasterrenasrealty.com"
+  }
 ];
