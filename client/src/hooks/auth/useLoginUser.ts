@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from 'services/auth/login';
-import { userStore } from 'global/auth/user';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "services/auth/login";
+import { userStore } from "global/auth/user";
 
-import { LoginUserDTO, UserDataType, UserFromServerType } from 'types/types';
+import { LoginUserDTO, UserDataType, UserFromServerType } from "types/types";
 
 type UseLoginUserResult = {
   login: (user: LoginUserDTO) => Promise<void>;
@@ -35,24 +35,24 @@ export const useLoginUser = (): UseLoginUserResult => {
 
     try {
       const response = await loginUser(userToLoging);
-      console.log(response)
+      console.log(response);
       setSuccess(true);
       console.log(response);
-  const {user, token}= response;
+      const { user, token } = response;
       setUserLogged(user);
       localStorage.setItem("token", token);
-      const userFormated: UserFromServerType= {
+      const userFormated: UserFromServerType = {
         id: response.id,
         username: response.username,
         email: response.email,
         avatar: response.avatar,
         createdAt: response.createdAt,
-      }
+      };
       setUser(userFormated);
       navigate("/");
     } catch (err: any) {
-      setError(err.message || 'An error occurred');
-      console.error('Error during login:', err);
+      setError(err.message || "An error occurred");
+      console.error("Error during login:", err);
     } finally {
       setIsLoading(false);
     }
