@@ -29,7 +29,7 @@ function Nav() {
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 
-  const singOut = ()=>{
+  const singOut = () => {
     setUser(null)
     toggleModal();
   }
