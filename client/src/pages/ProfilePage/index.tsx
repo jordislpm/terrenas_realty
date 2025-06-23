@@ -17,7 +17,7 @@ function ProfilePage() {
 
   const { logout } = useLogoutUser()
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { allProfilePosts } = useLoaderData() as { allProfilePosts: Promise<AllProfilePosts> };
   const { allProfileChats } = useLoaderData() as { allProfileChats: Promise<Chat[]> };

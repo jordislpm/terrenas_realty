@@ -196,6 +196,10 @@ nav {
       opacity: 0;
       visibility: hidden;
 
+      a{
+        color:white
+      }
+
       &.active {
         opacity: 1;
         visibility: visible;

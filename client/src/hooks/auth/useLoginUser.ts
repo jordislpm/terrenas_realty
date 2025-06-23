@@ -37,16 +37,18 @@ export const useLoginUser = (): UseLoginUserResult => {
       const response = await loginUser(userToLoging);
       console.log(response);
       setSuccess(true);
-      console.log(response);
+      console.log("response:",response);
       const { user, token } = response;
+
+      console.log("user:", user)
       setUserLogged(user);
       localStorage.setItem("token", token);
       const userFormated: UserFromServerType = {
-        id: response.id,
-        username: response.username,
-        email: response.email,
-        avatar: response.avatar,
-        createdAt: response.createdAt,
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar,
+        createdAt: user.createdAt,
       };
       setUser(userFormated);
       navigate("/");
