@@ -28,15 +28,19 @@ export const useLoginUser = (): UseLoginUserResult => {
   const setUser = userStore((state) => state.setUser);
   const navigate = useNavigate();
 
-  const login = async (user: LoginUserDTO) => {
+  const login = async (userToLoging: LoginUserDTO) => {
     setIsLoading(true);
     setError(null);
     setSuccess(false);
 
     try {
-      const response = await loginUser(user);
+      const response = await loginUser(userToLoging);
+      console.log(response)
       setSuccess(true);
-      setUserLogged(response);
+      console.log(response);
+  const {user, token}= response;
+      setUserLogged(user);
+      localStorage.setItem("token", token);
       const userFormated: UserFromServerType= {
         id: response.id,
         username: response.username,

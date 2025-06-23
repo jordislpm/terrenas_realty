@@ -45,7 +45,7 @@ function SearchBar() {
         <input
           type='text'
           name='location'
-          placeholder='City Location'
+          placeholder='Search by city (e.g. Las Terrenas)'
           onChange={handleChange}
         />
         <input

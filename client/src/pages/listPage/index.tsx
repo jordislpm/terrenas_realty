@@ -31,6 +31,6 @@ function ListPage() {
       </div>
     </div>
   );
-}
+};
 
 export default ListPage

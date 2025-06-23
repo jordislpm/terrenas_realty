@@ -1,5 +1,6 @@
 import { LoaderFunctionArgs } from "react-router-dom";
 
+const token = localStorage.getItem("token");
 
 export async function listLoader({ request }: LoaderFunctionArgs) {
   const query = request.url.split("?")[1];
@@ -10,7 +11,7 @@ export async function listLoader({ request }: LoaderFunctionArgs) {
      // await new Promise((r) => setTimeout(r, 2000)); // optional delay
       const res = await fetch(`${API}/posts?${query}`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" ,  Authorization: `Bearer ${token}` },
         credentials: "include",
       });
       if (!res.ok) {

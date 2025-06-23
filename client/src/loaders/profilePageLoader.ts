@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs } from "react-router-dom";
 
-
+const token = localStorage.getItem("token");
 export async function profilePageLoader() {
 
   const API = process.env.REACT_APP_API_URL || "";
@@ -10,7 +10,7 @@ export async function profilePageLoader() {
      // await new Promise((r) => setTimeout(r, 2000)); // optional delay
       const res = await fetch(`${API}/users/profilePosts`, {
         method: "GET",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json" ,  Authorization: `Bearer ${token}` },
         credentials: "include",
       });
       if (!res.ok) {

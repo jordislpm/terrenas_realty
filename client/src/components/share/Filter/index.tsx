@@ -6,11 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import undo from "../../../assets/icons/undo.png"
 
 function Filter() {
-
    const [searchParams, setSearchParams] = useSearchParams();
-
-
- 
     const [query, setQuery] = useState({
         type: searchParams.get("type") || "",
         city: searchParams.get("city") || "",
@@ -69,7 +65,7 @@ function Filter() {
                         type="text"
                         id="city"
                         name="city"
-                        placeholder="City Location"
+                        placeholder="Search by city (e.g. Las Terrenas)"
                         onChange={handleChange}
                         defaultValue={query.city}
                         value={query.city}

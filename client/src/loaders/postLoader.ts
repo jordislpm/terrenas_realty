@@ -3,7 +3,7 @@ import { LoaderFunctionArgs } from "react-router-dom";
 export async function postLoader({ params }: LoaderFunctionArgs) {
 
     const postID = params.id;
-
+const token = localStorage.getItem("token");
 
     const API = process.env.REACT_APP_API_URL || "";
 
@@ -11,6 +11,7 @@ export async function postLoader({ params }: LoaderFunctionArgs) {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
         },
         credentials: "include",
     });
