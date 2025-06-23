@@ -5,6 +5,7 @@ import male1 from "../assets/avatars/male1.jpeg"
 import male2 from "../assets/avatars/male2.jpg"
 import female1 from "../assets/avatars/female1.jpg"
 import female2 from "../assets/avatars/female2.jpg"
+import jordisAvatar from "../assets/avatars/jordis.jpg"
 
 export const listData: Post[] = [
   {
@@ -84,7 +85,7 @@ export const listData: Post[] = [
 export const agents:Agent[] = [
   {
     name: "Jordis De Peña",
-    photo: male1, // Feel free to update the photo path
+    photo: jordisAvatar, // Feel free to update the photo path
     languages: ["Spanish", "English"],
     bio: "Dedicated to helping families and expats find cozy homes and investment properties near the best beaches in Las Terrenas. Known for clear communication and reliable support.",
     contact: "jordis@lasterrenasrealty.com"
