@@ -4,9 +4,10 @@ import searchLogo from "../../../assets/icons/search.png"
 import { useSearchParams } from 'react-router-dom';
 
 import undo from "../../../assets/icons/undo.png"
+import { normalizeCity } from '../../../lib/format';
 
 function Filter() {
-   const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [query, setQuery] = useState({
         type: searchParams.get("type") || "",
         city: searchParams.get("city") || "",
@@ -17,59 +18,72 @@ function Filter() {
     });
 
     const handleChange = (e: any) => {
-        setQuery({
-            ...query,
-            [e.target.name]: e.target.value,
-        });
+      const { name, value } = e.target;
+    setQuery({
+      ...query,
+      [name]: name === "city" ? normalizeCity(value) : value,
+    });
     };
 
     const handleFilter = () => {
         setSearchParams({ ...query, city: query.city.toLocaleLowerCase() });
     };
 
-   const cleanFilter = () => {
-  const emptyFilters = {
-    type: "",
-    city: "",
-    property: "",
-    minPrice: "",
-    maxPrice: "",
-    bedroom: "",
-  };
+    const cleanFilter = () => {
+        const emptyFilters = {
+            type: "",
+            city: "",
+            property: "",
+            minPrice: "",
+            maxPrice: "",
+            bedroom: "",
+        };
 
-  setQuery(emptyFilters);        
-  setSearchParams({});           
-};
+        setQuery(emptyFilters);
+        setSearchParams({});
+    };
 
 
     return (
         <div className={styles.filter}>
             <div className={styles.filterHeader}>
                 {!searchParams.get("city")
-                ?
-                 <h1>Please search a City Location</h1>
-                :
-                <h1>Search results for <b>{searchParams.get("city")}</b></h1>
+                    ?
+                    <h1>Please search a City Location</h1>
+                    :
+                    <h1>Search results for <b>{searchParams.get("city")}</b></h1>
                 }
-                
+
                 <button className={styles.reset} onClick={cleanFilter}
                 >
                     <span>Reset</span>
-                    <img src={undo}/>
+                    <img src={undo} />
                 </button>
             </div>
             <div className={styles.top}>
                 <div className={styles.item}>
                     <label htmlFor='city'>Location</label>
-                    <input
-                        type="text"
-                        id="city"
-                        name="city"
-                        placeholder="Search by city (e.g. Las Terrenas)"
-                        onChange={handleChange}
-                        defaultValue={query.city}
-                        value={query.city}
-                    />
+                    <>
+                        <input
+                        
+                            list="samana-cities"
+                            type="text"
+                            id="city"
+                            name="city"
+                            placeholder="Search by city (e.g. Las Terrenas)"
+                            onChange={handleChange}
+                            // defaultValue={query.city}
+                            value={query.city.toLowerCase()}
+                        />
+                        <datalist id="samana-cities">
+                            <option value="Santa Bárbara de Samaná" />
+                            <option value="Sánchez" />
+                            <option value="Las Terrenas" />
+                            <option value="Arroyo Barril" />
+                            <option value="El Limón" />
+                            <option value="Las Galeras" />
+                        </datalist>
+                    </>
                 </div>
             </div>
             <div className={styles.bottom}>
@@ -79,7 +93,7 @@ function Filter() {
                         name="type"
                         id="type"
                         onChange={handleChange}
-                        defaultValue={query.type}
+                        // defaultValue={query.type}
                         value={query.type}
                     >
                         <option value="">Any</option>
@@ -93,7 +107,7 @@ function Filter() {
                         name="property"
                         id="property"
                         onChange={handleChange}
-                        defaultValue={query.property}
+                        // defaultValue={query.property}
                         value={query.property}
                     >
                         <option value="">Any</option>
@@ -111,7 +125,7 @@ function Filter() {
                         name="minPrice"
                         placeholder="any"
                         onChange={handleChange}
-                        defaultValue={query.minPrice}
+                        // defaultValue={query.minPrice}
                         value={query.minPrice}
                     />
                 </div>
@@ -123,7 +137,7 @@ function Filter() {
                         name="maxPrice"
                         placeholder="any"
                         onChange={handleChange}
-                        defaultValue={query.maxPrice}
+                        // defaultValue={query.maxPrice}
                         value={query.maxPrice}
                     />
                 </div>
@@ -135,7 +149,7 @@ function Filter() {
                         name="bedroom"
                         placeholder="any"
                         onChange={handleChange}
-                        defaultValue={query.bedroom}
+                        // defaultValue={query.bedroom}
                         value={query.bedroom}
                     />
                 </div>

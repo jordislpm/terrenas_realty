@@ -5,6 +5,7 @@ import { useCreatePost } from 'hooks/post/useCreatePost';
 import UploadWidget from 'components/share/UploadWidget';
 import { uwConfig as defaultUwConfig } from 'constants/uploadWidget';
 import { useNavigate } from 'react-router-dom';
+import { normalizeCity } from '../../lib/format';
 
 
 
@@ -48,7 +49,7 @@ function NewPostPage() {
       title: inputs.title,
       price: parseInt(inputs.price),
       address: inputs.address,
-      city: inputs.city.toLocaleLowerCase(),
+      city: normalizeCity(inputs.city),
       bedroom: parseInt(inputs.bedroom),
       bathroom: parseInt(inputs.bathroom),
       type: inputs.type as "buy" | "rent",
@@ -139,7 +140,24 @@ function NewPostPage() {
             </div>
             <div className={styles.item}>
               <label htmlFor="city">City</label>
-              <input id="city" name="city" type="text" required />
+              <>
+                <input
+                  id="city"
+                  name="city"
+                  type="text"
+                  list="samana-cities"
+                  placeholder="Search by city (e.g. Las Terrenas)"
+                  required
+                />
+                <datalist id="samana-cities">
+                  <option value="Santa Bárbara de Samaná" />
+                  <option value="Sánchez" />
+                  <option value="Las Terrenas" />
+                  <option value="Arroyo Barril" />
+                  <option value="El Limón" />
+                  <option value="Las Galeras" />
+                </datalist>
+              </>
             </div>
             <div className={styles.item}>
               <label htmlFor="bedroom">Bedroom Number</label>

@@ -20,4 +20,11 @@ export const formatDistances = (distance: number | null | undefined): string => 
 }
 
 
+export const normalizeCity = (input: string) =>{
+return input.toLowerCase().replace(/['’]/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+
+
+
 

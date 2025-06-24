@@ -3,7 +3,7 @@ import { create } from 'zustand';
 import { io } from 'socket.io-client';
 
 
-const socketPort = process.env.REACT_APP_VITE_SOCKET_URL || "http://localhost:4000";
+const socketPort = process.env.REACT_APP_VITE_SOCKET_URL;
 
 export const socketStore = create<SocketStoreProps>((set) => ({
   socket: null,

@@ -3,6 +3,7 @@ import styles from "./SearchBar.module.scss"
 import searchLogo from "../../../assets/icons/search.png"
 import { QueryStateType } from 'types/types';
 import { Link } from 'react-router-dom';
+import { normalizeCity } from '../../../lib/format';
 
 
 function SearchBar() {
@@ -22,9 +23,10 @@ function SearchBar() {
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
     setQuery({
       ...query,
-      [e.target.name]: e.target.value,
+      [name]: name === "location" ? normalizeCity(value) : value,
     });
   };
 
@@ -42,12 +44,23 @@ function SearchBar() {
         ))}
       </div>
       <form className={styles.form}>
-        <input
-          type='text'
-          name='location'
-          placeholder='Search by city (e.g. Las Terrenas)'
-          onChange={handleChange}
-        />
+        <>
+          <input
+            list="samana-cities"
+            type="text"
+            name="location"
+            placeholder="Search by city (e.g. Las Terrenas)"
+            onChange={handleChange}
+          />
+          <datalist id="samana-cities">
+            <option value="Santa Bárbara de Samaná" />
+            <option value="Sánchez" />
+            <option value="Las Terrenas" />
+            <option value="Arroyo Barril" />
+            <option value="El Limón" />
+            <option value="Las Galeras" />
+          </datalist>
+        </>
         <input
           type='number'
           name='minPrice'

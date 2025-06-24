@@ -36,10 +36,21 @@ function GoogleMapComponent({ mapaDataPromise, singleMapaData }: MapProps) {
 
 
 
+const [mapaData, setMapaData] = useState<FullPost[] | null>(null);
 
-  let mapaData = mapaDataPromise ? React.use(mapaDataPromise) : null;
-
-
+// Convert promise to data on mount
+useEffect(() => {
+  if (mapaDataPromise) {
+    mapaDataPromise
+      .then(data => setMapaData(data))
+      .catch(err => {
+        console.error("Failed to load map data:", err);
+        setMapaData([]); // fallback to empty array
+      });
+  } else {
+    setMapaData(null);
+  }
+}, [mapaDataPromise]);
 
   useEffect(() => {
     if (singleMapaData) {
@@ -82,9 +93,9 @@ function GoogleMapComponent({ mapaDataPromise, singleMapaData }: MapProps) {
       options={{ mapTypeControl: false }}
     >
       
-      {mapaData?.map((marker) => (
-        <MapMarker key={`marker-${marker.id}`} property={marker} />
-      ))}
+      {mapaData && mapaData?.length > 0 && mapaData.map((marker) => (
+  <MapMarker key={`marker-${marker.id}`} property={marker} />
+))}
 
       {singleMapaData && <MapMarkerSingle key={`marker-${singleMapaData.id}`} property={singleMapaData} />}
 
