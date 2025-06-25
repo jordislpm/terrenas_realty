@@ -36,28 +36,28 @@ function GoogleMapComponent({ mapaDataPromise, singleMapaData }: MapProps) {
 
 
 
-const [mapaData, setMapaData] = useState<FullPost[] | null>(null);
+  const [mapaData, setMapaData] = useState<FullPost[] | null>(null);
 
-// Convert promise to data on mount
-useEffect(() => {
-  if (mapaDataPromise) {
-    mapaDataPromise
-      .then(data => setMapaData(data))
-      .catch(err => {
-        console.error("Failed to load map data:", err);
-        setMapaData([]); // fallback to empty array
-      });
-  } else {
-    setMapaData(null);
-  }
-}, [mapaDataPromise]);
+  // Convert promise to data on mount
+  useEffect(() => {
+    if (mapaDataPromise) {
+      mapaDataPromise
+        .then(data => setMapaData(data))
+        .catch(err => {
+          console.error("Failed to load map data:", err);
+          setMapaData([]); // fallback to empty array
+        });
+    } else {
+      setMapaData(null);
+    }
+  }, [mapaDataPromise]);
 
   useEffect(() => {
     if (singleMapaData) {
       const singleLat = parseFloat(singleMapaData.latitude)
       const singleLng = parseFloat(singleMapaData.longitude)
 
-      setMapState(({zoom: 15, center:{ lat: singleLat, lng: singleLng }}))
+      setMapState(({ zoom: 15, center: { lat: singleLat, lng: singleLng } }))
     }
 
     return () => {
@@ -92,10 +92,10 @@ useEffect(() => {
       onUnmount={onUnmount}
       options={{ mapTypeControl: false }}
     >
-      
+
       {mapaData && mapaData?.length > 0 && mapaData.map((marker) => (
-  <MapMarker key={`marker-${marker.id}`} property={marker} />
-))}
+        <MapMarker key={`marker-${marker.id}`} property={marker} />
+      ))}
 
       {singleMapaData && <MapMarkerSingle key={`marker-${singleMapaData.id}`} property={singleMapaData} />}
 

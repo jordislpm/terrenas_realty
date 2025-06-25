@@ -23,6 +23,7 @@ import { useSavePost } from 'hooks/user/useSavePost'
 import useUser from 'hooks/globalState/userLoggedState'
 import PopUp from '../../components/share/PopUp'
 import ChatNew from '../../components/share/ChatNew'
+import { isValidLatLng } from '../../lib/validateData'
 //images end
 
 
@@ -84,20 +85,19 @@ function SinglePage() {
 
     if (user?.id === userId) {
       alert("you can't send a message to yourself")
+      return;
+    }
+    if (!user) {
+      navigate("/login")
+      return;
+    }
+    else {
 
-    } else {
-
-      if (!user) {
-        navigate("/login")
-        return false;
-      } else {
       setPopUp(true)
-      }
+
 
     }
   };
-
-  console.log()
 
   return (
     <div className={styles.singlePage}>
@@ -164,7 +164,10 @@ function SinglePage() {
               <img src={fee} alt='fee' />
               <div className={styles.featureText}>
                 <span>Income Policy</span>
-                <p>{postDetail?.income}</p>
+                <p>{postDetail?.income === null ?
+                 "Not specified"
+                  :
+                  postDetail?.income}</p>
               </div>
             </div>
           </div>
@@ -189,28 +192,40 @@ function SinglePage() {
               <img src={school} alt="school" />
               <div className={styles.featureText}>
                 <span>School</span>
-                <p>{formatDistances(postDetail?.school)} away</p>
+                <p>
+                  {postDetail?.school != null
+                    ? `${formatDistances(postDetail.school)} away`
+                    : "No details"}
+                </p>
               </div>
             </div>
             <div className={styles.feature}>
               <img src={bus} alt="bus" />
               <div className={styles.featureText}>
                 <span>Bus Stop</span>
-                <p>{formatDistances(postDetail?.bus)} away</p>
+                <p> {postDetail?.bus != null
+                  ? `${formatDistances(postDetail.bus)} away`
+                  : "No details"}</p>
               </div>
             </div>
             <div className={styles.feature}>
               <img src={restaurant} alt="restaurant" />
               <div className={styles.featureText}>
                 <span>Restaurant</span>
-                <p>{formatDistances(postDetail?.restaurant)} away</p>
+                <p> {postDetail?.restaurant != null
+                  ? `${formatDistances(postDetail.restaurant)} away`
+                  : "No details"}</p>
               </div>
             </div>
           </div>
           <p className={styles.title}>Location</p>
           <div className={styles.mapContainer}>
-            { }
-            <GoogleMapComponent singleMapaData={post} />
+            {
+              isValidLatLng({ lat: parseFloat(post.latitude), lng: parseFloat(post.longitude) })
+                ?
+                <GoogleMapComponent singleMapaData={post} />
+                :
+                <div className={styles.withoutCoordinates}>Location details not available</div>}
           </div>
           <div className={styles.buttons}>
             <button className={styles.button} onClick={handleMessage}>
