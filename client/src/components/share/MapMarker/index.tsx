@@ -8,6 +8,7 @@ import { Post } from "types/types";
 import pin from "../../../assets/icons/pin.png";
 import MarkerListingItem from "../MarkerListingItem";
 import useMapGlobalState from "hooks/globalState/useMapGlobalState";
+import map_marker from "../../../assets/icons/map-marker.png"
 
 interface MapMarkerProps {
   property: Post;
@@ -51,7 +52,7 @@ function MapMarker({ property }: MapMarkerProps) {
         position={position}
         onClick={handleMarkerClick}
         icon={{
-          url: pin,
+          url: map_marker,
           scaledSize: {
             width: 30,
             height: 30,
