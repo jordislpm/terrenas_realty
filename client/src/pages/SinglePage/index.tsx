@@ -16,7 +16,7 @@ import bath from "./../../assets/icons/bath.png"
 import school from "./../../assets/icons/school.png"
 import bus from "./../../assets/icons/bus.png"
 import restaurant from "./../../assets/icons/restaurant.png"
-import { useLoaderData } from 'react-router-dom'
+import { useLoaderData, useNavigate } from 'react-router-dom'
 import { FullPost } from 'types/types'
 import { formatDistances, formatPrice } from 'lib/format'
 import { useSavePost } from 'hooks/user/useSavePost'
@@ -36,7 +36,7 @@ function SinglePage() {
   const { save, success, isLoading, error } = useSavePost()
   const { user } = useUser();
   const [popUp, setPopUp] = useState<boolean>(false)
-
+  const navigate = useNavigate();
   const {
     images,
     title,
@@ -86,21 +86,25 @@ function SinglePage() {
       alert("you can't send a message to yourself")
 
     } else {
+
+      if (!user) {
+        navigate("/login")
+        return false;
+      } else {
       setPopUp(true)
+      }
+
     }
   };
 
-  const closePopUp = () => {
-
-  }
-
+  console.log()
 
   return (
     <div className={styles.singlePage}>
       <PopUp
         isOpen={popUp}
         setIsOpen={setPopUp}
-        // closePopUp={closePopUp}
+      // closePopUp={closePopUp}
       >
         <ChatNew userId={userId} receiver={post?.user} />
       </PopUp>
@@ -205,11 +209,12 @@ function SinglePage() {
           </div>
           <p className={styles.title}>Location</p>
           <div className={styles.mapContainer}>
+            { }
             <GoogleMapComponent singleMapaData={post} />
           </div>
           <div className={styles.buttons}>
             <button className={styles.button} onClick={handleMessage}>
-              <img src={chatIcon} alt='chat'/>
+              <img src={chatIcon} alt='chat' />
               Send a Message
             </button>
             <button onClick={handleSave} className={styles.button}
