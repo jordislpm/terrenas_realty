@@ -1,4 +1,4 @@
-import React, { ReactNode, use, useEffect } from 'react'
+﻿import React, { ReactNode, use, useEffect } from 'react'
 import styles from './layout.module.scss';
 import Header from './Header';
 import Footer from './Footer';
@@ -18,6 +18,7 @@ export function Layout() {
       <div className={styles.content}>
         <Outlet />
       </div>
+      <Footer />
     </div>
 
   )
@@ -36,6 +37,7 @@ export function RequireAuth() {
       <div className={styles.content}>
         <Outlet />
       </div>
+      <Footer />
     </div>)
   )
 }
