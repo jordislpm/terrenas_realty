@@ -1,58 +1,21 @@
 @import "../../components/layout/layoutResponsive.module.scss";
 
-// .list_page {
-//     display: flex;
-//     max-height: 100%;
-
-//     .list_container{
-//         flex: 3;
-
-//         .wrapper{
-//             height: 100%;
-//             padding-right: 50px;
-//             display: flex;
-//             flex-direction: column;
-//             gap: 50px;
-//             overflow-y: scroll;
-//             padding-bottom: 20px;
-
-//             &::-webkit-scrollbar {
-//                 width: 8px; /* Make it very thin */
-//               }
-
-//               &::-webkit-scrollbar-thumb {
-//                 background-color: rgba(0, 0, 0, 0.2); /* Very light visibility */
-//                 border-radius: 10px; /* Rounded edges */
-//               }
-
-//               &::-webkit-scrollbar-track {
-//                 background: transparent; /* No background */
-//               }
-//         }
-//     }
-
-//     .map_container {
-//         flex: 2;
-//         background-color: var(--background-color-secundary);
-//         height: 100%;
-//     }
-// }
-
 .listPage {
   display: flex;
-  height: 100vh; // ← Cambiar aquí
+  height: 100vh;
 
   @include md {
-    height: 100%;
+    height: auto;
+    min-height: calc(100vh - 120px);
   }
-
 
   .listContainer {
     flex: 3;
-    height: 100vh; // ← Asegura altura completa
+    height: 100vh;
 
     @include md {
-      height: 100%;
+      height: auto;
+      width: 100%;
     }
 
     .wrapper {
@@ -60,20 +23,39 @@
       padding-right: 50px;
       display: flex;
       flex-direction: column;
-      gap: 50px;
-      overflow-y: scroll;
-      padding-bottom: 50px;
+      gap: 36px;
+      overflow-y: auto;
+      padding-bottom: 40px;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.15);
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
 
       @include md {
         padding-right: 0px;
-        overflow-y: hidden;
+        overflow-y: visible;
+        height: auto;
+      }
+
+      @include sm {
+        gap: 24px;
+        padding-bottom: 24px;
       }
     }
   }
 
   .mapContainer {
     flex: 2;
-    height: 100vh; // ← Asegura que el mapa tenga espacio
+    height: 100vh;
     background-color: var(--background-color-secundary);
 
     @include md {

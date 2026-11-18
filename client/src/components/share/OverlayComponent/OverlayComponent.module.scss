@@ -1,11 +1,13 @@
 .overlay {
   position: fixed;
   top: 0;
-  left: 0; // default position
+  left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 500; // above nav if needed
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1400;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;

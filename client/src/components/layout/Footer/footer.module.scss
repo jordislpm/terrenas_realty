@@ -1,15 +1,25 @@
+@import "../layoutResponsive.module.scss";
+
 .footer {
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  padding: 20px 0;
+  gap: 16px;
+  padding: 28px 0 36px 0;
   margin-top: auto;
   border-top: 1px solid #e5e7eb;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   color: #6b7280;
+
+  @include sm {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding: 24px 0 40px 0;
+    margin-top: 40px;
+  }
 
   .attribution {
     a {
@@ -23,3 +33,4 @@
     }
   }
 }
+

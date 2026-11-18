@@ -3,20 +3,29 @@
 .filter {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
+  gap: 16px;
+  width: 100%;
 
   .filterHeader {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: center;
+    gap: 12px;
 
     h1 {
       font-weight: 300;
-      font-size: 24px;
+      font-size: 22px;
+      color: #111827;
+      margin: 0;
 
       b {
         font-weight: 600;
+        text-transform: capitalize;
+      }
+
+      @include sm {
+        font-size: 18px;
       }
     }
 
@@ -24,94 +33,145 @@
       all: unset;
       cursor: pointer;
       color: white;
-      padding: 5px;
-      border-radius: 5px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      display: inline-flex;
       justify-content: center;
       align-items: center;
-      text-align: center;
-      font-size: 1rem;
-      background-color: black;
-
-      @include md {
-        background-color: white;
-      }
-
-
-
-      span {
-        display: flex;
-
-        @include md {
-          display: none;
-        }
-      }
-
-
-      img {
-        display: none;
-
-        @include md {
-          display: flex;
-        }
-
-        width: 2rem;
-      }
-    }
-
-    button {
-      padding: 5px;
+      gap: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background-color: #1f2937;
+      transition: background-color 0.2s ease;
+      white-space: nowrap;
 
       &:hover {
-        cursor: pointer;
+        background-color: #374151;
       }
 
-    }
+      span {
+        display: inline;
+      }
 
+      img {
+        width: 16px;
+        height: 16px;
+        filter: brightness(0) invert(1);
+      }
+
+      @include sm {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+    }
   }
 
-
+  .formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
 
   .item {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 4px;
 
     label {
-      font-size: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4b5563;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     input,
     select {
       width: 100px;
-      padding: 10px;
-      border: 1px solid var(--gray-primary);
-      border-radius: 5px;
-      font-size: 16px;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 14px;
+      background-color: white;
+      outline: none;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: #fece51;
+      }
     }
   }
 
   .top {
-    input {
-      width: 100%;
+    width: 100%;
+
+    .item {
+      input {
+        width: 100%;
+        box-sizing: border-box;
+      }
     }
   }
 
   .bottom {
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 12px;
 
-    button {
-      width: 100px;
-      padding: 10px;
+    .submitBtn {
+      height: 40px;
+      padding: 0 18px;
       border: none;
+      border-radius: 6px;
       cursor: pointer;
-      background-color: rgba(var(--yellow-primary-rgb), 0.638);
+      background-color: #fece51;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #e5b940;
+      }
 
       img {
-        width: 24px;
-        height: 24px;
+        width: 18px;
+        height: 18px;
+      }
+
+      .submitBtnText {
+        display: none;
+        font-weight: 600;
+        font-size: 14px;
+      }
+    }
+
+    @include sm {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+
+      .item {
+        input,
+        select {
+          width: 100%;
+          box-sizing: border-box;
+        }
+      }
+
+      .submitBtn {
+        grid-column: span 2;
+        width: 100%;
+        height: 44px;
+        margin-top: 4px;
+
+        .submitBtnText {
+          display: inline;
+        }
       }
     }
   }

@@ -1,24 +1,21 @@
 @import "../../layoutResponsive.module.scss";
 
-
 nav {
-  height: 100px;
+  height: 90px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  display: relative;
+  position: relative;
   width: 100%;
 
   @keyframes pulseScale {
-
     0%,
     100% {
       transform: scale(1);
     }
-
     50% {
-      transform: scale(1.5);
+      transform: scale(1.3);
     }
   }
 
@@ -26,16 +23,17 @@ nav {
     animation: pulseScale 1.5s ease-in-out infinite;
   }
 
-
   a {
-    transition: all 0.4s ease;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
 
     @include sm {
       display: none;
     }
 
     &:hover {
-      scale: 1.05;
+      transform: translateY(-1px);
     }
   }
 
@@ -43,17 +41,20 @@ nav {
     flex: 3;
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 40px;
 
     .logo {
-      font-weight: bold;
+      font-weight: 700;
       font-size: 20px;
       display: flex;
       align-items: center;
       gap: 10px;
+      color: #111827;
 
       img {
-        width: 28px;
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
       }
 
       span {
@@ -73,38 +74,53 @@ nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color: #fcf5f3;
+    gap: 14px;
     height: 100%;
-    z-index: 1000;
 
-    @include md {
-      background-color: transparent;
+    a.login {
+      padding: 10px 20px;
+      font-weight: 500;
+      color: #1f2937;
+
+      &:hover {
+        color: #000;
+      }
     }
 
-    a {
-      padding: 12px 24px;
-      margin: 20px;
+    a.register {
+      padding: 10px 22px;
+      background-color: #fece51;
+      color: #111827;
+      font-weight: 600;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #e5b940;
+      }
     }
 
     .user {
       display: flex;
       align-items: center;
-      font-weight: bold;
+      font-weight: 600;
+      gap: 12px;
 
       .userImgContainer {
         position: relative;
-
+        cursor: pointer;
 
         .notification {
           display: none;
           position: absolute;
-          top: -10px;
-          right: 5px;
-          background-color: red;
+          top: -8px;
+          right: -4px;
+          background-color: #ef4444;
           color: white;
           border-radius: 50%;
-          width: 26px;
-          height: 26px;
+          width: 22px;
+          height: 22px;
+          font-size: 11px;
           align-items: center;
           justify-content: center;
 
@@ -114,16 +130,13 @@ nav {
         }
 
         img {
-          width: 40px;
-          height: 40px;
+          width: 42px;
+          height: 42px;
           border-radius: 50%;
           object-fit: cover;
-          margin-right: 20px;
+          border: 2px solid #fece51;
         }
-
       }
-
-
 
       span {
         @include sm {
@@ -132,82 +145,254 @@ nav {
       }
 
       .profile {
-        padding: 12px 24px;
+        padding: 10px 20px;
         background-color: #fece51;
+        color: #111827;
+        font-weight: 600;
         cursor: pointer;
         border: none;
+        border-radius: 6px;
         position: relative;
+        display: flex;
+        align-items: center;
+        gap: 6px;
 
         .notification {
           position: absolute;
           top: -8px;
           right: -8px;
-          background-color: red;
+          background-color: #ef4444;
           color: white;
           border-radius: 50%;
-          width: 26px;
-          height: 26px;
+          width: 22px;
+          height: 22px;
+          font-size: 11px;
           display: flex;
           align-items: center;
           justify-content: center;
         }
-
       }
-    }
-
-    .register {
-      background-color: #fece51;
     }
 
     .menuIcon {
       display: none;
-      z-index: 1300;
+      z-index: 1001;
+      padding: 8px;
+      cursor: pointer;
 
       img {
-        width: 36px;
-        height: 36px;
-        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        display: block;
       }
 
       @include sm {
-        display: inline;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 
+    /* Modern Mobile Navigation Drawer */
     .menu {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-color: black;
-      color: white;
-      height: 100vh;
-      width: 50%;
-      transition: all 0.5;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      z-index: 1200;
-      padding-top: 20px;
-
-      // Estado inicial oculto
-      opacity: 0;
-      visibility: hidden;
-
-      a{
-        color:white
-      }
-
-      &.active {
-        opacity: 1;
-        visibility: visible;
-      }
+      display: none;
 
       @include sm {
-        a {
-          display: initial;
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 82%;
+        max-width: 320px;
+        height: 100vh;
+        background-color: #111827;
+        color: #ffffff;
+        z-index: 1500;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 24px 20px 32px 20px;
+        box-shadow: -8px 0 28px rgba(0, 0, 0, 0.45);
+        transform: translateX(100%);
+        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        overflow-y: auto;
+        box-sizing: border-box;
+
+        &.active {
+          transform: translateX(0);
+        }
+
+        .drawerHeader {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-bottom: 20px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          margin-bottom: 16px;
+
+          .drawerLogo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            img {
+              width: 28px;
+              height: 28px;
+              object-fit: contain;
+            }
+
+            span {
+              font-size: 17px;
+              font-weight: 700;
+              color: #ffffff;
+            }
+          }
+
+          .closeBtn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #e5e7eb;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.2);
+              color: #ffffff;
+            }
+          }
+        }
+
+        .drawerUserSection {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 14px;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 10px;
+          margin-bottom: 16px;
+
+          .drawerAvatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fece51;
+          }
+
+          .drawerUserInfo {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+
+            .drawerUsername {
+              font-weight: 600;
+              font-size: 16px;
+              color: #ffffff;
+            }
+
+            .drawerUserStatus {
+              font-size: 12px;
+              color: #9ca3af;
+            }
+          }
+        }
+
+        .drawerLinks {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          flex: 1;
+
+          a {
+            display: block;
+            padding: 12px 14px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #d1d5db;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.08);
+              color: #ffffff;
+              transform: translateX(4px);
+            }
+
+            &.activeLink {
+              background-color: rgba(254, 206, 81, 0.15);
+              color: #fece51;
+              font-weight: 600;
+            }
+          }
+        }
+
+        .drawerAuthSection {
+          margin-top: 24px;
+          padding-top: 18px;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+          .drawerSignOutBtn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(239, 68, 68, 0.12);
+            color: #f87171;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+
+            &:hover {
+              background: rgba(239, 68, 68, 0.25);
+              color: #fca5a5;
+            }
+          }
+
+          .drawerAuthButtons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .drawerSignInBtn {
+              display: block;
+              text-align: center;
+              padding: 12px;
+              border: 1px solid rgba(255, 255, 255, 0.2);
+              border-radius: 8px;
+              color: #ffffff;
+              font-weight: 500;
+              font-size: 15px;
+              transition: background-color 0.2s;
+
+              &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+              }
+            }
+
+            .drawerSignUpBtn {
+              display: block;
+              text-align: center;
+              padding: 12px;
+              background-color: #fece51;
+              color: #111827;
+              border-radius: 8px;
+              font-weight: 600;
+              font-size: 15px;
+              transition: background-color 0.2s;
+
+              &:hover {
+                background-color: #e5b940;
+              }
+            }
+          }
         }
       }
     }
