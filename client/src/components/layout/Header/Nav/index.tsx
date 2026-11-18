@@ -4,7 +4,6 @@ import logo from "../../../../assets/icons/logo.png";
 import menu from "../../../../assets/icons/menu.png";
 import noAvatar from "../../../../assets/icons/noAvatar.png";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import OverlayComponent from 'components/share/OverlayComponent';
 import useUser from 'hooks/globalState/userLoggedState';
 import useNotificationGlobalState from 'hooks/globalState/useNotificationGlobalState';
 
@@ -59,8 +58,6 @@ function Nav() {
 
   return (
     <>
-      {isMobile && <OverlayComponent isOpen={open} onClickOverlay={closeModal} />}
-
       <nav className={styles.nav}>
         <div className={styles.left}>
           <Link to='/' className={styles.logo}>
@@ -105,16 +102,17 @@ function Nav() {
             </>
           )}
 
-          <div className={styles.menuIcon}>
-            <img
-              src={menu}
-              alt='menu'
-              onClick={toggleModal}
-            />
+          <div className={styles.menuIcon} onClick={toggleModal}>
+            <img src={menu} alt='menu' />
           </div>
+        </div>
+      </nav>
 
-          {/* Modern Mobile Navigation Drawer */}
-          <div className={`${styles.menu} ${open ? styles.active : ""}`}>
+      {/* Mobile Drawer & Backdrop Container */}
+      {isMobile && (
+        <div className={`${styles.mobileDrawerWrapper} ${open ? styles.drawerOpen : ""}`}>
+          <div className={styles.backdrop} onClick={closeModal} />
+          <div className={styles.drawer}>
             <div className={styles.drawerHeader}>
               <div className={styles.drawerLogo}>
                 <img src={logo} alt="Logo" />
@@ -221,7 +219,7 @@ function Nav() {
             </div>
           </div>
         </div>
-      </nav>
+      )}
     </>
   );
 }
